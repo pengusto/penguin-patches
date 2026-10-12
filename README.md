@@ -14,7 +14,11 @@ Personal Android app fixes compatible with Morphe Manager. Independent project; 
 
 ## Installation
 
-Enable pre-releases for this source in Morphe Manager, then: [add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches), choose the official Fossify Calendar 1.12.0 APK, and enable **Readable Calendar descriptions**. See [installation and test details](docs/CALENDAR.md). The initial patch covers the event editor only; list/widget/notification changes from the Calendar fork are not included.
+Scan this QR code with your Android phone, or tap it, to [add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches):
+
+<a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe-qr.png" alt="QR code: add Penguin Patches to Morphe" width="240" height="240"></a>
+
+Then enable pre-releases for this source in Morphe Manager, choose the official Fossify Calendar 1.12.0 APK, and enable **Readable Calendar descriptions**. See [installation and test details](docs/CALENDAR.md). The initial patch covers the event editor only; list/widget/notification changes from the Calendar fork are not included.
 
 Morphe signs patched apps on the device. Back up its signing key to keep updates installable. Patched APKs with a different certificate cannot update official apps in place; each patch must document package identity, installation and migration before release.
 
