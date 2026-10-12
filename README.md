@@ -2,19 +2,19 @@
 
 Personal Android app fixes compatible with Morphe Manager. Independent project; not affiliated with Morphe or Fossify.
 
-**Status: first Calendar patch tested locally; release preparation in progress.** Native description preview, exact source preservation and explicit source editing are implemented.
+**Status: Calendar preview patch available as pre-release 1.0.0-dev.1.** Native description preview, exact source preservation and explicit source editing are implemented.
 
 ## Patches
 
 | App | Patch | Status |
 | --- | --- | --- |
-| Fossify Calendar 1.12.0 | Readable Outlook/Exchange descriptions | Locally tested on Android 15; release pending |
+| Fossify Calendar 1.12.0 | Readable Outlook/Exchange descriptions | Pre-release 1.0.0-dev.1; Android 15 emulator tested |
 
 [Calendar implementation and screenshots](https://github.com/pengusto/Calendar/pull/1) · [Existing installable fork](https://github.com/pengusto/Calendar/releases)
 
 ## Installation
 
-After a release is published: [add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches), choose the official Fossify Calendar 1.12.0 APK, and enable **Readable Calendar descriptions**. See [installation and test details](docs/CALENDAR.md). The initial patch covers the event editor only; list/widget/notification changes from the Calendar fork are not included.
+Enable pre-releases for this source in Morphe Manager, then: [add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches), choose the official Fossify Calendar 1.12.0 APK, and enable **Readable Calendar descriptions**. See [installation and test details](docs/CALENDAR.md). The initial patch covers the event editor only; list/widget/notification changes from the Calendar fork are not included.
 
 Morphe signs patched apps on the device. Back up its signing key to keep updates installable. Patched APKs with a different certificate cannot update official apps in place; each patch must document package identity, installation and migration before release.
 
