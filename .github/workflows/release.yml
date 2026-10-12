@@ -2,14 +2,13 @@ name: Release
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   release:
     name: Release
     permissions:
       contents: write
-      packages: write
+      packages: read
       id-token: write
       attestations: write
     runs-on: ubuntu-latest
@@ -46,7 +45,7 @@ jobs:
         if: steps.release.outputs.new_release_published == 'true'
         uses: actions/attest-build-provenance@v4
         with:
-          subject-name: 'Morphe Patches ${{ steps.release.outputs.new_release_git_tag }}'
+          subject-name: 'Pengusto Patches ${{ steps.release.outputs.new_release_git_tag }}'
           subject-path: patches/build/libs/patches-*.mpp
 
       # Always verify compilation when semantic-release did not publish a release.

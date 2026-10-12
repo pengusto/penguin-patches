@@ -1,14 +1,14 @@
-group = "app.template"
+group = "io.github.pengusto.patches"
 
 patches {
     // TODO: Update this section with your project details.
     about {
-        name = "UserXYZ Patches"
-        description = "Patches for apps I like"
-        source = "git@github.com:UserXYZ/morphe-patches.git"
-        author = "Awesome dev"
+        name = "Pengusto Patches"
+        description = "Personal Android app fixes compatible with Morphe"
+        source = "https://github.com/pengusto/morphe-patches"
+        author = "Pengusto"
         contact = "na"
-        website = "na"
+        website = "https://github.com/pengusto/morphe-patches"
         license = "GPLv3"
     }
 }

@@ -128,3 +128,10 @@ node_modules/
 # Ignore IDEA files
 .idea/
 local.properties
+
+# Local patch development and signing material
+.scratch/
+*.jks
+*.keystore
+*.mpp
+*.mpe
