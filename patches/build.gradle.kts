@@ -3,12 +3,12 @@ group = "io.github.pengusto.patches"
 patches {
     // TODO: Update this section with your project details.
     about {
-        name = "Pengusto Patches"
+        name = "Penguin Patches"
         description = "Personal Android app fixes compatible with Morphe"
-        source = "https://github.com/pengusto/morphe-patches"
+        source = "https://github.com/pengusto/penguin-patches"
         author = "Pengusto"
         contact = "na"
-        website = "https://github.com/pengusto/morphe-patches"
+        website = "https://github.com/pengusto/penguin-patches"
         license = "GPLv3"
     }
 }

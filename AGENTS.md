@@ -1,4 +1,4 @@
-# Pengusto Patches
+# Penguin Patches
 
 - Independent GPL-3.0 patch collection compatible with Morphe; preserve LICENSE, NOTICE and source attribution.
 - Put app patches under `patches/src/main/kotlin/io/github/pengusto/patches/<app>/` and runtime extensions under `extensions/extension/src/main/java/io/github/pengusto/patches/extension/<app>/`.

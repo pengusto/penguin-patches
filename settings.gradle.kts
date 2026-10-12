@@ -1,4 +1,4 @@
-rootProject.name = "pengusto-patches"
+rootProject.name = "penguin-patches"
 
 pluginManagement {
     repositories {

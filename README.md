@@ -1,4 +1,4 @@
-# Pengusto Patches
+# Penguin Patches
 
 Personal Android app fixes compatible with Morphe Manager. Independent project; not affiliated with Morphe or Fossify.
 
