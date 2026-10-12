@@ -16,4 +16,23 @@ Acceptance criteria:
 - Patched APK installs and updates with consistent package/signing identity; installation and local-calendar migration are documented.
 - Test patch application against the official APK, install/UI/save on Android, then real Outlook round-trip on a test event. Do not claim that round-trip before evidence.
 
-Current blocker: local GitHub login lacks read:packages for the official Morphe build plugin. No working Calendar Morphe patch exists yet.
+## Implemented scope and verification
+
+First patch covers the event editor only, not agenda/widget/notification summaries. Resources wrap the existing editor; an onResume hook attaches the native preview. The source editor text is never replaced by rendering.
+
+On the official 1.12.0 APK in isolated Android 15 ARM64 emulator:
+- MPP build and application/rebuilding passed.
+- Native paragraphs/link text displayed without Exchange metadata/style text.
+- Explicit source toggle exposed the exact synthetic HTML.
+- Title-only edit, save and process restart preserved exact original HTML.
+- Explicit source edit saved and rendered after restart.
+- Update installation with the same temporary test certificate succeeded; no AndroidRuntime crash output.
+
+Real Outlook server round-trip, themes/font scale/rotation and Morphe Manager on-device execution remain unverified for this patch. Earlier tests for the source fork are separate evidence and must not be attributed to this bundle.
+
+## Installation and updates
+
+Input is the original official APK, not the Pengusto Calendar fork APK. This initial patch keeps `org.fossify.calendar`. A Morphe-signed build cannot install over official Fossify because the signing certificate differs. Export local-only events to ICS before uninstalling official Fossify; uninstalling removes app-local data/settings. Synced server calendars are separate, but verify sync and backups before migration. Pengusto Calendar (`org.fossify.calendar.pengusto`) can remain installed beside this patch.
+
+Keep the same Morphe signing key for repatched updates and export its backup. Do not install the local emulator test APK; users should patch/sign using Morphe Manager. Only version 1.12.0 is declared supported; do not force unknown versions.
+
