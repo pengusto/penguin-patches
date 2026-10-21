@@ -1,3 +1,9 @@
+## [1.0.0-dev.3](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-10-21)
+
+### ✨ New Features
+
+* add tested Messages notifications and File Manager favorites patches ([acdb462](https://github.com/pengusto/penguin-patches/commit/acdb46281e40505d839641b82bbb2c845f5fc7ce))
+
 ## [1.0.0-dev.2](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.1...v1.0.0-dev.2) (2026-10-21)
 
 ### 🐛 Bug Fixes
