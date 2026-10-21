@@ -1,3 +1,9 @@
+## [1.0.0-dev.4](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2026-10-21)
+
+### ✨ New Features
+
+* fix Messages conversation visibility and Calendar table previews ([2394547](https://github.com/pengusto/penguin-patches/commit/2394547defd368873f15e3181fd9a4c519a8edc9))
+
 ## [1.0.0-dev.3](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.2...v1.0.0-dev.3) (2026-10-21)
 
 ### ✨ New Features

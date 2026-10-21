@@ -1,10 +1,62 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.0.0-dev.3",
+  "version": "1.0.0-dev.4",
   "patches": [
+    {
+      "name": "Avoid notifications for visible conversations",
+      "description": "Check visible conversation on the main thread before posting an incoming-message notification.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "org.fossify.messages",
+          "name": "Fossify Messages",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.10.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
     {
       "name": "Dismiss notifications when marking conversations read",
       "description": "Remove the selected conversation's notification after Mark as read in the conversation list.",
+      "default": true,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "org.fossify.messages",
+          "name": "Fossify Messages",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.10.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Keep background conversations unread",
+      "description": "Do not mark incoming messages read when their conversation is left in the background.",
       "default": true,
       "category": null,
       "compatiblePackages": [
