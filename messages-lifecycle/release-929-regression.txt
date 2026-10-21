@@ -1,0 +1,1 @@
+PASS: 6 notification assertions against installed patched app
