@@ -1,0 +1,2 @@
+Original source-fork and Morphe paired-tag detectors omit table/tr/td/th. Wrapperless fixture: <table><tr><td>Morning</td><td>Workshop</td></tr></table>
+Original detection: false; original display/summary return raw fixture unchanged.

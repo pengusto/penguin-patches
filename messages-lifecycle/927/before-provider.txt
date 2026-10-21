@@ -1,0 +1,3 @@
+Row: 0 _id=3, thread_id=1, read=1, body=927 background-only probe
+Row: 1 _id=2, thread_id=1, read=1, body=927 background fixture must remain unread
+Row: 2 _id=1, thread_id=1, read=1, body=Lifecycle initial fixture

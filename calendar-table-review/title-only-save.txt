@@ -1,0 +1,3 @@
+PASS: title-only UI save retains exact wrapperless table source. Synthetic event, official patched APK.
+[(2, 'Penguin table fixture renamed', '<table><tr><td>Morning</td><td>Workshop</td></tr></table>')]
+Fixture used nonlocal source; original app save replaced row ID 1 with 2. Assertion compares persisted title and exact description, not ID retention.
