@@ -37,3 +37,20 @@ Not independently tested: physical Samsung/One UI launcher badges, mobile Morphe
 | <img src="https://github.com/pengusto/penguin-patches/blob/pr-assets/messages/before.png?raw=true" width="320" alt="Original app before patch" /> | <img src="https://github.com/pengusto/penguin-patches/blob/pr-assets/messages/after.png?raw=true" width="320" alt="Patched app after the same operation" /> |
 
 [Native screenshots and test results](https://github.com/pengusto/penguin-patches/tree/pr-assets).
+
+## Optional lifecycle fixes: #927 and #928
+
+Two independent patches target the same official 1.10.1 input:
+
+- **Keep background conversations unread** (#927): gate only the original per-message read branch in ThreadActivity's message-list construction by that exact Activity's visibility. A synchronized weak Activity-to-thread registry is populated after onResume's super call and cleared at onPause entry/onDestroy. The message's original already-read condition remains intact. Original onResume read behavior is retained.
+- **Avoid notifications for visible conversations** (#928): check the registry inside the original main-thread notification Handler Runnable. Suppress only notifications for a currently visible positive thread ID. An ordered background worker marks only the exact incoming provider message ID/thread pair read/seen, then uses the original refresh events to reconcile app/UI caches. Messages arriving after pause or for another thread retain the original notification path. A failed provider write replays the original Runnable on main exactly once with a reentry guard.
+
+Shared visibility hooks run once when both patches are selected. Both also compose with #929; they can be selected separately. Unsupported official bytecode layouts fail application. No sender, recipient, body, outgoing-message or schema change is made. Lifecycle scope is Android resumed visibility (pausing, including a covering system surface, permits notifications).
+
+### Current verification
+
+Original official APK in isolated Android 15 ARM64: a stopped ThreadActivity marked an emulated incoming SMS read while Home was foreground (#927); a visible thread marked an SMS read but left its notification after Back (#928). Native before screenshots and provider dumps retained. In the combined patched APK, the same background fixture stayed read=0 with a visible unread count in MainActivity; the visible fixture became read=1 without a residual notification after Back. Same-certificate original-to-patched test update retained synthetic messages.
+
+18 native instrumentation assertions cover fresh/visible/paused Activity states, already-read logic, thread and multi-instance ownership, thread replacement, invalid ID, execution-time check, background-caller fail-open behavior, exact provider-message read while another message in the same thread remains unread, failed-write fallback, nonrecursive exactly-once original replay and post-pause notification allowance. The original #929 assertions are run separately. Single-patch applications are checked independently of the combined default selection.
+
+The issue diagnosis/fork by fatehiman (commit 44d2d3876088522785bb2f5d43b54226a6dce555) informed the work and is credited; these patches use per-Activity state and a provider-scoped deferred read bridge instead of copying the broader fork sweep. Physical Samsung/One UI, real carrier MMS, multiwindow OEM behavior and on-device Morphe remain unverified.

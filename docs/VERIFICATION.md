@@ -22,3 +22,10 @@ Same official 1.12.0 input and SHA-256 as above. Java 21 offline MPP build and M
 The release APK uses R8: day and agenda binding code resides in `Lb;->g(Object,Object)Object`, rather than named source adapter methods. Each hook requires exactly one matching model description getter followed by `move-result-object`, before the existing newline conversion and TextView binding. Location branches bypass these hooks.
 
 Real Outlook server sync, physical-phone/Morphe Manager acceptance, full themes/font-scale/rotation and widget/notification summaries remain unverified or outside scope. No real calendar/account data was used.
+
+
+## Wrapperless table fragments (2026-10-22)
+
+The Calendar patch also recognizes paired table, section, row and cell tags without an html/body wrapper. Native Android HTML parsing needs explicit cell spaces and row breaks to avoid merging adjacent cell text. These replacements affect presentation only. Unmatched literal `<table>` text stays plain.
+
+13 native parser cases pass against the installed patched official Calendar 1.12.0, including table cells, uppercase row/header tags, entities and plain bracket text. Original-versus-patched day-list and editor screenshots show the same synthetic table event. A title-only UI save retains the exact table description; source-fork changes and their instrumentation are validated separately. No live Outlook synchronization is claimed.

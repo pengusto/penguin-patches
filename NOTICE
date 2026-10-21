@@ -29,3 +29,8 @@ by Fossify; it does not incorporate the fork's broader lifecycle/sweep code.
 The File Manager patch was informed by FossifyOrg/File-Manager issue #513
 and the public Fossify Commons/File Manager source behavior. All patches
 remain GPL-3.0 under this repository's license.
+Messages lifecycle patches #927/#928 likewise acknowledge fatehiman's public
+issue analysis and reference implementation 44d2d3876088522785bb2f5d43b54226a6dce555.
+The implementation here uses synchronized per-Activity weak state, exact
+provider-message scoping and original notification fallback, without the
+fork's global notification sweep.

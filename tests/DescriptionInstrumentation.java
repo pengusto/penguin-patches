@@ -10,7 +10,7 @@ public final class DescriptionInstrumentation extends Instrumentation {
         Bundle result = new Bundle();
         try {
             DescriptionRegression.main(new String[0]);
-            result.putString("stream", "PASS: 9 native Android description regression cases\n");
+            result.putString("stream", "PASS: 13 native Android description regression cases\n");
             finish(-1, result);
         } catch (Throwable failure) {
             result.putString("stream", failure.toString());

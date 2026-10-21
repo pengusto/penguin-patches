@@ -17,6 +17,10 @@ public final class DescriptionRegression {
         summary("<html><head><style>hidden</style></head><body></body></html>", "");
         summary("<p><a href=\"https://example.com\">Link</a></p>", "Link");
         summary("<p><a href=\"javascript:alert(1)\">Unsafe link</a></p>", "Unsafe link");
-        System.out.println("PASS: 9 native Android description regression cases");
+        summary("<table><tr><td>Morning</td><td>Workshop</td></tr></table>", "Morning Workshop");
+        summary("<TR><TH>Time</TH><TD>10 &amp; 11</TD></TR>", "Time 10 & 11");
+        summary("<td>One</td><td>Two</td>", "One Two");
+        summary("x < 5 and bring <table> notes", "x < 5 and bring <table> notes");
+        System.out.println("PASS: 13 native Android description regression cases");
     }
 }
