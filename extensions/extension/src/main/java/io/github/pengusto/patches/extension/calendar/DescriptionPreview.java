@@ -54,6 +54,12 @@ public final class DescriptionPreview {
         render.run();
     }
 
+    /** Plain summary for list rows; never writes back to the event or editor. */
+    public static String summary(String raw) {
+        if (!HTML.matcher(raw).find()) return raw;
+        return display(raw).toString().replace('\n', ' ');
+    }
+
     static CharSequence display(String raw) {
         SpannableStringBuilder parsed = new SpannableStringBuilder(Html.fromHtml(HIDDEN.matcher(raw).replaceAll(""), Html.FROM_HTML_MODE_COMPACT));
         for (Object span : parsed.getSpans(0, parsed.length(), Object.class)) {
