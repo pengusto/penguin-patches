@@ -1,0 +1,2 @@
+PASS: 26 favorite/path/callback/native-rename assertions against installed patched app
+
