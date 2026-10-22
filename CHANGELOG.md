@@ -1,3 +1,9 @@
+## [1.0.0-dev.5](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-10-22)
+
+### ✨ New Features
+
+* add merged Contacts fields and per-track Music artwork patches ([5e73ee0](https://github.com/pengusto/penguin-patches/commit/5e73ee0513cc04a5a3c50c3476fca5b386cd22ac))
+
 ## [1.0.0-dev.4](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.3...v1.0.0-dev.4) (2026-10-21)
 
 ### ✨ New Features
