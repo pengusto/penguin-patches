@@ -34,3 +34,9 @@ issue analysis and reference implementation 44d2d3876088522785bb2f5d43b54226a6dc
 The implementation here uses synchronized per-Activity weak state, exact
 provider-message scoping and original notification fallback, without the
 fork's global notification sweep.
+
+Contacts #327 acknowledges jeremiepose's issue diagnosis of missing merged
+email/note display fields. Music Player #50 acknowledges the issue author
+and Aga-C, knuxyl and aicode8000's album-art analysis and reproduction.
+The focused implementations preserve source records and audio tags; the
+Opus picture reader is an independent bounded read-only implementation.
