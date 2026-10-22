@@ -1,0 +1,2 @@
+INSTRUMENTATION_RESULT: result=PASS: 13 merge/model/native-render assertions
+INSTRUMENTATION_CODE: -1

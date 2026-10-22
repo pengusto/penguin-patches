@@ -1,0 +1,4 @@
+Signer #1 certificate DN: C=IN, O=Fossify, CN=Naveen Singh
+Signer #1 certificate SHA-256 digest: affdb124d3f4720c2f98dbca9eacba0514fba4306e20a2786c861c3c0d6ff292
+Signer #1 certificate SHA-1 digest: 279e994f35e1551db80dd99d46295a680901a2a6
+Signer #1 certificate MD5 digest: acbb30174cb189ca1b8317f32b8f0f18

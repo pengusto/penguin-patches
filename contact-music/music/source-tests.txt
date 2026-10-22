@@ -1,0 +1,8 @@
+
+org.fossify.musicplayer.TrackArtworkTest:..
+
+Time: 0.05
+
+OK (2 tests)
+
+

@@ -1,0 +1,8 @@
+INSTRUMENTATION_RESULT: /sdcard/Music/01-red.mp3=fffc0000
+INSTRUMENTATION_RESULT: /sdcard/Music/02-blue.mp3=ff0000fd
+INSTRUMENTATION_RESULT: /sdcard/Music/blue.opus=ff0000fd
+INSTRUMENTATION_RESULT: /sdcard/Music/red.opus=fffc0000
+INSTRUMENTATION_RESULT: parser-blue.opus=bytes=781
+INSTRUMENTATION_RESULT: parser-red.opus=bytes=780
+INSTRUMENTATION_RESULT: result=PASS: MP3/Opus per-file artwork; missing/empty/no-cover/corrupt fallback
+INSTRUMENTATION_CODE: -1
