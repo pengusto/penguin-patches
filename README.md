@@ -1,6 +1,10 @@
 # 🐧 Penguin Patches
 
-![Penguin Patches — a penguin stitching a repair patch onto a fabric app tile in an embroidery hoop](docs/assets/penguin-patches-banner-tailor.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/penguin-patches-banner-tailor-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="docs/assets/penguin-patches-banner-tailor.png">
+  <img src="docs/assets/penguin-patches-banner-tailor.png" alt="Penguin Patches — a penguin stitching a repair patch onto a fabric app tile in an embroidery hoop">
+</picture>
 
 **Small fixes for the Android apps you already use.**
 
@@ -91,7 +95,7 @@ For a reproducible problem, [open an issue](https://github.com/pengusto/penguin-
 
 ## License and provenance
 
-Banner: AI-generated with OpenAI’s built-in Imagegen on 2026-10-23, using the maintainer-provided purple profile banner as a reference for the penguin’s identity only. The textile-mending scene, warm colors and composition were developed independently. It is an original conceptual illustration with generic app tiles, not a screenshot; no Android, Fossify or Morphe logos/assets were supplied. Existing upstream credits, trademark caveats and code-license scope below remain applicable. The illustration does not establish rights to third-party branding or app assets.
+Banner: AI-generated with OpenAI’s built-in Imagegen on 2026-10-23, using the maintainer-provided purple profile banner as a reference for the penguin’s identity only. The textile-mending scene, colors and composition were developed independently. The approved light illustration is retained unchanged; its dark companion was created by editing that same image with Imagegen. The picture element selects the matching theme, with the light image as fallback. It is an original conceptual illustration with generic app tiles, not a screenshot; no Android, Fossify or Morphe logos/assets were supplied. Existing upstream credits, trademark caveats and code-license scope below remain applicable. The illustration does not establish rights to third-party branding or app assets.
 
 Repository code is distributed under [GPL-3.0](LICENSE), with the additional project-name terms retained in [NOTICE](NOTICE). The project began from [Morphe's official patches template](https://github.com/MorpheApp/morphe-patches-template), initial template commit `d4fa104`. Morphe is referenced for compatibility; Penguin Patches uses its own project name.
 
