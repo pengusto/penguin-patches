@@ -1,0 +1,54 @@
+{
+  "outcome": "PASS",
+  "originalSha256": "43cf9f0ec45f1f1ff2df47286622e5b8f3acedaeb07b7f7641b5243dbedca079",
+  "baselineSha256": "e7fda1b5761b2cea783530d8935b76b8f1e0dc09906e94314bf62fd3ab66310f",
+  "patchedSha256": "12e5e5e879f39355f795d7ad3fe9adc6cbc2272136758601fa677e7961d36e0a",
+  "certificate": "c4947641995699e2af54a959ca11c2e5d549e48031bd1c22d58d4bd44b3dcbe2",
+  "firstWhen": 1792801620000,
+  "secondWhen": 1792802520000,
+  "beforeNotifications": [],
+  "afterNotifications": [
+    {
+      "id": 910014,
+      "tag": "penguin.clock.upcoming",
+      "title": "Upcoming alarm",
+      "text": "Sat 2:27 AM \u2014 Penguin #14 910014",
+      "alarmId": 910014,
+      "when": 1792801620000
+    },
+    {
+      "id": 910015,
+      "tag": "penguin.clock.upcoming",
+      "title": "Upcoming alarm",
+      "text": "Sat 2:42 AM \u2014 Penguin #14 910015",
+      "alarmId": 910015,
+      "when": 1792802520000
+    }
+  ],
+  "afterDismissA": [
+    {
+      "id": 910015,
+      "tag": "penguin.clock.upcoming",
+      "title": "Upcoming alarm",
+      "text": "Sat 2:42 AM \u2014 Penguin #14 910015",
+      "alarmId": 910015,
+      "when": 1792802520000
+    }
+  ],
+  "fixtureRowsEqual": true,
+  "sameKeyUpdateRetainedData": true,
+  "unrelatedRowsPreserved": true,
+  "directNotificationOrReceiverInjection": false,
+  "screenshots": {
+    "before": "71bddba76e9fc4bbabb12e5287a0c25b6262358affbde612bae351863b0306af",
+    "after": "0e632075e6e7b3fad9f197a5f06039292a683d3f98f2812e316706540a2a2feb",
+    "after-dismiss-A": "d427a7b82a6294410f3a1b828343f3da4a6e4740477c1907f8fc97e6e29626b4",
+    "alarms-original": "d19cdd95d704bea84be1ea4e88b0a6d2bf343ed7c3ea4a30ad80461a77f85b4c",
+    "alarms-patched": "921c01fd12f14747ee3e437eac687f78482241a6e5fe134a5298662129a62565"
+  },
+  "device": "Disposable rooted AOSP Android 15 / API 35 ARM64 emulator",
+  "leadMinutes": 120,
+  "configuration": "Morphe patch-time option; no new in-app setting",
+  "originalUrl": "https://github.com/FossifyOrg/Clock/releases/download/1.6.0/clock-10-foss-release.apk",
+  "publication": "Evidence only; Clock patch code/bundle and APKs remain unpublished"
+}
