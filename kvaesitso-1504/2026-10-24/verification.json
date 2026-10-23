@@ -1,0 +1,23 @@
+{
+  "outcome": "PASS",
+  "originalSha256": "55e4a287f1198be22f040c2ad1443f5861b58b1d1394d7377221f1ad4448b810",
+  "baselineSha256": "4be988f34cd0d338a6f6575ac3cc4b525cd76f0d956a59dc9b195e736b7da67e",
+  "patchedSha256": "b839eadef569a74181ef6714030cf58454ffcff0e91d147ab755fa6fd5f541b8",
+  "testCertificateSha256": "c4947641995699e2af54a959ca11c2e5d549e48031bd1c22d58d4bd44b3dcbe2",
+  "originalHiddenButtonFailureReproduced": true,
+  "patchedMenuEditorDoneBackPassed": true,
+  "sameKeyUpdateRetainedWidgetRows": true,
+  "sameKeyUpdateRetainedSettings": true,
+  "editorNavigationRetainedWidgetRows": true,
+  "initialSettingsRestored": true,
+  "screenshots": {
+    "before": "f7c2334b022ed11f272bf9b573722dcf7a2f4304c1aa3d665340c35f6fb850a9",
+    "after": "5164649449c78c2dbef5757b2cd52d8f295fcde3d48c56cb95be752c07aa6f40",
+    "editor": "e726a1af9b472e61da19eeef5e17d5609aae796b2e19b6e64c571e44fc42b62a"
+  },
+  "device": "Disposable rooted AOSP Android 15 / API 35 ARM64 emulator",
+  "package": "de.mm20.launcher2.release",
+  "version": "1.41.0",
+  "originalUrl": "https://github.com/MM2-0/Kvaesitso/releases/tag/v1.41.0",
+  "publication": "Evidence only; Kvaesitso patch code/bundle, APKs and signing keys remain unpublished"
+}
