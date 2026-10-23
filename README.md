@@ -1,10 +1,12 @@
 # 🐧 Penguin Patches
 
-**Small fixes for the Fossify apps you already use.**
+![Penguin Patches — a penguin gently repairing abstract smartphone app tiles at a purple island workbench](docs/assets/penguin-patches-banner-purple.png)
+
+**Small fixes for the Android apps you already use.**
 
 Read a calendar invitation without wading through HTML. Keep a nested favorite pointing to the folder you renamed. See the cover embedded in the track that's actually playing.
 
-Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Fossify users comfortable patching an original APK and managing backups and signing keys. Independent project; not affiliated with Morphe or Fossify.
+Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps; the collection is open to other Android apps too. Independent project; not affiliated with Morphe or Fossify.
 
 **Pre-release software:** [v1.0.0-dev.5](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.0-dev.5) contains seven patches for five apps. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. `dev` holds current development; `main` holds the earlier reviewed snapshot.
 
@@ -88,6 +90,8 @@ Physical-device acceptance, mobile Morphe Manager execution and app-specific syn
 For a reproducible problem, [open an issue](https://github.com/pengusto/penguin-patches/issues/new/choose) with the original app version, selected patches, Android/Morphe versions and minimal steps. Remove personal contacts, messages, calendar data and signing material from reports.
 
 ## License and provenance
+
+Banner: AI-generated with OpenAI’s built-in Imagegen on 2026-10-23, using the maintainer-provided purple profile banner as the penguin/style reference. It is an original conceptual repair scene with generic app tiles, not a screenshot; no Android, Fossify or Morphe logos/assets were supplied. Existing upstream credits, trademark caveats and code-license scope below remain applicable. The illustration does not establish rights to third-party branding or app assets.
 
 Repository code is distributed under [GPL-3.0](LICENSE), with the additional project-name terms retained in [NOTICE](NOTICE). The project began from [Morphe's official patches template](https://github.com/MorpheApp/morphe-patches-template), initial template commit `d4fa104`. Morphe is referenced for compatibility; Penguin Patches uses its own project name.
 
