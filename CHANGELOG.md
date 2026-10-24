@@ -1,3 +1,9 @@
+## [1.0.0-dev.6](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2026-10-24)
+
+### ✨ New Features
+
+* **feeder:** add zoomable article images for official 2.25.0 APK ([ee6b92c](https://github.com/pengusto/penguin-patches/commit/ee6b92cceeb6a88ce0f5b0137c979e86dc080084))
+
 ## [1.0.0-dev.5](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.4...v1.0.0-dev.5) (2026-10-22)
 
 ### ✨ New Features
