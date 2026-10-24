@@ -1,3 +1,9 @@
+## [1.0.0-dev.7](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.6...v1.0.0-dev.7) (2026-10-24)
+
+### ✨ New Features
+
+* add verified Kvaesitso, Clock, Calendar and Tasks patches ([8b18dc6](https://github.com/pengusto/penguin-patches/commit/8b18dc631f5e79bc443e4a2e88b19a34b7b44256))
+
 ## [1.0.0-dev.6](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.5...v1.0.0-dev.6) (2026-10-24)
 
 ### ✨ New Features
