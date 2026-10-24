@@ -1,0 +1,28 @@
+{
+  "outcome": "PASS",
+  "app": "Tasks.org",
+  "package": "org.tasks",
+  "versionName": "15.13",
+  "versionCode": 151306,
+  "originalUrl": "https://github.com/tasks/tasks/releases/download/15.13/tasks-fdroid-15.13.apk",
+  "originalSha256": "7df9620d84a824a834598843f954943009012d75fbb16572e5ec88a414a576b9",
+  "officialCertificate": "5efd4ed0baccbfd3c117987ebeac34cf601d0831ec4bb3e597467742130569fd",
+  "baselineSha256": "ca9101b83557548007e9efd3c8c8df7e6c575adb8dbbc0e632f8d88a639e161e",
+  "patchedSha256": "252236f91cc151c81df65874fab845cd8c85006caa532bbb89b22caadc13ab6a",
+  "testCertificate": "c4947641995699e2af54a959ca11c2e5d549e48031bd1c22d58d4bd44b3dcbe2",
+  "baselineCodeAndResourcesUnchanged": true,
+  "sameKeyUpdatePreservedAllDatabaseRowsPreferencesAndDatastore": true,
+  "rawNativeEmulatorScreenshots": true,
+  "sameSyntheticChildAndDueDate": true,
+  "baselineAssertions": 22,
+  "patchedIntegrationAssertions": 178,
+  "negativeInputCases": 4,
+  "device": "Disposable rooted AOSP Android 15 / API 35 ARM64 emulator",
+  "publication": "Evidence only; local Morphe patch code/bundle and all APKs remain unpublished",
+  "screenshots": {
+    "before": "1c55828705fd2d23345c093bf33c1450e2562241c4982ce629bd217cb1b57145",
+    "after": "1211fb1406d5d271326b20e59ee0929189bf2a84d53b9792ebb8372e12ed335c",
+    "parent": "5a73738f7a204d1af2009dfc3834db08477a798b1f51b41aae4f630f743b4488",
+    "draft-dialog": "918801a9f0ecf76266902014e2026c7efd8b68da130b8d0fb7340de7a67053d8"
+  }
+}
