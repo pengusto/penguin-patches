@@ -40,3 +40,12 @@ email/note display fields. Music Player #50 acknowledges the issue author
 and Aga-C, knuxyl and aicode8000's album-art analysis and reproduction.
 The focused implementations preserve source records and audio tags; the
 Opus picture reader is an independent bounded read-only implementation.
+
+Feeder #391
+------------
+The image-zoom patch targets Feeder 2.25.0 by Jonas Kalderstam and contributors,
+GPL-3.0: https://github.com/spacecowboy/Feeder . The native linked-image callback
+is preserved, and runtime bridge definitions refer to Feeder's shipped models,
+image loader and coroutine ABI. The separate viewer and focused acceptance
+fixtures are Penguin Patches code. No APK, signing key, Coil, Kotlin, Compose or
+other runtime library is embedded in the repository or Feeder extension payload.

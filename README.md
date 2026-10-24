@@ -10,9 +10,9 @@
 
 Read a calendar invitation without wading through HTML. Keep a nested favorite pointing to the folder you renamed. See the cover embedded in the track that's actually playing.
 
-Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps; the collection is open to other Android apps too. Independent project; not affiliated with Morphe or Fossify.
+Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps and Feeder. Independent project; not affiliated with Morphe or Fossify.
 
-**Pre-release software:** [v1.0.0-dev.5](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.0-dev.5) contains seven patches for five apps. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. `dev` holds current development; `main` holds the earlier reviewed snapshot.
+**Pre-release software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. `dev` holds current development; `main` holds the earlier reviewed snapshot.
 
 [Add to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches) · [Patch details](#the-fixes) · [Build from source](#development) · [Verification evidence](docs/VERIFICATION.md)
 
@@ -27,6 +27,7 @@ Use only the exact original APK version listed here. Each linked guide records t
 | Fossify File Manager **1.6.2** | Keep nested favorite paths consistent with folder renames and selected deletion cleanup | [File Manager](docs/FILE_MANAGER.md) |
 | Fossify Contacts **1.6.0** | Show emails and notes from merged contacts without rewriting source records | [Contacts](docs/CONTACTS.md) |
 | Fossify Music Player **1.8.4** | Prefer each track's embedded cover, retaining the original artwork fallback | [Music Player](docs/MUSIC.md) |
+| Feeder **2.25.0**, project GitHub F-Droid APK | Open article images in a separate viewer with pinch, pan and double-tap; choose image or link for linked images | [Feeder](docs/FEEDER.md) |
 
 ### Readable Calendar descriptions
 
@@ -59,9 +60,13 @@ When **Merge duplicate contacts** is enabled, include duplicate contacts' emails
 
 Read the current file's embedded artwork before shared album art. MP3 and Opus fixtures are covered; malformed or unsupported artwork uses the existing fallback. Audio tags and album grouping are unchanged. Other formats and document-only URIs remain unverified.
 
+### Zoom article images
+
+Tap a Feeder article-body image or large reader header image to open a separate viewer. Pinch, drag and double-tap to inspect details, or use the zoom/reset buttons. Linked images offer **View image / Open link**. The patch reuses Feeder's image loader, cache and network policy. Only the project's GitHub F-Droid-flavor **2.25.0** APK is tested; Play and independently built F-Droid.org APKs are excluded. See [Feeder provenance, screenshots and test limits](docs/FEEDER.md).
+
 ## Patch an app
 
-1. Read the app's guide above and verify its **original official APK version and SHA-256**. Use the official Fossify APK, not a Pengusto source-fork build. Do not force an unknown version.
+1. Read the app's guide above and verify its **original official APK version and SHA-256**. Use the official upstream release asset specified in the guide, not a Pengusto source-fork build. Do not force an unknown version.
 2. **Verify backups before migration.** These patches retain the official package IDs. A patched APK signed with a different certificate cannot update an official installation in place. Each guide explains its data and migration risks; do not uninstall an existing app merely to bypass a signature conflict.
 3. [Add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches), or scan the source QR code below. Enable pre-releases for this source in Morphe Manager.
 4. Select the matching original APK and the desired patches, then patch and sign with Morphe Manager. Back up the Morphe signing key and retain it for future updates. Do not install emulator test APKs.
@@ -81,7 +86,7 @@ cd penguin-patches
 ./gradlew :patches:buildAndroid
 ```
 
-Patch declarations live in `patches/`; Android runtime helpers live in `extensions/extension/`. Follow [AGENTS.md](AGENTS.md), work from `dev`, and submit changes for review. Native regression instructions are in [tests/README.md](tests/README.md); they require an isolated emulator and disposable signing certificate. A successful build alone does not establish app compatibility.
+Patch declarations live in `patches/`; Android runtime helpers live in `extensions/extension/`; app-specific build modules keep their packaged runtimes isolated. Follow [AGENTS.md](AGENTS.md), work from `dev`, and submit changes for review. Native regression instructions are in [tests/README.md](tests/README.md); they require an isolated emulator and disposable signing certificate. A successful build alone does not establish app compatibility.
 
 The template's release workflow is **manual only**. Patch metadata, the catalogue below and changelogs are generated by the release pipeline; do not edit them manually.
 
@@ -99,12 +104,12 @@ Banner: AI-generated with OpenAI’s built-in Imagegen on 2026-10-23, using the 
 
 Repository code is distributed under [GPL-3.0](LICENSE), with the additional project-name terms retained in [NOTICE](NOTICE). The project began from [Morphe's official patches template](https://github.com/MorpheApp/morphe-patches-template), initial template commit `d4fa104`. Morphe is referenced for compatibility; Penguin Patches uses its own project name.
 
-[NOTICE](NOTICE) and the app guides credit Fossify source behavior, issue authors and reference implementations. Preserve those credits when redistributing derived work. The repository license does not transfer ownership of Fossify or Morphe branding, third-party app assets or APKs; original APKs come from their respective upstream releases. The source QR represents a URL, while linked UI captures document the upstream app and patched behavior with synthetic fixtures.
+[NOTICE](NOTICE) and the app guides credit upstream app source behavior, issue authors and reference implementations. Preserve those credits when redistributing derived work. The repository license does not transfer ownership of upstream app or Morphe branding, third-party app assets or APKs; original APKs come from their respective upstream releases. The source QR represents a URL, while linked UI captures document the upstream app and patched behavior with synthetic fixtures.
 
 ## Generated patch catalogue
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0-dev.5](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.0-dev.5)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total
+> **[v1.0.0-dev.6](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.0-dev.6)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
 <details open>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -179,6 +184,21 @@ Repository code is distributed under [GPL-3.0](LICENSE), with the additional pro
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Show emails and notes from merged contacts](#show-emails-and-notes-from-merged-contacts) | Include duplicate contact emails and notes in the detail view without changing stored contact records. |  |
+
+</details>
+
+<details open>
+<summary>📦 Feeder&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 2.25.0 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Zoom article images](#zoom-article-images) | Open article images in a separate viewer with pinch, pan, double-tap and accessible zoom controls. Linked images offer View image or Open link. Uses Feeder's existing image loader and network policy. Official project F-Droid APK 2.25.0 only. |  |
 
 </details>
 

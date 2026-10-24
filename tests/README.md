@@ -44,3 +44,7 @@ adb shell am instrument -w io.github.pengusto.patches.lifecycle.tests/io.github.
 ```
 
 Use an isolated ranchu emulator, Messages default-SMS role, and no real user data. The test inserts only two synthetic inbox records and removes them in finally. Activity fixtures are created on main. Verify #927 and #928 independently at the APK-application level and together with #929 in the installed app; real UI/provider before/after tests remain required.
+
+## Feeder image zoom (#391)
+
+[Feeder acceptance](feeder/README.md) checks the exact original project-release F-Droid APK 2.25.0, separate image viewer, actual gestures, linked-image choices, native loader/cache/network policy, lifecycle and same-key data preservation. Static checks verify APK linkage, isolation of the existing Fossify runtime, rejection cases and agreement between the eight-patch/six-app release metadata and Morphe Desktop inventory. All Android tests require an explicitly owned disposable emulator.
