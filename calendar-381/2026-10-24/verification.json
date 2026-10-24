@@ -1,0 +1,21 @@
+{
+  "outcome": "PASS",
+  "originalSha256": "d43b2df05d5702bea760a7ab03402977ba72e446e5932038efbdab248a5de987",
+  "baselineSha256": "d624baf3ff68bbaae5d067f8d04400a01a9810048956669842dd2db1f0ee97d9",
+  "patchedSha256": "c36a260046087bea689538e0320f64648a5ffb2b87846d46533a0f9840d20a8a",
+  "certificate": "c4947641995699e2af54a959ca11c2e5d549e48031bd1c22d58d4bd44b3dcbe2",
+  "sameSyntheticTitleAndDates": true,
+  "originalAllDayUsesTimedDefaults": true,
+  "patchedAllDayUsesSeparateDefaults": true,
+  "timedDefaultsUnchanged": true,
+  "sameKeyUpdatesRetainedDataAndPreferences": true,
+  "unsavedDraftsRetainedDataAndPreferences": true,
+  "finalStateUnchanged": true,
+  "rawNativeScreenshots": true,
+  "screenshots": {
+    "before": "451b44585f08a5c4166700aaee7bbcb5be5292796a8d0cac20452a82f1494cf1",
+    "after": "8c9e3d8f09a5a47829c0398524a2c74bb2c067fea67e8a3cef9cce2df9c4218e",
+    "settings": "d0af898f31191f227dce44100e1ac1f6d19427050b806aa9b6c0c23ad87900e3",
+    "timed": "cfca3f9984f709b1560fcee334ed9f214c4b4ff809a66f9648c7920fd124d653"
+  }
+}
