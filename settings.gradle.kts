@@ -21,3 +21,6 @@ plugins {
 }
 
 include(":stubs:feeder")
+
+include(":stubs:kvaesitso")
+include(":stubs:clock")

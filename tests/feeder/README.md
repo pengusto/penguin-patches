@@ -53,7 +53,7 @@ python3 tests/feeder/verify_metadata.py \
   --expected-version "$PENGUIN_RELEASE_VERSION" --artifacts .scratch/feeder-inventory
 ```
 
-This checks Android patch DEX, exact manifest/metadata version, all **eight patches / six apps** and the actual Morphe Desktop inventory. Feeder supports 2.25.0 only.
+This checks Android patch DEX, exact manifest/metadata version, all **12 patches / nine apps** and the actual Morphe Desktop inventory. Feeder supports 2.25.0 only.
 
 `ModifiedFixture ORIGINAL_APK OUTPUT_APK` creates an extra-NOP negative fixture; never install it. `reject_inputs.py --java JAVA --desktop DESKTOP --mpp MPP --original ORIGINAL --patched PATCHED --modified-bytecode NEGATIVE --artifacts DIR` verifies wrong package/version select zero patches and preserve DEX, while modified/already-patched input fails without output.
 

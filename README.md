@@ -10,7 +10,7 @@
 
 Read a calendar invitation without wading through HTML. Keep a nested favorite pointing to the folder you renamed. See the cover embedded in the track that's actually playing.
 
-Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps and Feeder. Independent project; not affiliated with Morphe or Fossify.
+Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org and Feeder. Independent project; not affiliated with Morphe or Fossify.
 
 **Pre-release software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. `dev` holds current development; `main` holds the earlier reviewed snapshot.
 
@@ -27,6 +27,10 @@ Use only the exact original APK version listed here. Each linked guide records t
 | Fossify File Manager **1.6.2** | Keep nested favorite paths consistent with folder renames and selected deletion cleanup | [File Manager](docs/FILE_MANAGER.md) |
 | Fossify Contacts **1.6.0** | Show emails and notes from merged contacts without rewriting source records | [Contacts](docs/CONTACTS.md) |
 | Fossify Music Player **1.8.4** | Prefer each track's embedded cover, retaining the original artwork fallback | [Music Player](docs/MUSIC.md) |
+| Kvaesitso **1.41.0** | Restore widget editing from the search menu when the Edit button is hidden | [Kvaesitso](docs/KVAESITSO.md) |
+| Fossify Clock **1.6.0** | Choose 1–1440 minutes of advance notice, with independent notifications and skip actions for each alarm | [Clock](docs/CLOCK.md) |
+| Fossify Calendar **1.12.0** | Separate all-day reminder defaults and retain manual draft values per event mode | [All-day reminders](docs/CALENDAR_REMINDERS.md) |
+| Tasks.org **15.13**, project GitHub F-Droid APK | Open the immediate parent task, with Save / Discard / Cancel for edited drafts | [Tasks.org](docs/TASKS.md) |
 | Feeder **2.25.0**, project GitHub F-Droid APK | Open article images in a separate viewer with pinch, pan and double-tap; choose image or link for linked images | [Feeder](docs/FEEDER.md) |
 
 ### Readable Calendar descriptions
@@ -59,6 +63,22 @@ When **Merge duplicate contacts** is enabled, include duplicate contacts' emails
 ### Prefer each track's embedded cover
 
 Read the current file's embedded artwork before shared album art. MP3 and Opus fixtures are covered; malformed or unsupported artwork uses the existing fallback. Audio tags and album grouping are unchanged. Other formats and document-only URIs remain unverified.
+
+### Restore widget editing from the search menu
+
+When Kvaesitso's Edit button is hidden, choose **Edit widgets** from the search-bar menu to open its existing editor. The current widget page takes priority. Visible Edit buttons retain the original menu, and absent widget destinations do not gain an unusable action. See the [Kvaesitso guide](docs/KVAESITSO.md).
+
+### Choose upcoming alarm notification time
+
+Set **Upcoming alarm notice (minutes)** in Morphe before patching: **1–1440**, default **120**. Each Clock alarm keeps its own notice, timestamp and skip action; skipping one occurrence retains other alarms. Native ringing and snooze remain in use. The option is configured at patch time; see [Clock behavior and limits](docs/CLOCK.md).
+
+### Separate all-day reminder defaults
+
+In Calendar's **Settings → New events**, disable **Use the last event's reminders as the default for new events** to expose three separate all-day defaults. Fresh all-day drafts initially use **12 hours before**; timed defaults retain their values. Manual reminders survive switching draft modes and restoration. Existing events retain their reminders. Both Calendar patches can be selected together; see [all-day reminder settings](docs/CALENDAR_REMINDERS.md).
+
+### Navigate to the parent task
+
+Tasks.org's editor gains an up-arrow for an existing task with a valid parent. Changed drafts offer **Save / Discard / Cancel** before navigation, using the native save path. The current list/filter and native Back behavior are retained. See the [Tasks.org guide](docs/TASKS.md).
 
 ### Zoom article images
 
@@ -109,7 +129,7 @@ Repository code is distributed under [GPL-3.0](LICENSE), with the additional pro
 ## Generated patch catalogue
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0-dev.6](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.0-dev.6)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;8 patches total
+> **[v1.0.0-dev.7](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.0-dev.7)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;12 patches total
 <details open>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -124,6 +144,21 @@ Repository code is distributed under [GPL-3.0](LICENSE), with the additional pro
 | [Avoid notifications for visible conversations](#avoid-notifications-for-visible-conversations) | Check visible conversation on the main thread before posting an incoming-message notification. |  |
 | [Dismiss notifications when marking conversations read](#dismiss-notifications-when-marking-conversations-read) | Remove the selected conversation's notification after Mark as read in the conversation list. |  |
 | [Keep background conversations unread](#keep-background-conversations-unread) | Do not mark incoming messages read when their conversation is left in the background. |  |
+
+</details>
+
+<details open>
+<summary>📦 Fossify Clock&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 1.6.0 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Choose upcoming alarm notification time](#choose-upcoming-alarm-notification-time) | Choose the advance notice in Morphe, with separate notifications and skip actions for each alarm occurrence. Keeps native ringing times and alarm definitions. | • Upcoming alarm notice (minutes) |
 
 </details>
 
@@ -143,6 +178,21 @@ Repository code is distributed under [GPL-3.0](LICENSE), with the additional pro
 </details>
 
 <details open>
+<summary>📦 Tasks.org&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 15.13 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Navigate to the parent task](#navigate-to-the-parent-task) | Add a parent-task arrow to the existing editor. Keeps Back behavior and the current filter; asks whether to save, discard or cancel when the draft has changes. Official project F-Droid APK 15.13 only. |  |
+
+</details>
+
+<details open>
 <summary>📦 Fossify Music Player&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
 
@@ -158,7 +208,7 @@ Repository code is distributed under [GPL-3.0](LICENSE), with the additional pro
 </details>
 
 <details open>
-<summary>📦 Fossify Calendar&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<summary>📦 Fossify Calendar&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -169,6 +219,22 @@ Repository code is distributed under [GPL-3.0](LICENSE), with the additional pro
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Readable Calendar descriptions](#readable-calendar-descriptions) | Readable day/agenda summaries and native Outlook/Exchange HTML preview with explicit source editing; preserves the original editor text. |  |
+| [Separate all-day reminder defaults](#separate-all-day-reminder-defaults) | Choose three separate default reminders for new all-day events in Calendar settings. Keeps timed-event defaults, existing events and the use-last-reminders setting. |  |
+
+</details>
+
+<details open>
+<summary>📦 Kvaesitso&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 1.41.0 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Restore widget editing from the search menu](#restore-widget-editing-from-the-search-menu) | Open the existing widget editor from the search bar menu when the Edit button is hidden, without changing the preference or stored widgets. |  |
 
 </details>
 

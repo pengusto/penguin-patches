@@ -28,7 +28,7 @@ class VerifyFeederBundle {
                     throw new AssertionError("Existing extension changed: " + old.getName());
                 unchanged++;
             }
-            if (unchanged != 1) throw new AssertionError("Expected the prior released Fossify runtime payload");
+            if (unchanged < 1) throw new AssertionError("Prior MPP has no runtime payloads");
             System.out.println("PASS: " + count + " Feeder-only classes, no runtime libraries/stubs; " + unchanged + " existing MPEs byte-identical");
         }
     }

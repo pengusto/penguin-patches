@@ -63,7 +63,7 @@ not establish compatibility. Existing runtime extensions must remain byte-identi
 ## Verification and limits
 
 Repeatable acceptance, bundle isolation, metadata inventory and rejection tests
-are in [tests/feeder](../tests/feeder/README.md). The prototype run passed **10 original-regression assertions and 284 patched assertions**, same-key update preservation, all four rejection cases and Android Lint (**no issues found**). The resulting APK has 22 extension classes; all 162 checked app/extension method and field references resolve. The release contains eight patches for six apps; the existing Fossify runtime is isolated from Feeder. Release validation checks the exact generated metadata against the actual Morphe Desktop inventory.
+are in [tests/feeder](../tests/feeder/README.md). The prototype run passed **10 original-regression assertions and 284 patched assertions**, same-key update preservation, all four rejection cases and Android Lint (**no issues found**). The resulting APK has 22 extension classes; all 162 checked app/extension method and field references resolve. The current combined release contains 12 patches for nine apps; the existing Fossify runtime is isolated from Feeder. Release validation checks the exact generated metadata against the actual Morphe Desktop inventory.
 
 The target is a disposable rooted AOSP Android 15 / API 35 ARM64 emulator,
 with synthetic fixtures only. The unmodified original payload
@@ -90,7 +90,7 @@ was posted under explicit user authorization. It includes the matched original /
 Morphe zoomed comparison, links to the initial viewer and linked-image menu,
 the Penguin repository and provenance/results, and asks whether a focused native
 Compose PR would be welcome. It explicitly identifies the local Morphe prototype
-and its absence from the current public release; it does not claim a native fix.
+and its absence from the public release at the time of that comment; it does not claim a native fix.
 
 Four raw screenshots and two curated evidence documents are pinned to evidence-only commit
 [`ad8026a`](https://github.com/pengusto/penguin-patches/tree/ad8026ad5e4266cfcf848be980e296bc1be947a0/feeder-391/2026-10-24/).

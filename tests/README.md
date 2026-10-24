@@ -48,3 +48,20 @@ Use an isolated ranchu emulator, Messages default-SMS role, and no real user dat
 ## Feeder image zoom (#391)
 
 [Feeder acceptance](feeder/README.md) checks the exact original project-release F-Droid APK 2.25.0, separate image viewer, actual gestures, linked-image choices, native loader/cache/network policy, lifecycle and same-key data preservation. Static checks verify APK linkage, isolation of the existing Fossify runtime, rejection cases and agreement between the eight-patch/six-app release metadata and Morphe Desktop inventory. All Android tests require an explicitly owned disposable emulator.
+
+## Additional patched-official-APK suites
+
+- [Kvaesitso #1504: widget editor access, editing and update retention](kvaesitso/README.md)
+- [Clock #14: configurable notice, per-alarm scheduling, skip and native UI](clock/README.md)
+- [Calendar #381: all-day defaults, both Calendar patches and draft restoration](calendar/README.md)
+- [Tasks.org #2838: parent navigation, native save/discard and filters](tasks/README.md)
+
+The release bundle contains 12 patches for nine apps. Original APK provenance,
+exact versions and known device/data limits are recorded in the linked guides.
+These runners publish nothing and require an explicitly disposable fixture.
+
+`tests/release/VerifyReleaseBundle.java`, run with the verified Morphe Desktop
+JAR on the classpath and arguments `CURRENT_MPP PRIOR_RELEASED_MPP`, checks all
+six MPE modules for runtime isolation and compares every prior release payload
+byte for byte. The metadata checks additionally compare the actual Desktop
+inventory with generated metadata and the MPP manifest version.

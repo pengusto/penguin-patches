@@ -4,9 +4,9 @@ extension {
 
 android {
     namespace = "io.github.pengusto.patches.extension"
-    // Keep Feeder's Java-only runtime isolated from the released Fossify helpers.
+    // App-specific MPEs keep existing released runtime payloads unchanged.
     val commonSources = file("src/main/java/io/github/pengusto/patches/extension")
-        .listFiles().orEmpty().filter { it.isDirectory && it.name != "feeder" }
+        .listFiles().orEmpty().filter { it.isDirectory && it.name !in setOf("kvaesitso", "clock", "calendarreminders", "tasks", "feeder") }
     sourceSets.getByName("main").apply {
         java.setSrcDirs(commonSources)
         kotlin.setSrcDirs(commonSources)
