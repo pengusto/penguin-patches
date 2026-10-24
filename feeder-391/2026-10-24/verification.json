@@ -1,0 +1,44 @@
+{
+  "outcome": "PASS",
+  "app": "Feeder",
+  "issue": "https://github.com/spacecowboy/Feeder/issues/391",
+  "package": "com.nononsenseapps.feeder",
+  "versionName": "2.25.0",
+  "versionCode": 4191,
+  "originalUrl": "https://github.com/spacecowboy/Feeder/releases/download/2.25.0/app-fdroid-release.apk",
+  "originalSha256": "3e03c3f9fd3ac6131eea56e513b129c71df11dadfccb836221480f9204f50766",
+  "officialCertificateSha256": "c5eeff22488135ffc2583c3a43b053a161ca869862961ab8534f44c75fd57d97",
+  "sourceTagCommit": "fdaf50e55b03c6086f3ec26b968ad32432b11f13",
+  "baselineSha256": "f76da1e0422c8ee9ab4af5c21e4c3aa908ba2eba0c98fed12336edc42ebf7cbd",
+  "patchedSha256": "869608e4fff5dcf9f1446b0a8158982738e7150388b9583b5aa2269a6bcdc90e",
+  "disposableTestCertificateSha256": "c4947641995699e2af54a959ca11c2e5d549e48031bd1c22d58d4bd44b3dcbe2",
+  "baselineCodeAndResourcesUnchanged": true,
+  "sameKeyUpdatePreservedDatabaseRowsPreferencesDatastoreAndArticleBlobs": true,
+  "rawNativeEmulatorScreenshots": true,
+  "sameSyntheticArticleAndImage": true,
+  "baselineAssertions": 10,
+  "patchedIntegrationAssertions": 284,
+  "negativeCases": {
+    "wrong-version": "PASS",
+    "wrong-package": "PASS",
+    "already-patched": "PASS",
+    "modified-bytecode": "PASS"
+  },
+  "lint": "No issues found",
+  "checkedApkReferences": 162,
+  "priorRuntimePayloadsUnchanged": 5,
+  "device": "Disposable rooted AOSP Android 15 / API 35 ARM64 emulator",
+  "publication": "Evidence only; Feeder patch code/bundle and all APKs remain unpublished",
+  "limitations": [
+    "Only AOSP API 35 ARM64 emulator tested",
+    "No Play or F-Droid.org APK compatibility claim",
+    "No physical/OEM or other Android version verification",
+    "No TalkBack/animated GIF/SVG/AVIF/authenticated-server claim"
+  ],
+  "screenshots": {
+    "before.png": "79b55b3424511d8059e409d7827c507310740dfdcbb87e6f1bce7eeaeb3d6c15",
+    "after.png": "7ea1d8b712f6ba31968e25d965409cb9b33f2a233f9f53c2db2a8cb854509066",
+    "zoomed.png": "044f550b7c924d35f12d2a1ed33433825cd42cfeb791b95f17326b6a87d4de99",
+    "link-menu.png": "d1ca1aaa7f4f7770e1a841bd3141dbca038fe33515d148221b5bb22d37b9b906"
+  }
+}
