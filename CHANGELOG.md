@@ -1,3 +1,19 @@
+## 1.0.0 (2026-10-25)
+
+### 🐛 Bug Fixes
+
+* **calendar:** render HTML descriptions in day and agenda lists ([8d1fa96](https://github.com/pengusto/penguin-patches/commit/8d1fa96869909fb28c07b2aa014a1d51a4769039))
+
+### ✨ New Features
+
+* add merged Contacts fields and per-track Music artwork patches ([5e73ee0](https://github.com/pengusto/penguin-patches/commit/5e73ee0513cc04a5a3c50c3476fca5b386cd22ac))
+* add native Calendar HTML description preview ([648a14a](https://github.com/pengusto/penguin-patches/commit/648a14ae0e191bd67f5969b16c7c42347fd33451))
+* add tested Messages notifications and File Manager favorites patches ([acdb462](https://github.com/pengusto/penguin-patches/commit/acdb46281e40505d839641b82bbb2c845f5fc7ce))
+* add verified Kvaesitso, Clock, Calendar and Tasks patches ([8b18dc6](https://github.com/pengusto/penguin-patches/commit/8b18dc631f5e79bc443e4a2e88b19a34b7b44256))
+* **feeder:** add zoomable article images for official 2.25.0 APK ([ee6b92c](https://github.com/pengusto/penguin-patches/commit/ee6b92cceeb6a88ce0f5b0137c979e86dc080084))
+* fix Messages conversation visibility and Calendar table previews ([2394547](https://github.com/pengusto/penguin-patches/commit/2394547defd368873f15e3181fd9a4c519a8edc9))
+* **infinity:** add custom OAuth patch for Infinity+ 8.3.4 ([8315740](https://github.com/pengusto/penguin-patches/commit/8315740b731dd7a1dcaa931eb5820cc202d4a123))
+
 ## [1.0.0-dev.8](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.7...v1.0.0-dev.8) (2026-10-25)
 
 ### ✨ New Features
