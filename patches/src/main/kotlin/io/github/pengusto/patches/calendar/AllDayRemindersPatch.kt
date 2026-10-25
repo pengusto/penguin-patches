@@ -5,17 +5,13 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.*
 import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.Opcode
-import com.android.tools.smali.dexlib2.Opcodes
-import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.immutable.*
-import com.android.tools.smali.dexlib2.writer.io.MemoryDataStore
-import com.android.tools.smali.dexlib2.writer.pool.DexPool
-import java.security.MessageDigest
+import io.github.pengusto.patches.codeDigest
 
 private const val eventActivity = "Lorg/fossify/calendar/activities/EventActivity;"
 private const val settingsActivity = "Lorg/fossify/calendar/activities/SettingsActivity;"
@@ -24,25 +20,6 @@ private const val contextType = "Landroid/content/Context;"
 private const val bundle = "Landroid/os/Bundle;"
 private const val reminders = "Lio/github/pengusto/patches/extension/calendarreminders/AllDayReminders;"
 private const val bindings = "Lio/github/pengusto/patches/extension/calendarreminders/CalendarHooks;"
-
-private fun ClassDef.remindersDigest(): String {
-    // The independently selectable HTML patch only changes EventActivity.onResume.
-    // Morphe's mutable class conversion drops debug items in unrelated methods.
-    // Normalize only debug information; retain instructions, registers, handlers,
-    // signatures, flags, fields and annotations in the compatibility guard.
-    val guardedMethods = methods.filter { type != eventActivity || it.name != "onResume" }.map { method ->
-        val implementation = method.implementation?.let {
-            ImmutableMethodImplementation(it.registerCount, it.instructions, it.tryBlocks, emptyList())
-        }
-        ImmutableMethod(method.definingClass, method.name, method.parameters, method.returnType,
-            method.accessFlags, method.annotations, method.hiddenApiRestrictions, implementation)
-    }
-    val guarded = ImmutableClassDef(type, accessFlags, superclass, interfaces, sourceFile,
-        annotations, fields, guardedMethods)
-    val store = MemoryDataStore()
-    DexPool.writeTo(store, ImmutableDexFile(Opcodes.getDefault(), listOf(guarded)))
-    return MessageDigest.getInstance("SHA-256").digest(store.data).joinToString("") { "%02x".format(it) }
-}
 
 @Suppress("unused")
 val allDayRemindersPatch = bytecodePatch(
@@ -55,11 +32,12 @@ val allDayRemindersPatch = bytecodePatch(
     extendWith("extensions/calendarreminders.mpe")
     execute {
         mapOf(
-            "Lcp0;" to "0ed9921815537b2d24802c45da0ab3a5630371f93a6524e851aa7db336df0f66",
-            eventActivity to "01e15714e6784912e221c4ff9d9982e75fc304a332f6e43faa2e1320b5aa429d",
-            settingsActivity to "81dc1922c710a0989cc22dc6839c69ba60902a2324aa570d954b9e92a9fc4bb3",
+            "Lcp0;" to "33996e1d2cce9c3d6efacfff279c9b8fd26f90c00174e3eb037b19e4263d9754",
+            eventActivity to "95f13f1ab3e117f6a546608dbf67811d1dec313a631a0f48e6cb7f30703abbff",
+            settingsActivity to "a5f774d78b3c85484471cb1f73653ef68283366b95e816b067874339bcb871f7",
         ).forEach { (type, hash) ->
-            check(classDefBy(type).remindersDigest() == hash) {
+            // The independently selectable HTML patch only changes EventActivity.onResume.
+            check(classDefBy(type).codeDigest { type != eventActivity || it.name != "onResume" } == hash) {
                 "Unsupported or already patched Calendar bytecode: $type. Use the original official 1.12.0 APK."
             }
         }

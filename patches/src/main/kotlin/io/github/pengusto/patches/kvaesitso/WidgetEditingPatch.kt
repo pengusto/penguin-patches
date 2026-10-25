@@ -8,9 +8,7 @@ import app.morphe.patcher.patch.*
 import app.morphe.patcher.util.proxy.mutableTypes.MutableField
 import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.Opcodes
 import com.android.tools.smali.dexlib2.immutable.*
-import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.RegisterRangeInstruction
@@ -18,9 +16,7 @@ import com.android.tools.smali.dexlib2.iface.reference.MethodReference
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction35c
 import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction3rc
-import com.android.tools.smali.dexlib2.writer.io.MemoryDataStore
-import com.android.tools.smali.dexlib2.writer.pool.DexPool
-import java.security.MessageDigest
+import io.github.pengusto.patches.codeDigest
 
 private const val scaffold = "Lde/mm20/launcher2/ui/launcher/scaffold/"
 private const val components = "${scaffold}components/"
@@ -32,14 +28,6 @@ private const val bridge = "Lio/github/pengusto/patches/extension/kvaesitso/Widg
 private const val mutableState = "Landroidx/compose/runtime/MutableState;"
 private const val composer = "Landroidx/compose/runtime/Composer;"
 private const val scope = "Lkotlinx/coroutines/CoroutineScope;"
-
-// Canonical, separately serialized original classes. Covers registers, branches,
-// fields and called APIs as well as the injection sites; reject modified inputs.
-private fun ClassDef.digest(): String {
-    val store = MemoryDataStore()
-    DexPool.writeTo(store, ImmutableDexFile(Opcodes.getDefault(), listOf(this)))
-    return MessageDigest.getInstance("SHA-256").digest(store.data).joinToString("") { "%02x".format(it) }
-}
 
 private fun getter(owner: String, name: String, type: String, body: String): MutableMethod =
     MutableMethod(ImmutableMethod(owner, name, emptyList(), type, AccessFlags.PUBLIC.value,
@@ -58,16 +46,16 @@ val widgetEditingPatch = bytecodePatch(
     execute {
         val bindClass = "${scaffold}LauncherScaffoldKt\$\$ExternalSyntheticLambda10;"
         val hashes = mapOf(
-            settings to "3eb6a05c1332e96332f22ed50b1cb98bd6836c2522baddf7b4d04dee18b8db65",
-            bindClass to "9ef6c5af4d9e02eabd493e082455dfcecfcdff95753891073641e7646ef31229",
-            "${scaffold}LauncherScaffoldKt;" to "5fef4045c8e7dc8adb9585eaf39338ffb4bad25e71e23cfbb79ab4456c006425",
-            state to "a76adf16581a7fdc7c3a628669854a885090766c670a1160a9192ef8002f8719",
-            "${components}ClockAndWidgetsHomeComponent;" to "6d046afa868a25e72aa4a14b450648e793c3bde4a0122b023e86e33bbc7787ff",
-            widgets to "4b7c2652690a7a07f3209f43519f96c9788384608b408652f59b140961c51dc2",
-            menu to "f1972bb7824ab622e9a6e06d8e7ad2a9640f276e063ccd1c78b0bdc180781c88",
+            settings to "76dbd0e6dc633112d8749ac961294a5e2823eb77dd33dff62d63b423e8050574",
+            bindClass to "27f3b21e64768e749f28d09557c74c53ebac8d249b5a97d175faca684015b100",
+            "${scaffold}LauncherScaffoldKt;" to "68670afc2fc1ae873c0c20da3ccedff64d451a746092431111e4125e441daf25",
+            state to "caa5e78ec23a448a2730160673b2955fdec168d3a48d05987c575f532e29536e",
+            "${components}ClockAndWidgetsHomeComponent;" to "c6c6cbdf0553fadfb484f58949f4a35ec968f9058a21bdbf479c0dc22701ac34",
+            widgets to "42b63d8ec0ce74008db6370efc1b575dbd6bae0f24e4288d5935093bcfff4f79",
+            menu to "c68b53982746c4ec5431c9c14640eb8cb9f21ea92abf662becacf878f8abca80",
         )
         hashes.forEach { (type, expected) ->
-            check(classDefBy(type).digest() == expected) {
+            check(classDefBy(type).codeDigest() == expected) {
                 "Unsupported or already patched Kvaesitso bytecode: $type. Use the original official 1.41.0 APK."
             }
         }
