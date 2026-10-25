@@ -12,7 +12,7 @@ Read a calendar invitation without wading through HTML. Keep a nested favorite p
 
 Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder and Infinity+ for Reddit. Independent project; not affiliated with Morphe, Fossify, Reddit or Infinity.
 
-**Pre-release software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. `dev` holds current development; `main` holds the earlier reviewed snapshot.
+**Early-stage software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. Stable releases come from `main`; `dev` carries pre-releases of upcoming changes.
 
 [Add to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches) · [Patch details](#the-fixes) · [Build from source](#development) · [Verification evidence](docs/VERIFICATION.md)
 
@@ -93,7 +93,7 @@ Opt-in and standalone: apply it alone to the original Infinity+ 8.3.4 APK. Suppl
 
 1. Read the app's guide above and verify its **original official APK version and SHA-256**. Use the official upstream release asset specified in the guide, not a Pengusto source-fork build. Do not force an unknown version.
 2. **Verify backups before migration.** These patches retain the official package IDs. A patched APK signed with a different certificate cannot update an official installation in place. Each guide explains its data and migration risks; do not uninstall an existing app merely to bypass a signature conflict.
-3. [Add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches), or scan the source QR code below. Enable pre-releases for this source in Morphe Manager.
+3. [Add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches), or scan the source QR code below. Morphe Manager then follows stable releases; enable pre-releases for this source only to try changes from `dev` early.
 4. Select the matching original APK and the desired patches, then patch and sign with Morphe Manager. Back up the Morphe signing key and retain it for future updates. Do not install emulator test APKs.
 5. Check the patched behavior with disposable data before relying on it. Emulator evidence does not establish phone, account-sync or carrier acceptance.
 
