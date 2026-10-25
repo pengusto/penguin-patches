@@ -10,7 +10,7 @@
 
 Read a calendar invitation without wading through HTML. Keep a nested favorite pointing to the folder you renamed. See the cover embedded in the track that's actually playing.
 
-Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org and Feeder. Independent project; not affiliated with Morphe or Fossify.
+Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder and Infinity+ for Reddit. Independent project; not affiliated with Morphe, Fossify, Reddit or Infinity.
 
 **Pre-release software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. `dev` holds current development; `main` holds the earlier reviewed snapshot.
 
@@ -121,7 +121,7 @@ The app guides distinguish patched official APK checks from separately tested so
 
 Physical-device acceptance, mobile Morphe Manager execution and app-specific sync, storage or carrier scenarios remain open as described in each guide. Only the declared APK versions are supported.
 
-For a reproducible problem, [open an issue](https://github.com/pengusto/penguin-patches/issues/new/choose) with the original app version, selected patches, Android/Morphe versions and minimal steps. Remove personal contacts, messages, calendar data and signing material from reports.
+For a reproducible problem, [open an issue](https://github.com/pengusto/penguin-patches/issues/new/choose) with the original app version, selected patches, Android/Morphe versions and minimal steps. Remove personal contacts, messages, calendar data, Reddit account names, OAuth codes or tokens and signing material from reports.
 
 ## License and provenance
 

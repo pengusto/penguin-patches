@@ -55,8 +55,9 @@ Use an isolated ranchu emulator, Messages default-SMS role, and no real user dat
 - [Clock #14: configurable notice, per-alarm scheduling, skip and native UI](clock/README.md)
 - [Calendar #381: all-day defaults, both Calendar patches and draft restoration](calendar/README.md)
 - [Tasks.org #2838: parent navigation, native save/discard and filters](tasks/README.md)
+- [Infinity+ 8.3.4: custom OAuth, subscription gate, redirects and invalid options](infinity/README.md)
 
-The release bundle contains 12 patches for nine apps. Original APK provenance,
+The release bundle contains 13 patches for ten apps. Original APK provenance,
 exact versions and known device/data limits are recorded in the linked guides.
 These runners publish nothing and require an explicitly disposable fixture.
 
