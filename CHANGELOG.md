@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/pengusto/penguin-patches/compare/v1.0.0...v1.0.1) (2026-10-25)
+
+### 🐛 Bug Fixes
+
+* make compatibility guards work on Morphe Manager 2.x ([bf2355b](https://github.com/pengusto/penguin-patches/commit/bf2355b0f61eadee2b1a0f2bf0ebef203fbfd219))
+
 ## 1.0.0 (2026-10-25)
 
 ### 🐛 Bug Fixes
