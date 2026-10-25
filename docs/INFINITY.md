@@ -30,6 +30,14 @@ Standalone runtime acceptance (2026-10-25, Android 15/API 35 ARM64 emulator): th
 
 A transient Reddit page displayed Internal Server Error in the earlier live test; Back returned to consent, and one retry of Accept succeeded with the unchanged APK. Exact server status/cause was not captured. Do not claim the patch fixes Reddit outages or add blind retries for login/consent.
 
+## Evidence
+
+Android 15 / API 35 ARM64 emulator, original Infinity+ 8.3.4. Screenshots without account data are pinned to evidence commit [`8177428`](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/infinity-834/2026-10-25/).
+
+| Breal 1.4.123, billing state 4 | Penguin patch, Add an account |
+| --- | --- |
+| <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/infinity-834/2026-10-25/before-breal-1.4.123.png" width="280" alt="Breal 1.4.123 shows the Subscription dialog when opening Login" /> | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/infinity-834/2026-10-25/after-penguin-login.png" width="280" alt="Penguin-patched Infinity+ opens Login without a Subscription dialog" /> |
+
 ## Attribution
 
 Infinity is by Docile Alligator and contributors. The subscription-state and redirect diagnosis was cross-checked against Breal Morphe Patches 1.4.123 and the inherited Patcheddit custom-client flow (wchill). The standalone implementation here uses the original app's getter/token exchange directly and does not bundle or depend on the Breal/Patcheddit runtime. The Breal contribution preserves upstream attribution and licensing. See repository LICENSE and NOTICE.
