@@ -4,12 +4,8 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.*
 import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.Opcodes
-import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.immutable.*
-import com.android.tools.smali.dexlib2.writer.io.MemoryDataStore
-import com.android.tools.smali.dexlib2.writer.pool.DexPool
-import java.security.MessageDigest
+import io.github.pengusto.patches.codeDigest
 
 private const val native = "Lcom/nononsenseapps/feeder/ui/compose/html/LinearArticleContentKt;"
 private const val model = "Lcom/nononsenseapps/feeder/model/html/LinearImage;"
@@ -18,20 +14,6 @@ private const val runtime = "Lio/github/pengusto/patches/extension/feeder/ImageZ
 private const val hooks = "Lio/github/pengusto/patches/extension/feeder/FeederHooks;"
 private const val continuation = "Lio/github/pengusto/patches/extension/feeder/ImageContinuation;"
 private const val obj = "Ljava/lang/Object;"
-
-private fun ClassDef.imageDigest(): String {
-    val normalized = methods.map { m ->
-        val code = m.implementation?.let {
-            ImmutableMethodImplementation(it.registerCount, it.instructions, it.tryBlocks, emptyList())
-        }
-        ImmutableMethod(m.definingClass, m.name, m.parameters, m.returnType,
-            m.accessFlags, m.annotations, m.hiddenApiRestrictions, code)
-    }
-    val out = MemoryDataStore()
-    DexPool.writeTo(out, ImmutableDexFile(Opcodes.getDefault(), listOf(ImmutableClassDef(
-        type, accessFlags, superclass, interfaces, sourceFile, annotations, fields, normalized))))
-    return MessageDigest.getInstance("SHA-256").digest(out.data).joinToString("") { "%02x".format(it) }
-}
 
 @Suppress("unused")
 val imageZoomPatch = bytecodePatch(
@@ -44,33 +26,33 @@ val imageZoomPatch = bytecodePatch(
     extendWith("extensions/feeder.mpe")
     execute {
         mapOf(
-            "Lb71;" to "90d6cd0b102e9cfb287c5c7adab247c41c815516ed56361adbcd9f0a38193710",
-            "Lqp;" to "adf225cad79b1b876924047a7f1a3a0e4ab0df81070b25cf334a8b79f7902dcd",
-            "Lc71;" to "eff7ba503c9f3f6f48a13c828709e9eba2e7a52a2a6b773f76c05e7034f6e708",
-            "Lx13;" to "b7362e1449da18d0cf7e063bb439dc61cce243cb06c81ffa33fecfd6861db336",
-            "Ljr2;" to "93257ad158d9558cea820c26341042415b418c6e45284ae0649c0e07a419e070",
-            "Lbp1;" to "8ce23cb6d4f03a31091f0bb29e68bc4f4caadc691f12482458f7569760035167",
-            "Lcom/nononsenseapps/feeder/FeederApplication;" to "da1dd0ba00571aa90d6b46221df78edda2bf632f89356c8b6fcb377c14765af9",
-            "Lcom/nononsenseapps/feeder/model/html/LinearImage;" to "3b1853b378e32ddc8707086f06e1157fc8a55cd115cb3221c442c15b6dbf2793",
-            "Lcom/nononsenseapps/feeder/model/html/LinearImageSource;" to "2f23cfa83f7ea642165223e6774ad269c9e400eddd61d1ce836b9190faf63c76",
-            "Lcom/nononsenseapps/feeder/model/html/LinearText;" to "632ae15c2af9f72c53a988ecf29c23fb3998b9b41f07a35d91ac86dec5808627",
-            "Lcom/nononsenseapps/feeder/ui/MainActivity;" to "6751305022aa801544efbde978ffde13ebce6c1955188436488a323ee65f6b10",
-            "Lcom/nononsenseapps/feeder/ui/compose/html/LinearArticleContentKt;" to "cfdfaecb516c3b113ec54fbe64293ee768e87370007502f0b803ba944390936f",
-            "Lcs2;" to "2dd89f629124434ec6d03cb019939632daf4587a952dea72a4ce1b9c5d822b4f",
-            "Ld27;" to "2ebdf642ea96dff5ffbdc461aa0065a957261ef04df8ce9749cef9c9ba6b3922",
-            "Lee0;" to "4efbe088ea7d2cb202dfbad0f56040b3e350119f2fe3cd5c034d6df643d852ae",
-            "Lr13;" to "c2d7c021cb3140f5f150fba18e6b8ea8caa870a04be44088e47f90f8bf02e132",
-            "Lgs2;" to "d587a06c5495bcf6dae268eb276bcd265b4c8acee61b39d62d20ce8d1b5a46ca",
-            "Lgt6;" to "3361099bc418c27002133cebbd14ea2bd7c58c270c7b26826941d1efaf08adc7",
-            "Lhu1;" to "37e92ead04cffb1f0b5e0f9e1386c0f2d710c7c72191eb7a5230bb808001f1ab",
-            "Ls81;" to "ac557a9d46451f9e430f9973aad812323b1845573781eeb74b01cf35f1099f13",
-            "Luv5;" to "dd34af1414e7a12c72b2e8e5df37a80ecfb6c955430d157088359db276bc15b6",
-            "Luc2;" to "8e44621be2172ae85a47c353c0847898f80ecbed6a75c17f1b4ab8c550f84e76",
-            "Lpk7;" to "1d0baad9c29a97754a22f43053b78373f4794885c3295148c3ce7364938aa021",
-            "Lcom/nononsenseapps/feeder/ui/compose/feedarticle/ReaderViewKt;" to "14a9e7b940cce04f7cd9a835944082b4db72be23564352fa7b2ade677e46361c",
-            "Lgm7;" to "47fcb9d504f55ed180d078a81e1bc9441bbc1f60d184c9a763a40c77bb416e50",
+            "Lb71;" to "c96926096936a69f304bba1a5e0675af1937d29eaf8739e13f8eb7d4dbb63c8f",
+            "Lqp;" to "31324ce3638f1293131306f8e202ba93b5febb913c49546aaa26a8d0b22b1ab8",
+            "Lc71;" to "dc305ff058fd59020d8c173b7ee62f919a10e8ceb66c06c0fc5f5b9c637149e5",
+            "Lx13;" to "b05cc701d3256d01125743a58dc5ff3eb36d4411ad30ea33aec794a6f7f7b734",
+            "Ljr2;" to "0f80aab1a343930b4430918a734883755029aeb9d4f336b8e43d42df2deb6752",
+            "Lbp1;" to "33c8737c20bc62fcbbd99cff3c80e704b17c99b4f9e1e6ad70c1264be5139f5a",
+            "Lcom/nononsenseapps/feeder/FeederApplication;" to "b5ec9363a867d3cb033c97c310b742e385bc69050d71138fdeb3bf3048fe1e4c",
+            "Lcom/nononsenseapps/feeder/model/html/LinearImage;" to "342719d47eed61299314270e504e4f25e6a8af155addedb89d7442b50ad92988",
+            "Lcom/nononsenseapps/feeder/model/html/LinearImageSource;" to "b17e9560f6705bf4cd6749f6f6b48411438dcb0f026b073493bd5171f944423a",
+            "Lcom/nononsenseapps/feeder/model/html/LinearText;" to "86b9ae6f15944c4101d764502c847ff1773606a029287d1bfc7088d25aede0e6",
+            "Lcom/nononsenseapps/feeder/ui/MainActivity;" to "b8c7077da511762ef72c2b018edf123377df1b586f120bff1cdb371c2421325e",
+            "Lcom/nononsenseapps/feeder/ui/compose/html/LinearArticleContentKt;" to "2e50f6099427f925009209835ad946bdb5700f452350ce4591790bd579a5301d",
+            "Lcs2;" to "d0ddca391de669a1a7d2864e50a8804e8f1f51731a7aec990b35c4f970d58353",
+            "Ld27;" to "736eb457952bd44e4c8bcb5a21f7f9be54f0ad4ef41d928925ce601894e14141",
+            "Lee0;" to "e0ca87a10e20c04baccd5a2a5707734e951b07bdc81d9d71fa7f4dab5f4d69cc",
+            "Lr13;" to "c3db186cb8b0ad913ccbf382709f92589d4f071091192e19784e539ad806a064",
+            "Lgs2;" to "9ea94c97dfeb44a75448abb26d193c8273b6086a52da0b0ae0d9fc4d484fb9fa",
+            "Lgt6;" to "2df938440aee3103095c78b0bad96c51ac40548514a427beaf90dd0c142cde69",
+            "Lhu1;" to "c4fab4b1e322ec3323fa60d45f879943b8119ba148a6d1ddff7d2aafed5809d7",
+            "Ls81;" to "5cb1f820bca4d54cefaa78e99316ea48b379ec1b7c0118ec6153f74cf79fa77a",
+            "Luv5;" to "5fc80cab4eb5809ab5f5073a9407638168ac698c0f27d42e932f25c238135688",
+            "Luc2;" to "49478a19ba9cb8be272e881e7c5ff4ca226ad6711b642d2f493ea27ae52a68ca",
+            "Lpk7;" to "1e7c00fda864cc2f311204539cdb23584636fa6c9b6cce4351fc8cf56ab8896e",
+            "Lcom/nononsenseapps/feeder/ui/compose/feedarticle/ReaderViewKt;" to "7baec984856a061734fe1e3e937b9da62d4b86b2358d20715857849740a06d26",
+            "Lgm7;" to "d31194494809173c54860c23af843b557ec63f26ea0ca6c2e3656bc57a03233a",
         ).forEach { (type, expected) ->
-            check(classDefBy(type).imageDigest() == expected) {
+            check(classDefBy(type).codeDigest() == expected) {
                 "Unsupported or already patched Feeder bytecode: $type. Use the original official project F-Droid 2.25.0 APK."
             }
         }

@@ -49,6 +49,10 @@ Use an isolated ranchu emulator, Messages default-SMS role, and no real user dat
 
 [Feeder acceptance](feeder/README.md) checks the exact original project-release F-Droid APK 2.25.0, separate image viewer, actual gestures, linked-image choices, native loader/cache/network policy, lifecycle and same-key data preservation. Static checks verify APK linkage, isolation of the existing Fossify runtime, rejection cases and agreement between the eight-patch/six-app release metadata and Morphe Desktop inventory. All Android tests require an explicitly owned disposable emulator.
 
+## Patcher compatibility (all apps)
+
+Before a release, run `tests/release/patcher_matrix.py MPP APK_DIR OUT_DIR DESKTOP_JAR...` with at least one Morphe Desktop 1.18.x (patcher 1.x) and one 1.19+ (patcher 2.x, as in Manager 2.x). It applies every app's patches to the original official APKs and checks that class-digest-guarded patches reject their own output. Compatibility guards use `codeDigest()` (canonical code text), not DexPool-serialized bytes, which differ between patcher versions.
+
 ## Additional patched-official-APK suites
 
 - [Kvaesitso #1504: widget editor access, editing and update retention](kvaesitso/README.md)

@@ -6,8 +6,6 @@ import app.morphe.patcher.patch.*
 import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.AccessFlags
 import com.android.tools.smali.dexlib2.Opcode
-import com.android.tools.smali.dexlib2.Opcodes
-import com.android.tools.smali.dexlib2.iface.ClassDef
 import com.android.tools.smali.dexlib2.iface.instruction.ReferenceInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.TwoRegisterInstruction
 import com.android.tools.smali.dexlib2.iface.instruction.FiveRegisterInstruction
@@ -18,9 +16,7 @@ import com.android.tools.smali.dexlib2.builder.instruction.BuilderInstruction3rc
 import com.android.tools.smali.dexlib2.immutable.reference.ImmutableMethodReference
 import com.android.tools.smali.dexlib2.iface.reference.FieldReference
 import com.android.tools.smali.dexlib2.immutable.*
-import com.android.tools.smali.dexlib2.writer.io.MemoryDataStore
-import com.android.tools.smali.dexlib2.writer.pool.DexPool
-import java.security.MessageDigest
+import io.github.pengusto.patches.codeDigest
 
 private const val fragment = "Lcom/todoroo/astrid/activity/TaskEditFragment;"
 private const val mainVm = "Lcom/todoroo/astrid/activity/MainActivityViewModel;"
@@ -39,20 +35,6 @@ private const val gap = "Landroidx/compose/runtime/GapComposer;"
 private const val fn0 = "Lkotlin/jvm/functions/Function0;"
 private const val fn2 = "Lkotlin/jvm/functions/Function2;"
 
-private fun ClassDef.parentDigest(): String {
-    val normalized = methods.map { m ->
-        val code = m.implementation?.let {
-            ImmutableMethodImplementation(it.registerCount, it.instructions, it.tryBlocks, emptyList())
-        }
-        ImmutableMethod(m.definingClass, m.name, m.parameters, m.returnType,
-            m.accessFlags, m.annotations, m.hiddenApiRestrictions, code)
-    }
-    val out = MemoryDataStore()
-    DexPool.writeTo(out, ImmutableDexFile(Opcodes.getDefault(), listOf(ImmutableClassDef(
-        type, accessFlags, superclass, interfaces, sourceFile, annotations, fields, normalized))))
-    return MessageDigest.getInstance("SHA-256").digest(out.data).joinToString("") { "%02x".format(it) }
-}
-
 @Suppress("unused")
 val parentNavigationPatch = bytecodePatch(
     name = "Navigate to the parent task",
@@ -64,16 +46,16 @@ val parentNavigationPatch = bytecodePatch(
     extendWith("extensions/tasks.mpe")
     execute {
         mapOf(
-            fragment to "da91bfe36f45adcd5e6812752eb634ffb87b89a0646b4e75234ef4a5b7501873",
-            mainVm to "20bdda29539b8b1cf5cdec28abd82ecd2034a6df62a4c7c0e41f98ec416f5f1d",
-            ui to "401c3a5e3c8d13b42a7e3ee17677af81eea1d62907ea4c3dc157dc2db93860b0",
-            "Lorg/tasks/data/dao/TaskDao;" to "9507aaa3c86747e94d61c16a3e84b6e583c2ec6602cd1e7e8270218bf465c4c7",
-            task to "a1c9c3d0f53ecc90eebac7c179496333e9dc221b658f8600b39ba45fb953c95e",
-            vm to "96d69b131f58456cd0c40fdfbae00e379eb438d80501a1c7a70c0fd19d5902d7",
-            actions to "b87262b5466009fd011c47c95eb39b175dee1e2fa09b4739083278ef54fb0514",
-            "Lorg/tasks/ui/TaskEditViewModel\$save\$2;" to "569fa841fee9b7e79920725af9c38be041d113e2b083782ebdfaa17fc7d8ec18",
+            fragment to "0eee750dd81b567dfe2b1239939022c6ca654ec5b009fbd0de7422f1b64f39fd",
+            mainVm to "01990b49914d8249ba61994d267120fa7bda2e26a18f11334b2a867f52365940",
+            ui to "9187873ba668cae737ab9f3915b9dc79d4cb93db85999207b32f15fa5ab9cd8e",
+            "Lorg/tasks/data/dao/TaskDao;" to "b4739fe188dfe3043b2502a10c50a2859cfdcaae1f4befaa09c1e22c018bc44a",
+            task to "8a8b8264b48b5806f120183bc42da7220973f046cbff1c521de2b8d3ea54faef",
+            vm to "7856f1c436c05750ed328f1fd637c6a535baa11e251e09b89ed7c32f03739b87",
+            actions to "6227439b2ce61fe95b26608b506508f84adf870198b3c3f049b7ea3147a31fea",
+            "Lorg/tasks/ui/TaskEditViewModel\$save\$2;" to "b23fcdf3b4459eccf3a1c1350a2dc3df454818c9b7da9994458220c97a7199e9",
         ).forEach { (type, expected) ->
-            check(classDefBy(type).parentDigest() == expected) {
+            check(classDefBy(type).codeDigest() == expected) {
                 "Unsupported or already patched Tasks.org bytecode: $type. Use the original official project F-Droid 15.13 APK."
             }
         }
