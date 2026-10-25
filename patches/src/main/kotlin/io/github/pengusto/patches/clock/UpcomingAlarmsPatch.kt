@@ -5,14 +5,9 @@ import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.patch.*
 import app.morphe.patcher.util.proxy.mutableTypes.MutableMethod
 import com.android.tools.smali.dexlib2.AccessFlags
-import com.android.tools.smali.dexlib2.Opcodes
-import com.android.tools.smali.dexlib2.iface.ClassDef
-import com.android.tools.smali.dexlib2.immutable.ImmutableDexFile
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethodImplementation
-import com.android.tools.smali.dexlib2.writer.io.MemoryDataStore
-import com.android.tools.smali.dexlib2.writer.pool.DexPool
-import java.security.MessageDigest
+import io.github.pengusto.patches.codeDigest
 
 private const val context = "Landroid/content/Context;"
 private const val alarm = "Lorg/fossify/clock/models/Alarm;"
@@ -21,12 +16,6 @@ private const val pending = "Landroid/app/PendingIntent;"
 private const val runtime = "Lio/github/pengusto/patches/extension/clock/UpcomingAlarms;"
 private const val hooks = "Lio/github/pengusto/patches/extension/clock/ClockHooks;"
 private const val receivers = "Lorg/fossify/clock/receivers/"
-
-private fun ClassDef.digest(): String {
-    val store = MemoryDataStore()
-    DexPool.writeTo(store, ImmutableDexFile(Opcodes.getDefault(), listOf(this)))
-    return MessageDigest.getInstance("SHA-256").digest(store.data).joinToString("") { "%02x".format(it) }
-}
 
 @Suppress("unused")
 val upcomingAlarmsPatch = bytecodePatch(
@@ -63,17 +52,17 @@ val upcomingAlarmsPatch = bytecodePatch(
             }
         }
         val hashes = mapOf(
-            "Lj5/e;" to "310df744ab845554764a32472aea8a892440ebc702b960a8e42b85834da61954",
-            "Lm5/d;" to "71ee7c6def87b5371bc8b0ad3f61adf14cb3ac3f2918b6ceae25b53f849c6279",
-            "Lm5/h;" to "43b2974cbff60d10cee147ab1b3d68f5321afe0aab370a172cd783fad167de90",
-            alarm to "570549d9957a67db7ce2a0a114968a87f5a7491552a4b8db41aa492c6caa1abb",
-            "${receivers}AlarmReceiver;" to "8af07dcd2a005f99796a43b871a9f52bb93db6dce7abf10cd8ec6aad03240e08",
-            "${receivers}RescheduleAlarmsReceiver;" to "1ce238b576d8cb7dc1c3a076bdb9103796d02ac2f7f7798030e253a400ee79ae",
-            "${receivers}SkipUpcomingAlarmReceiver;" to "cf8b2b82d58f67f70f8a74123334b4da7201ee54826b67663ec81f3843b4df94",
-            "${receivers}UpcomingAlarmReceiver;" to "61de79a7477e1a52e4497bba4ed369f0f17c33fb80f88ec54ab713e6d0adabf6",
+            "Lj5/e;" to "604e795647b94deeb8d7feca7f3ec7a21ddf0637d8f280ae989fd048898c5062",
+            "Lm5/d;" to "2daff57670fc6072a5d7576d131fb1a65d0541f7afee448f36374207ad87b696",
+            "Lm5/h;" to "669245148680adb9ac3ff0835bbae0f7af09e65355a402f80c1aaf8bc902fd0f",
+            alarm to "16cf30b5e0e771694e8c847ec6ebe63010e74b99cdf9afeab5ee94fe8f268e16",
+            "${receivers}AlarmReceiver;" to "0d0cf43fb473133a9185a3aee1956250a6b1d940c3ee93e4bae6c7d6ad154d2b",
+            "${receivers}RescheduleAlarmsReceiver;" to "f9b79095a9079118fa27d34e6ca2ec5322e657a6c73d0c84e3c9e4fa1cc7f43b",
+            "${receivers}SkipUpcomingAlarmReceiver;" to "dbce7cab4c828f21d73abb5a72675fe4ad2b47415a530d890ad6c80d89c174e3",
+            "${receivers}UpcomingAlarmReceiver;" to "99fad6224f7f3f525ead1bb2847fe513b6aa6d52a462e96d3b3d4ad36898d27c",
         )
         hashes.forEach { (type, expected) ->
-            check(classDefBy(type).digest() == expected) {
+            check(classDefBy(type).codeDigest() == expected) {
                 "Unsupported or already patched Clock bytecode: $type. Use the original official 1.6.0 APK."
             }
         }
