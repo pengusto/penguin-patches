@@ -32,6 +32,7 @@ Use only the exact original APK version listed here. Each linked guide records t
 | Fossify Calendar **1.12.0** | Separate all-day reminder defaults and retain manual draft values per event mode | [All-day reminders](docs/CALENDAR_REMINDERS.md) |
 | Tasks.org **15.13**, project GitHub F-Droid APK | Open the immediate parent task, with Save / Discard / Cancel for edited drafts | [Tasks.org](docs/TASKS.md) |
 | Feeder **2.25.0**, project GitHub F-Droid APK | Open article images in a separate viewer with pinch, pan and double-tap; choose image or link for linked images | [Feeder](docs/FEEDER.md) |
+| Infinity+ **8.3.4** | Sign in with your own Reddit OAuth client, without the subscription gate | [Infinity+](docs/INFINITY.md) |
 
 ### Readable Calendar descriptions
 
@@ -83,6 +84,10 @@ Tasks.org's editor gains an up-arrow for an existing task with a valid parent. C
 ### Zoom article images
 
 Tap a Feeder article-body image or large reader header image to open a separate viewer. Pinch, drag and double-tap to inspect details, or use the zoom/reset buttons. Linked images offer **View image / Open link**. The patch reuses Feeder's image loader, cache and network policy. Only the project's GitHub F-Droid-flavor **2.25.0** APK is tested; Play and independently built F-Droid.org APKs are excluded. See [Feeder provenance, screenshots and test limits](docs/FEEDER.md).
+
+### Configure custom OAuth for Infinity+
+
+Opt-in and standalone: apply it alone to the original Infinity+ 8.3.4 APK. Supply your Reddit client ID, its registered redirect URI and an API user-agent; login and token exchange then use them consistently and the subscription gate stays closed. Signing stays with your Morphe key, so keep that key for updates. Emulator login is verified; Morphe Manager on a phone and long-term token renewal are not yet. See the [Infinity+ guide](docs/INFINITY.md).
 
 ## Patch an app
 

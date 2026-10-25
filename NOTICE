@@ -86,3 +86,11 @@ are based on Tasks.org 15.13 by Alex Baker and contributors, GPL-3.0
 an explicit parent action as requested in issue #2838 and its discussion,
 while reusing shipped app implementations rather than bundling app libraries.
 See docs/TASKS.md for APK provenance, behavior and test limits.
+
+Infinity+ custom OAuth
+---------------------
+Targets Infinity by Docile Alligator and contributors. Diagnosis was informed by
+brealorg/breal-morphe-patches issue #257 and its 1.4.123 custom-client implementation,
+inherited from wchill/Patcheddit. Penguin's focused implementation uses the original
+Infinity app APIs directly and includes no Breal/Patcheddit runtime or shared
+client credentials. Source, provenance and acceptance limits: docs/INFINITY.md.
