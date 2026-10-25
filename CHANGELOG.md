@@ -1,3 +1,9 @@
+## [1.0.0-dev.8](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.7...v1.0.0-dev.8) (2026-10-25)
+
+### ✨ New Features
+
+* **infinity:** add custom OAuth patch for Infinity+ 8.3.4 ([8315740](https://github.com/pengusto/penguin-patches/commit/8315740b731dd7a1dcaa931eb5820cc202d4a123))
+
 ## [1.0.0-dev.7](https://github.com/pengusto/penguin-patches/compare/v1.0.0-dev.6...v1.0.0-dev.7) (2026-10-24)
 
 ### ✨ New Features
