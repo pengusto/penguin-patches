@@ -1,0 +1,14 @@
+# License and visual provenance
+
+The original `penguin-patches-banner-tailor.png` was AI-generated with OpenAI's built-in Imagegen on 2026-10-23, using the maintainer-provided purple profile banner as a reference for the penguin's identity only. The textile-mending scene, colors and composition were developed independently. That light illustration and its Imagegen dark companion remain unchanged in `docs/assets/`.
+
+The README's `readme-hero-dark.png` and `readme-hero-light.png` were created with the built-in Imagegen tool on 2026-10-28. The maintainer-selected second README concept supplied the hero composition; the existing dark tailor banner supplied the character identity. The light hero is an edit of the dark hero. These are decorative textile illustrations, separate from app evidence; no third-party app icons or logos were used. The `picture` element selects the matching theme, with light as fallback. [Asset inventory and production prompts](assets/README.md).
+
+The Finamp comparison embeds the unedited [2026-10-28 Android APK captures](../tests/finamp/evidence/2026-10-28/README.md). Music, names, login and server responses are synthetic fixture data. The before APK contains the official original native code, re-signed with a disposable test certificate for same-key update testing. The after capture shows the native artist-order patch. Both use Dark theme. These are separate from the Flutter widget goldens linked from the source contributions. Their recorded hashes and limits remain in the evidence directory. Feeder and Infinity+ evidence stays in their [respective](FEEDER.md#separately-authorized-public-evidence) [guides](INFINITY.md#evidence); the Infinity+ before-image is explicitly a Breal comparison, not the unmodified official APK.
+
+The Morphe link button is a local SVG containing plain text and a purple background. It uses no Morphe logo. The illustrations and button do not establish rights to third-party branding or app assets.
+
+Repository code is distributed under [GPL-3.0](../LICENSE), with the additional project-name terms retained in [NOTICE](../NOTICE). The project began from [Morphe's official patches template](https://github.com/MorpheApp/morphe-patches-template), initial template commit `d4fa104`. Morphe is referenced for compatibility; Penguin Patches uses its own project name.
+
+[NOTICE](../NOTICE) and the app guides credit upstream app source behavior, issue authors and reference implementations. Preserve those credits when redistributing derived work. The repository license does not transfer ownership of upstream app or Morphe branding, third-party app assets or APKs; original APKs come from their respective upstream releases. The source QR represents a URL, while linked UI captures document the upstream app and patched behavior with synthetic fixtures.
+
