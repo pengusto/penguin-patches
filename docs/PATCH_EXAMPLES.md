@@ -9,6 +9,8 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 | Finamp 1.0.1 | [Song artist order](#song-artist-order) |
 | Finamp 1.0.1 | [Fix section title validation](#fix-section-title-validation) |
 | Finamp 1.0.1 | [Load artist pages faster](#load-artist-pages-faster) |
+| Finamp 1.0.1 | [Fix offline artist tracks](#fix-offline-artist-tracks) |
+| Finamp 1.0.1 | [Fix track alphabet navigation](#fix-track-alphabet-navigation) |
 | Feeder 2.25.0 · project GitHub F-Droid APK | [Zoom article images](#zoom-article-images) |
 | Infinity+ 8.3.4 | [Configure custom OAuth for Infinity+](#configure-custom-oauth-for-infinity) |
 | Fossify Calendar 1.12.0 | [Readable Calendar descriptions](#readable-calendar-descriptions) |
@@ -73,6 +75,46 @@ Show the artist preview and track count without waiting for the full discography
 | <img src="../tests/finamp/evidence/2026-10-28/artist-held-before.png" width="300" alt="Before: Pending full-song queries: spinner and 0 Tracks"> | <img src="../tests/finamp/evidence/2026-10-28/artist-held-after.png" width="300" alt="After: Bounded queries: preview and 8 Tracks appear"> |
 
 [Capture provenance & checks](../tests/finamp/evidence/2026-10-28/README.md) · [Back to patch index](#before--after)
+
+<a id="fix-offline-artist-tracks"></a>
+
+## Fix offline artist tracks
+
+**Finamp 1.0.1** · [Setup & patch details](FINAMP_NATIVE.md)
+
+Keep only tracks credited to the selected performing artist when a downloaded
+album contains several artists. Album-artist inclusion is preserved.
+
+**Android APK captures.** Same downloaded synthetic album, B Guest performing-artist
+filter, Name ordering, Dark theme and display size. Tracks 7–8 have other credits.
+The after image is an actual Morphe Manager export installed with the same key.
+
+| Before | After |
+| :---: | :---: |
+| **8 songs, including 2 unrelated tracks** | **6 matching songs** |
+| <img src="../tests/finamp/evidence/2026-10-28-next/1689-before-tracks.png" width="300" alt="Before: B Guest includes Lead Solo and Album Credit Only"> | <img src="../tests/finamp/evidence/2026-10-28-next/1689-after-tracks.png" width="300" alt="After: B Guest contains only the six credited songs"> |
+
+[Capture provenance & checks](../tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#before--after)
+
+<a id="fix-track-alphabet-navigation"></a>
+
+## Fix track alphabet navigation
+
+**Finamp 1.0.1** · [Setup & patch details](FINAMP_NATIVE.md)
+
+Compare the selected sidebar letter and track titles with consistent case.
+Existing missing-letter behavior and paging remain in place.
+
+**Android APK captures.** Same synthetic library, Name ordering, no filters and
+the same tap on M. The after image uses the independently selected alphabet fix
+exported by Morphe Manager. This is a correctness comparison, not a performance benchmark.
+
+| Before | After |
+| :---: | :---: |
+| **M stays in the numeric section** | **M reaches Midnight 01** |
+| <img src="../tests/finamp/evidence/2026-10-28-next/1790-before-M.png" width="300" alt="Before: an M jump stays among numeric track titles"> | <img src="../tests/finamp/evidence/2026-10-28-next/1790-after-M.png" width="300" alt="After: the same M jump reaches Midnight 01"> |
+
+[Capture provenance & checks](../tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#before--after)
 
 <a id="zoom-article-images"></a>
 

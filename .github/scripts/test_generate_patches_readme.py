@@ -37,7 +37,8 @@ class ReleaseReadmeTests(unittest.TestCase):
         result = self.render()
         self.assertNotIn("<details open>", result)
         self.assertIn("All 11 apps and supported versions", result)
-        self.assertIn("16 patches · 11 apps", result)
+        metadata = json.loads((ROOT / "patches-list.json").read_text())
+        self.assertIn(f"{len(metadata['patches'])} patches · 11 apps", result)
         for guide in re.findall(r"\]\((docs/[^)#]+)", result):
             self.assertTrue((ROOT / guide).is_file(), guide)
         self.assertIn("[Song artist order](docs/FINAMP_NATIVE.md)", result)
@@ -61,13 +62,11 @@ class ReleaseReadmeTests(unittest.TestCase):
         catalogue = result.split("<!-- PATCHES_START EXPANDED -->")[1].split("<!-- PATCHES_END -->")[0]
         self.assertEqual(catalogue.count("<details open>"), 12)
 
-    def test_every_released_patch_has_a_reachable_image_pair(self):
+    def check_gallery(self, data, rendered):
         gallery = (ROOT / "docs/PATCH_EXAMPLES.md").read_text()
         sections = dict(re.findall(
             r'<a id="([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', gallery, re.DOTALL
         ))
-        data = json.loads((ROOT / "patches-list.json").read_text())
-        rendered = self.render()
         for patch in data["patches"]:
             slug = re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", patch["name"].lower())).strip("-")
             with self.subTest(patch=patch["name"]):
@@ -76,7 +75,27 @@ class ReleaseReadmeTests(unittest.TestCase):
                 self.assertEqual(len(images), 2, "each patch needs both sides of the comparison")
                 self.assertTrue(images[0][1].startswith("Before:"))
                 self.assertTrue(images[1][1].startswith("After:"))
+                for source, _ in images:
+                    if not source.startswith("https://"):
+                        self.assertTrue((ROOT / "docs" / source).resolve().is_file(), source)
                 self.assertIn(f"[Before / after](docs/PATCH_EXAMPLES.md#{slug})", rendered)
+
+    def test_every_released_patch_has_a_reachable_image_pair(self):
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        self.check_gallery(data, self.render())
+
+    def test_two_new_finamp_fixes_have_gallery_links(self):
+        data = {"version": "1.2.0", "patches": [
+            {"name": name, "description": "A focused Finamp fix", "compatiblePackages": [
+                {"packageName": "com.unicornsonlsd.finamp", "name": "Finamp", "targets": [{"version": "1.0.1"}]}]}
+            for name in ("Fix offline artist tracks", "Fix track alphabet navigation")
+        ]}
+        result = self.render(data)
+        self.assertIn("2 patches · 1 app", result)
+        self.check_gallery(data, result)
+        for slug in ("fix-offline-artist-tracks", "fix-track-alphabet-navigation"):
+            self.assertIn(f"[Before / after](docs/PATCH_EXAMPLES.md#{slug})", result)
+        self.assertNotIn("<details open>", result)
 
     def test_unknown_and_universal_patches_do_not_gain_dead_links(self):
         data = {"version": "2.0.0", "patches": [

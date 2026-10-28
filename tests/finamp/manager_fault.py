@@ -20,6 +20,17 @@ CACHE = '/data/user/0/app.morphe.manager/app_original-apks/com.unicornsonlsd.fin
 MUTANT = '/sdcard/Download/finamp-manager-test/Finamp-invalid-engine.apk'
 
 
+def selected_failure(labels, selected):
+    """Accept the observed error dialog or diagnostics table, never Unknown."""
+    normalized = [label.replace('\u200b', '') for label in labels]
+    failed = {label.removeprefix('Failed to apply ') for label in normalized
+              if label.startswith('Failed to apply ')}
+    failed.update(value for caption, value in zip(normalized, normalized[1:]) if caption == 'Failed patch')
+    if len(failed) != 1 or not failed <= set(selected):
+        raise AssertionError('Error not attributed to one selected patch')
+    return failed.pop()
+
+
 def verify_mutant(original, mutant):
     if hashlib.sha256(original.read_bytes()).hexdigest() != APK_SHA:
         raise ValueError('Not the pinned official original APK')
@@ -91,13 +102,11 @@ def main():
                 report['success_actions_absent'] = True
                 report['labels'] = [label for label in labels if label]
                 normalized = [label.replace('\u200b', '') for label in labels]
-                failed = [label.removeprefix('Failed to apply ') for label in normalized
-                          if label.startswith('Failed to apply ')]
-                assert len(failed) == 1 and failed[0] in [name for bit, name in NAMES.items() if args.mask & bit], 'Error not attributed to a selected patch'
+                failed = selected_failure(normalized, [name for bit, name in NAMES.items() if args.mask & bit])
                 assert any('unsupported ARM64 libflutter.so' in label for label in normalized)
                 runtime = runtime_lines()
                 assert runtime != previous_runtime and 'name=art ' in runtime[-1], 'No new ART invocation'
-                report.update(selected_failed_patch=failed[0], guard='unsupported ARM64 libflutter.so',
+                report.update(selected_failed_patch=failed, guard='unsupported ARM64 libflutter.so',
                               runtime='art', runtime_log=runtime[-1])
                 break
             time.sleep(0.3)

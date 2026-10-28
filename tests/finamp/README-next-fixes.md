@@ -89,7 +89,9 @@ clear app data or silently reauthenticate.
 
 Use official Manager 2.2.0/Patcher 2.0.1 on the same Android 15/API 35 ARM64 AVD.
 Load the complete candidate through Sources → Add → Local for acceptance, verify
-its cached bytes, and use the original APK cache/file picker. Confirm all five
+its cached bytes, and use the original APK cache/file picker. Disable the older
+Penguin source while testing a local copy to avoid duplicate patch versions;
+after release, refresh the remote source and disable/remove the local copy. Confirm all five
 rows default off and unrelated universal patches remain at 0/5. Keep the
 existing disposable signing key; do not commit it.
 
