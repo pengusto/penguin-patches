@@ -238,8 +238,12 @@ def preview_section(patch):
 
     section = re.sub(r'(?<=src=")[^"]+', lambda m: root_target(m[0]), section)
     section = re.sub(r'(?<=\]\()[^)]+', lambda m: root_target(m[0]), section)
-    section = re.sub(r"^## ", "### ", section, count=1)
-    return f'<a id="preview-{slug}"></a>\n\n{section}'
+    # Keep the fragment target outside the disclosure: GitHub does not open a
+    # collapsed ancestor automatically when a README link targets its contents.
+    section = re.sub(r"^## [^\n]+\n+", "", section, count=1)
+    return (f'<a id="preview-{slug}"></a>\n\n<details>\n'
+            f'<summary><strong>{html.escape(patch["name"])}</strong> · Before / after</summary>\n<br>\n\n'
+            f'{section}\n\n</details>')
 
 
 def build_previews():
@@ -253,15 +257,13 @@ def build_previews():
         entry = by_pkg[pkg]
         count = len(entry["patches"])
         sections.append(
-            f'<a id="previews-{anchor(pkg)}"></a>\n\n<details>\n'
-            f'<summary><strong>{html.escape(entry["name"])}</strong> · '
-            f'{count} {"patch" if count == 1 else "patches"}</summary>\n<br>\n\n'
+            f'<a id="previews-{anchor(pkg)}"></a>\n\n'
+            f'### {entry["name"]} · {count} {"patch" if count == 1 else "patches"}\n\n'
             + "\n\n".join(preview_section(p) for p in entry["patches"].values())
-            + "\n\n</details>")
+        )
     if universal:
-        sections.append('<details>\n<summary><strong>Universal patches</strong></summary>\n<br>\n\n'
-                        + "\n\n".join(preview_section(p) for p in universal.values())
-                        + "\n\n</details>")
+        sections.append('### Universal patches\n\n'
+                        + "\n\n".join(preview_section(p) for p in universal.values()))
     return "\n\n".join(sections)
 
 

@@ -101,7 +101,8 @@ class ReleaseReadmeTests(unittest.TestCase):
         data = json.loads((ROOT / "patches-list.json").read_text())
         result = self.render(data)
         previews = result.split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0]
-        self.assertEqual(previews.count("<summary>"), 11)
+        self.assertEqual(previews.count("<summary>"), len(data["patches"]))
+        self.assertEqual(len(re.findall(r"^### ", previews, re.MULTILINE)), 11)
         self.assertEqual(previews.count("<img "), 2 * len(data["patches"]))
         self.assertNotIn("## About these comparisons", previews)
         sections = dict(re.findall(r'<a id="preview-([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', previews, re.DOTALL))
@@ -109,6 +110,7 @@ class ReleaseReadmeTests(unittest.TestCase):
             slug = re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", patch["name"].lower())).strip("-")
             with self.subTest(patch=patch["name"]):
                 images = re.findall(r'<img src="([^"]+)"[^>]+alt="([^"]+)"', sections[slug])
+                self.assertRegex(sections[slug], r'^\s*<details>\s*<summary>')
                 self.assertEqual(len(images), 2)
                 self.assertTrue(images[0][1].startswith("Before:"))
                 self.assertTrue(images[1][1].startswith("After:"))

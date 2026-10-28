@@ -47,18 +47,18 @@ Choose song artist order, fix offline artist lists and alphabet jumps, validate 
 
 ## Every patch, before & after
 
-Open an app to see the matching image pair for **every patch**, right here. Each comparison states what was captured and links to its evidence. [Open the separate gallery →](docs/PATCH_EXAMPLES.md)
+Open any patch below to see its matching before/after pair, right here. Grouped by app, with the capture baseline and evidence beside every pair. [Open the separate gallery →](docs/PATCH_EXAMPLES.md)
 
 <!-- PATCHES_PREVIEWS_START -->
 <a id="previews-com-unicornsonlsd-finamp"></a>
 
-<details>
-<summary><strong>Finamp</strong> · 5 patches</summary>
-<br>
+### Finamp · 5 patches
 
 <a id="preview-fix-offline-artist-tracks"></a>
 
-### Fix offline artist tracks
+<details>
+<summary><strong>Fix offline artist tracks</strong> · Before / after</summary>
+<br>
 
 **Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
 
@@ -76,9 +76,13 @@ The after image is an actual Morphe Manager export installed with the same key.
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-fix-section-title-validation"></a>
 
-### Fix section title validation
+<details>
+<summary><strong>Fix section title validation</strong> · Before / after</summary>
+<br>
 
 **Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
 
@@ -93,9 +97,13 @@ Typing a valid custom home-section title updates validation and enables Save imm
 
 [Capture provenance & checks](https://github.com/pengusto/finamp/tree/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-fix-track-alphabet-navigation"></a>
 
-### Fix track alphabet navigation
+<details>
+<summary><strong>Fix track alphabet navigation</strong> · Before / after</summary>
+<br>
 
 **Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
 
@@ -113,9 +121,13 @@ exported by Morphe Manager. This is a correctness comparison, not a performance 
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-load-artist-pages-faster"></a>
 
-### Load artist pages faster
+<details>
+<summary><strong>Load artist pages faster</strong> · Before / after</summary>
+<br>
 
 **Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
 
@@ -130,9 +142,13 @@ Show the artist preview and track count without waiting for the full discography
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-28/README.md) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-song-artist-order"></a>
 
-### Song artist order
+<details>
+<summary><strong>Song artist order</strong> · Before / after</summary>
+<br>
 
 **Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
 
@@ -151,13 +167,13 @@ Put the album artist first, then alphabetize the other song credits. Choose alte
 
 <a id="previews-com-nononsenseapps-feeder"></a>
 
-<details>
-<summary><strong>Feeder</strong> · 1 patch</summary>
-<br>
+### Feeder · 1 patch
 
 <a id="preview-zoom-article-images"></a>
 
-### Zoom article images
+<details>
+<summary><strong>Zoom article images</strong> · Before / after</summary>
+<br>
 
 **Feeder 2.25.0 · project GitHub F-Droid APK** · [Setup & patch details](docs/FEEDER.md)
 
@@ -176,13 +192,13 @@ Open an article image in its own viewer and pinch, pan or double-tap to inspect 
 
 <a id="previews-ml-docilealligator-infinityforreddit-plus"></a>
 
-<details>
-<summary><strong>Infinity+</strong> · 1 patch</summary>
-<br>
+### Infinity+ · 1 patch
 
 <a id="preview-configure-custom-oauth-for-infinity"></a>
 
-### Configure custom OAuth for Infinity+
+<details>
+<summary><strong>Configure custom OAuth for Infinity+</strong> · Before / after</summary>
+<br>
 
 **Infinity+ 8.3.4** · [Setup & patch details](docs/INFINITY.md)
 
@@ -201,13 +217,13 @@ Use your own authorized Reddit OAuth client and reach the existing login flow wi
 
 <a id="previews-org-fossify-calendar"></a>
 
-<details>
-<summary><strong>Fossify Calendar</strong> · 2 patches</summary>
-<br>
+### Fossify Calendar · 2 patches
 
 <a id="preview-readable-calendar-descriptions"></a>
 
-### Readable Calendar descriptions
+<details>
+<summary><strong>Readable Calendar descriptions</strong> · Before / after</summary>
+<br>
 
 **Fossify Calendar 1.12.0** · [Setup & patch details](docs/CALENDAR.md)
 
@@ -222,9 +238,13 @@ Read an HTML event description as text while retaining an explicit Edit HTML sou
 
 [Capture provenance & checks](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-separate-all-day-reminder-defaults"></a>
 
-### Separate all-day reminder defaults
+<details>
+<summary><strong>Separate all-day reminder defaults</strong> · Before / after</summary>
+<br>
 
 **Fossify Calendar 1.12.0** · [Setup & patch details](docs/CALENDAR_REMINDERS.md)
 
@@ -243,13 +263,13 @@ Give new all-day events their own reminder defaults while keeping timed-event de
 
 <a id="previews-org-fossify-clock"></a>
 
-<details>
-<summary><strong>Fossify Clock</strong> · 1 patch</summary>
-<br>
+### Fossify Clock · 1 patch
 
 <a id="preview-choose-upcoming-alarm-notification-time"></a>
 
-### Choose upcoming alarm notification time
+<details>
+<summary><strong>Choose upcoming alarm notification time</strong> · Before / after</summary>
+<br>
 
 **Fossify Clock 1.6.0** · [Setup & patch details](docs/CLOCK.md)
 
@@ -268,13 +288,13 @@ Choose when upcoming-alarm notices appear and keep a separate notice for each al
 
 <a id="previews-org-fossify-contacts"></a>
 
-<details>
-<summary><strong>Fossify Contacts</strong> · 1 patch</summary>
-<br>
+### Fossify Contacts · 1 patch
 
 <a id="preview-show-emails-and-notes-from-merged-contacts"></a>
 
-### Show emails and notes from merged contacts
+<details>
+<summary><strong>Show emails and notes from merged contacts</strong> · Before / after</summary>
+<br>
 
 **Fossify Contacts 1.6.0** · [Setup & patch details](docs/CONTACTS.md)
 
@@ -293,13 +313,13 @@ See the email and note contributed by a duplicate contact in the merged detail v
 
 <a id="previews-org-fossify-filemanager"></a>
 
-<details>
-<summary><strong>Fossify File Manager</strong> · 1 patch</summary>
-<br>
+### Fossify File Manager · 1 patch
 
 <a id="preview-keep-favorites-consistent-after-folder-rename-or-removal"></a>
 
-### Keep favorites consistent after folder rename or removal
+<details>
+<summary><strong>Keep favorites consistent after folder rename or removal</strong> · Before / after</summary>
+<br>
 
 **Fossify File Manager 1.6.2** · [Setup & patch details](docs/FILE_MANAGER.md)
 
@@ -318,13 +338,13 @@ Keep nested favorites pointing to the right folder after a parent-folder rename.
 
 <a id="previews-org-fossify-messages"></a>
 
-<details>
-<summary><strong>Fossify Messages</strong> · 3 patches</summary>
-<br>
+### Fossify Messages · 3 patches
 
 <a id="preview-avoid-notifications-for-visible-conversations"></a>
 
-### Avoid notifications for visible conversations
+<details>
+<summary><strong>Avoid notifications for visible conversations</strong> · Before / after</summary>
+<br>
 
 **Fossify Messages 1.10.1** · [Setup & patch details](docs/MESSAGES.md)
 
@@ -339,9 +359,13 @@ Avoid leaving a notification for a message already received in the currently vis
 
 [Capture provenance & checks](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/messages-lifecycle) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-dismiss-notifications-when-marking-conversations-read"></a>
 
-### Dismiss notifications when marking conversations read
+<details>
+<summary><strong>Dismiss notifications when marking conversations read</strong> · Before / after</summary>
+<br>
 
 **Fossify Messages 1.10.1** · [Setup & patch details](docs/MESSAGES.md)
 
@@ -356,9 +380,13 @@ Remove a conversation notification after marking that conversation read from the
 
 [Capture provenance & checks](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/README.md) · [Back to patch index](#patch-previews)
 
+</details>
+
 <a id="preview-keep-background-conversations-unread"></a>
 
-### Keep background conversations unread
+<details>
+<summary><strong>Keep background conversations unread</strong> · Before / after</summary>
+<br>
 
 **Fossify Messages 1.10.1** · [Setup & patch details](docs/MESSAGES.md)
 
@@ -377,13 +405,13 @@ Keep an incoming message unread when its conversation is open in a background Ac
 
 <a id="previews-org-fossify-musicplayer"></a>
 
-<details>
-<summary><strong>Fossify Music Player</strong> · 1 patch</summary>
-<br>
+### Fossify Music Player · 1 patch
 
 <a id="preview-prefer-each-track-s-embedded-cover"></a>
 
-### Prefer each track's embedded cover
+<details>
+<summary><strong>Prefer each track&#x27;s embedded cover</strong> · Before / after</summary>
+<br>
 
 **Fossify Music Player 1.8.4** · [Setup & patch details](docs/MUSIC.md)
 
@@ -402,13 +430,13 @@ Show the artwork embedded in the current track rather than reusing another track
 
 <a id="previews-de-mm20-launcher2-release"></a>
 
-<details>
-<summary><strong>Kvaesitso</strong> · 1 patch</summary>
-<br>
+### Kvaesitso · 1 patch
 
 <a id="preview-restore-widget-editing-from-the-search-menu"></a>
 
-### Restore widget editing from the search menu
+<details>
+<summary><strong>Restore widget editing from the search menu</strong> · Before / after</summary>
+<br>
 
 **Kvaesitso 1.41.0** · [Setup & patch details](docs/KVAESITSO.md)
 
@@ -427,13 +455,13 @@ Reach the existing widget editor from the search-bar menu even when the on-scree
 
 <a id="previews-org-tasks"></a>
 
-<details>
-<summary><strong>Tasks.org</strong> · 1 patch</summary>
-<br>
+### Tasks.org · 1 patch
 
 <a id="preview-navigate-to-the-parent-task"></a>
 
-### Navigate to the parent task
+<details>
+<summary><strong>Navigate to the parent task</strong> · Before / after</summary>
+<br>
 
 **Tasks.org 15.13 · project GitHub F-Droid APK** · [Setup & patch details](docs/TASKS.md)
 
