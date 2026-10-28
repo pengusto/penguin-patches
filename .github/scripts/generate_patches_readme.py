@@ -7,11 +7,15 @@ The catalogue and app details stay collapsed regardless of patch count.
 Use <!-- PATCHES_START EXPANDED --> to explicitly open them instead.
 Optional PATCHES_SUMMARY_START / PATCHES_SUMMARY_END markers receive a short
 release summary, so the introduction stays in sync with the release catalogue.
+PATCHES_PREVIEWS_START / PATCHES_PREVIEWS_END embed each released image pair
+from the evidence gallery; FINAMP_COUNT_START / FINAMP_COUNT_END sync its CTA.
 
 python3 generate_patches_readme.py <owner/repo> <branch> [patches-list.json] [README.md]
 """
 
+import html
 import json
+import posixpath
 import re
 import sys
 from pathlib import Path
@@ -35,6 +39,8 @@ owner, repo = repo_full.split("/", 1)
 
 with open(json_path, encoding="utf-8") as f:
     data = json.load(f)
+readme = readme_path.read_text(encoding="utf-8")
+inline_previews = "<!-- PATCHES_PREVIEWS_START -->" in readme
 
 
 def pkg_emoji(pkg):
@@ -92,7 +98,8 @@ PATCH_GUIDES = {
     "Separate all-day reminder defaults": "docs/CALENDAR_REMINDERS.md",
 }
 EXAMPLES_PATH = Path(__file__).resolve().parents[2] / "docs/PATCH_EXAMPLES.md"
-EXAMPLE_ANCHORS = set(re.findall(r'<a id="([^"]+)"></a>', EXAMPLES_PATH.read_text(encoding="utf-8")))
+gallery = EXAMPLES_PATH.read_text(encoding="utf-8").split("\n## About these comparisons", 1)[0]
+EXAMPLES = dict(re.findall(r'<a id="([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', gallery, re.DOTALL))
 
 
 def patches_table(patches, guide=None):
@@ -113,8 +120,9 @@ def patches_table(patches, guide=None):
         desc = (p.get("description") or "").replace("\n", "<br>")
         destination = PATCH_GUIDES.get(p["name"], guide)
         label = f"[{p['name']}]({destination})" if destination else p["name"]
-        if a in EXAMPLE_ANCHORS:
-            label += f"<br>[Before / after](docs/PATCH_EXAMPLES.md#{a})"
+        if a in EXAMPLES:
+            example = f"#preview-{a}" if inline_previews else f"docs/PATCH_EXAMPLES.md#{a}"
+            label += f"<br>[Before / after]({example})"
         # Preserve incoming README patch links, including the template's slug.
         legacy = ""
         if "'" in p["name"]:
@@ -211,13 +219,57 @@ def build_content(expanded=False):
     return "\n".join(lines)
 
 
+def preview_section(patch):
+    """Reuse the original evidence and baseline labels at README-relative paths."""
+    slug = anchor(patch["name"])
+    if slug not in EXAMPLES:
+        raise ValueError(f"Missing before/after evidence for {patch['name']}")
+    section = EXAMPLES[slug].strip()
+    alts = re.findall(r'<img [^>]*alt="([^"]+)"', section)
+    if len(alts) != 2 or not alts[0].startswith("Before:") or not alts[1].startswith("After:"):
+        raise ValueError(f"Expected labelled Before/After image pair for {patch['name']}")
+
+    def root_target(target):
+        if target == "#before--after":
+            return "#patch-previews"
+        if target.startswith(("#", "/")) or re.match(r"[a-zA-Z][a-zA-Z0-9+.-]*:", target):
+            return target
+        return posixpath.normpath(posixpath.join("docs", target))
+
+    section = re.sub(r'(?<=src=")[^"]+', lambda m: root_target(m[0]), section)
+    section = re.sub(r'(?<=\]\()[^)]+', lambda m: root_target(m[0]), section)
+    section = re.sub(r"^## ", "### ", section, count=1)
+    return f'<a id="preview-{slug}"></a>\n\n{section}'
+
+
+def build_previews():
+    """Keep every released patch's image pair inside the README, grouped by app."""
+    featured = ("com.unicornsonlsd.finamp", "com.nononsenseapps.feeder",
+                "ml.docilealligator.infinityforreddit.plus")
+    order = sorted(by_pkg, key=lambda pkg: (
+        featured.index(pkg) if pkg in featured else len(featured), by_pkg[pkg]["name"].lower()))
+    sections = []
+    for pkg in order:
+        entry = by_pkg[pkg]
+        count = len(entry["patches"])
+        sections.append(
+            f'<a id="previews-{anchor(pkg)}"></a>\n\n<details>\n'
+            f'<summary><strong>{html.escape(entry["name"])}</strong> · '
+            f'{count} {"patch" if count == 1 else "patches"}</summary>\n<br>\n\n'
+            + "\n\n".join(preview_section(p) for p in entry["patches"].values())
+            + "\n\n</details>")
+    if universal:
+        sections.append('<details>\n<summary><strong>Universal patches</strong></summary>\n<br>\n\n'
+                        + "\n\n".join(preview_section(p) for p in universal.values())
+                        + "\n\n</details>")
+    return "\n\n".join(sections)
+
+
 # Build and inject
 raw_ver = data["version"]
 # Strip leading "v" if present
 ver   = raw_ver.lstrip("v")
 total = sum(len(e["patches"]) for e in by_pkg.values()) + len(universal)
-
-readme = readme_path.read_text(encoding="utf-8")
 
 # Marker pattern — matches both <!-- PATCHES_START --> and <!-- PATCHES_START EXPANDED -->
 START_PATTERN = r"<!-- PATCHES_START(?:\s+EXPANDED)?\s*-->"
@@ -260,6 +312,23 @@ new_readme = re.sub(
     lambda m: f"{m[1]}\n{summary}\n{m[2]}",
     new_readme,
     flags=re.DOTALL,
+)
+if inline_previews:
+    if "<!-- PATCHES_PREVIEWS_END -->" not in new_readme:
+        raise ValueError("Missing PATCHES_PREVIEWS_END marker")
+    previews = build_previews()
+    new_readme = re.sub(
+        r"<!-- PATCHES_PREVIEWS_START -->.*?<!-- PATCHES_PREVIEWS_END -->",
+        lambda _: f"<!-- PATCHES_PREVIEWS_START -->\n{previews}\n<!-- PATCHES_PREVIEWS_END -->",
+        new_readme, flags=re.DOTALL,
+    )
+finamp_count = len(by_pkg.get("com.unicornsonlsd.finamp", {}).get("patches", {}))
+new_readme = re.sub(
+    r"<!-- FINAMP_COUNT_START -->.*?<!-- FINAMP_COUNT_END -->",
+    lambda _: (f"<!-- FINAMP_COUNT_START -->\n**[Explore the {finamp_count} Finamp "
+               f"{'patch' if finamp_count == 1 else 'patches'} →](docs/FINAMP_NATIVE.md)**\n"
+               "<!-- FINAMP_COUNT_END -->"),
+    new_readme, flags=re.DOTALL,
 )
 readme_path.write_text(new_readme, encoding="utf-8")
 print(f"✅ Injected patches section into {readme_path} (v{ver}, branch={branch}, {total} patches, expanded={expanded})")

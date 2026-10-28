@@ -78,7 +78,7 @@ class ReleaseReadmeTests(unittest.TestCase):
                 for source, _ in images:
                     if not source.startswith("https://"):
                         self.assertTrue((ROOT / "docs" / source).resolve().is_file(), source)
-                self.assertIn(f"[Before / after](docs/PATCH_EXAMPLES.md#{slug})", rendered)
+                self.assertIn(f"[Before / after](#preview-{slug})", rendered)
 
     def test_every_released_patch_has_a_reachable_image_pair(self):
         data = json.loads((ROOT / "patches-list.json").read_text())
@@ -94,8 +94,53 @@ class ReleaseReadmeTests(unittest.TestCase):
         self.assertIn("2 patches · 1 app", result)
         self.check_gallery(data, result)
         for slug in ("fix-offline-artist-tracks", "fix-track-alphabet-navigation"):
-            self.assertIn(f"[Before / after](docs/PATCH_EXAMPLES.md#{slug})", result)
+            self.assertIn(f"[Before / after](#preview-{slug})", result)
         self.assertNotIn("<details open>", result)
+
+    def test_readme_embeds_every_released_pair_with_root_relative_paths(self):
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        result = self.render(data)
+        previews = result.split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0]
+        self.assertEqual(previews.count("<summary>"), 11)
+        self.assertEqual(previews.count("<img "), 2 * len(data["patches"]))
+        self.assertNotIn("## About these comparisons", previews)
+        sections = dict(re.findall(r'<a id="preview-([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', previews, re.DOTALL))
+        for patch in data["patches"]:
+            slug = re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", patch["name"].lower())).strip("-")
+            with self.subTest(patch=patch["name"]):
+                images = re.findall(r'<img src="([^"]+)"[^>]+alt="([^"]+)"', sections[slug])
+                self.assertEqual(len(images), 2)
+                self.assertTrue(images[0][1].startswith("Before:"))
+                self.assertTrue(images[1][1].startswith("After:"))
+                for source, _ in images:
+                    if not source.startswith("https://"):
+                        self.assertTrue((ROOT / source).is_file(), source)
+        ids = re.findall(r'<a id="([^"]+)">', result)
+        self.assertEqual(len(ids), len(set(ids)), "README anchors must remain distinct")
+        self.assertIn("**Source-widget comparison, not Android APK screenshots.**", previews)
+        self.assertIn("**Breal versus Penguin comparison.**", previews)
+        self.assertIn("**Previous versus revised Morphe patch.**", previews)
+
+    def test_finamp_hero_count_follows_metadata_instead_of_stale_copy(self):
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        stale = (ROOT / "README.md").read_text().replace("Explore the 5 Finamp patches", "Explore the 3 Finamp patches")
+        self.assertIn("Explore the 5 Finamp patches", self.render(data, readme=stale))
+        data["patches"] = [p for p in data["patches"] if p["name"] == "Song artist order"]
+        result = self.render(data, readme=stale)
+        self.assertIn("Explore the 1 Finamp patch →", result)
+        self.assertNotIn("Explore the 3 Finamp patches", result)
+        self.assertEqual(result.split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0].count("<img "), 2)
+
+    def test_missing_released_preview_fails_without_rewriting_readme(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            metadata, target = Path(tmp) / "patches.json", Path(tmp) / "README.md"
+            metadata.write_text(json.dumps({"version": "2.0.0", "patches": [{"name": "Missing evidence"}]}))
+            original = (ROOT / "README.md").read_bytes()
+            target.write_bytes(original)
+            result = subprocess.run([sys.executable, str(SCRIPT), "pengusto/penguin-patches", "main", str(metadata), str(target)], capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("Missing before/after evidence for Missing evidence", result.stderr)
+            self.assertEqual(target.read_bytes(), original)
 
     def test_unknown_and_universal_patches_do_not_gain_dead_links(self):
         data = {"version": "2.0.0", "patches": [
