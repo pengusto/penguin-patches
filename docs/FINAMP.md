@@ -150,6 +150,40 @@ It is a separate source contribution, not a new Morphe catalogue entry or signed
 upstream release. Current GitHub review/CI/merge status is separate from these
 local checks.
 
+## Review evidence and optional three-fix preview
+
+The artist-order request is tracked by
+[issue #1833](https://github.com/finamp-app/finamp/issues/1833), linked for closure
+by PR #1831. Existing issues received focused evidence updates:
+[#1798](https://github.com/finamp-app/finamp/issues/1798#issuecomment-6475184371)
+and [#1732](https://github.com/finamp-app/finamp/issues/1732#issuecomment-6475197764).
+All three PR descriptions include before/after images and fallback testing links.
+
+[Public widget evidence and reproduction](https://github.com/pengusto/finamp/tree/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28)
+uses unchanged upstream `b72ba46` and combined source
+[`ec10998`](https://github.com/pengusto/finamp/tree/ec109989ace6143377567a1ec71664ec6863dcc3).
+The actual Finamp chips, selector, editor and artist page render synthetic data;
+they are not device/live-server screenshots. All **seven PNGs reproduce byte for
+byte** in two isolated local clones. Capture suites pass three before/four after
+tests, separately from the **78 passing combined app tests**.
+
+The [unofficial ARM64 Android debug preview](https://github.com/pengusto/finamp/releases/tag/penguin-preview-2026-10-28-r2)
+now includes **all three fixes**, superseding the earlier two-fix preview as the
+recommended testing artifact. The earlier preview/source remains historical.
+The new APK builds, installs as an update to that fixture preview and cold-starts
+to the welcome screen on the disposable Android 15 ARM64 emulator, with no
+observed AndroidRuntime fatal exception. UIAutomator's Flutter labels appear in
+`content-desc` as well as `text`; the smoke verification reads both.
+
+The release publishes individual source patches, the combined patch, exact
+source, MPL-2.0 license, artifact hashes and verification. Its package remains
+`com.unicornsonlsd.finamp.debug`, version `1.0.1-penguin.review.20261028`, code 201,
+signed with the same Android debug certificate. Targeted analysis has no
+errors/warnings; one existing informational lint remains outside the changed
+lines. Physical/OEM-device, live Jellyfin, playback, downloads and lock-screen
+acceptance remain open. Upstream workflow runs for all three independent heads
+report `action_required` and require maintainer approval.
+
 ## Morphe feasibility
 
 Flutter release apps compile Dart to native machine code; see the
