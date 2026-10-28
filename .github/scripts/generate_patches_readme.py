@@ -3,9 +3,10 @@
 Generates the patches section of README.md from patches-list.json
 and injects it between <!-- PATCHES_START --> / <!-- PATCHES_END --> markers.
 
-Spoilers are expanded (open by default) if:
-  1. Total patch count <= AUTO_EXPAND_THRESHOLD.
-  2. The README marker explicitly says: <!-- PATCHES_START EXPANDED -->
+The catalogue and app details stay collapsed regardless of patch count.
+Use <!-- PATCHES_START EXPANDED --> to explicitly open them instead.
+Optional PATCHES_SUMMARY_START / PATCHES_SUMMARY_END markers receive a short
+release summary, so the introduction stays in sync with the release catalogue.
 
 python3 generate_patches_readme.py <owner/repo> <branch> [patches-list.json] [README.md]
 """
@@ -13,7 +14,6 @@ python3 generate_patches_readme.py <owner/repo> <branch> [patches-list.json] [RE
 import json
 import re
 import sys
-import os
 from pathlib import Path
 
 
@@ -74,7 +74,28 @@ def anchor(name):
     return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", name.lower())).strip("-")
 
 
-def patches_table(patches):
+# Keep release metadata unchanged; these are documentation destinations only.
+GUIDES = {
+    "org.fossify.calendar": "docs/CALENDAR.md",
+    "org.fossify.messages": "docs/MESSAGES.md",
+    "org.fossify.filemanager": "docs/FILE_MANAGER.md",
+    "org.fossify.contacts": "docs/CONTACTS.md",
+    "org.fossify.musicplayer": "docs/MUSIC.md",
+    "de.mm20.launcher2.release": "docs/KVAESITSO.md",
+    "org.fossify.clock": "docs/CLOCK.md",
+    "org.tasks": "docs/TASKS.md",
+    "com.nononsenseapps.feeder": "docs/FEEDER.md",
+    "com.unicornsonlsd.finamp": "docs/FINAMP_NATIVE.md",
+    "ml.docilealligator.infinityforreddit.plus": "docs/INFINITY.md",
+}
+PATCH_GUIDES = {
+    "Separate all-day reminder defaults": "docs/CALENDAR_REMINDERS.md",
+}
+EXAMPLES_PATH = Path(__file__).resolve().parents[2] / "docs/PATCH_EXAMPLES.md"
+EXAMPLE_ANCHORS = set(re.findall(r'<a id="([^"]+)"></a>', EXAMPLES_PATH.read_text(encoding="utf-8")))
+
+
+def patches_table(patches, guide=None):
     """Render a sorted markdown table of patches with name, description, and options."""
     rows = [
         "| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |",
@@ -90,7 +111,16 @@ def patches_table(patches):
         else:
             opts_cell = ""
         desc = (p.get("description") or "").replace("\n", "<br>")
-        rows.append(f"| [{p['name']}](#{a}) | {desc} | {opts_cell} |")
+        destination = PATCH_GUIDES.get(p["name"], guide)
+        label = f"[{p['name']}]({destination})" if destination else p["name"]
+        if a in EXAMPLE_ANCHORS:
+            label += f"<br>[Before / after](docs/PATCH_EXAMPLES.md#{a})"
+        # Preserve incoming README patch links, including the template's slug.
+        legacy = ""
+        if "'" in p["name"]:
+            github_slug = anchor(p["name"].replace("'", ""))
+            legacy = f'<a id="{github_slug}"></a>'
+        rows.append(f'| <a id="{a}"></a>{legacy}{label} | {desc} | {opts_cell} |')
     return "\n".join(rows)
 
 
@@ -127,7 +157,7 @@ def versions_table(targets):
 
 def spoiler(label, count, targets, tbl, expanded=False):
     """Wrap a patches table in a <details> spoiler with a versions sub-table.
-    If expanded=True, the spoiler is open by default (for repos with few patches).
+    If expanded=True, the spoiler is explicitly open by default.
     """
     noun = "patch" if count == 1 else "patches"
     vtbl = versions_table(targets)
@@ -144,17 +174,23 @@ def spoiler(label, count, targets, tbl, expanded=False):
 
 def build_content(expanded=False):
     """Build the full generated patches section."""
+    tag = "<details open>" if expanded else "<details>"
+    app_noun = "app" if len(by_pkg) == 1 else "apps"
+    patch_noun = "patch" if total == 1 else "patches"
     lines = [
+        tag,
+        f"<summary><strong>All {len(by_pkg)} {app_noun} and supported versions</strong></summary>",
+        "",
         f"> **[v{ver}](https://github.com/{owner}/{repo}/releases/tag/v{ver})**"
         f"&nbsp;&nbsp;•&nbsp;&nbsp;`{branch}`&nbsp;&nbsp;•&nbsp;&nbsp;"
-        f"{total} patches total"
+        f"{total} {patch_noun} total"
     ]
 
     # One spoiler per app, in the order they appear in the JSON
     for pkg, entry in by_pkg.items():
         patches = list(entry["patches"].values())
         label   = f"{entry['emoji']} {entry['name']}"
-        lines.append(spoiler(label, len(patches), entry["targets"], patches_table(patches), expanded))
+        lines.append(spoiler(label, len(patches), entry["targets"], patches_table(patches, GUIDES.get(pkg)), expanded))
         lines.append("")
 
     # Universal patches (no specific app)
@@ -171,6 +207,7 @@ def build_content(expanded=False):
 </details>""")
         lines.append("")
 
+    lines.append("</details>")
     return "\n".join(lines)
 
 
@@ -199,17 +236,7 @@ if not marker_match or END_MARKER not in readme:
 
 actual_start = marker_match.group(0)
 
-# Auto-expand threshold
-AUTO_EXPAND_THRESHOLD = 20
-
-# Spoilers are expanded if:
-# 1. Total patch count is small (≤ AUTO_EXPAND_THRESHOLD)
-#    with only a few patches where collapsing adds no benefit.
-# 2. The README marker explicitly requests it: <!-- PATCHES_START EXPANDED -->
-expanded = (
-    total <= AUTO_EXPAND_THRESHOLD or
-    "EXPANDED" in actual_start
-)
+expanded = "EXPANDED" in actual_start
 
 generated  = build_content(expanded=expanded)
 
@@ -219,8 +246,19 @@ readme = readme.replace("https://github.com/xyz-user/xyz-patches", f"https://git
 
 new_readme = re.sub(
     rf"{START_PATTERN}.*?{re.escape(END_MARKER)}",
-    f"{actual_start}\n{generated}\n{END_MARKER}",
+    lambda _: f"{actual_start}\n{generated}\n{END_MARKER}",
     readme,
+    flags=re.DOTALL,
+)
+summary = (
+    f"**{total} {'patch' if total == 1 else 'patches'} · "
+    f"{len(by_pkg)} {'app' if len(by_pkg) == 1 else 'apps'} · "
+    f"[v{ver}](https://github.com/{owner}/{repo}/releases/tag/v{ver})**"
+)
+new_readme = re.sub(
+    r"(<!-- PATCHES_SUMMARY_START -->).*?(<!-- PATCHES_SUMMARY_END -->)",
+    lambda m: f"{m[1]}\n{summary}\n{m[2]}",
+    new_readme,
     flags=re.DOTALL,
 )
 readme_path.write_text(new_readme, encoding="utf-8")
