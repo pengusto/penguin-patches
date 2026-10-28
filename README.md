@@ -12,7 +12,7 @@ Use **Infinity+ for Reddit with your own OAuth client**, without the app subscri
 
 Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder, Finamp and Infinity+ for Reddit. Independent project; not affiliated with Morphe or the original app projects.
 
-**Early-stage software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. Stable releases come from `main`; `dev` carries pre-releases of upcoming changes.
+**Early-stage software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators. Finamp also passes [actual Android Manager 2.2.0 acceptance](tests/finamp/evidence/2026-10-28-manager/README.md); physical devices remain unverified, and other apps retain their guide-specific limits. Stable releases come from `main`; `dev` carries pre-releases of upcoming changes.
 
 [Add to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches) · [Set up Infinity+](docs/INFINITY.md) · [All patch details](#the-fixes) · [Build from source](#development) · [Verification evidence](docs/VERIFICATION.md)
 
@@ -141,7 +141,7 @@ The template's release workflow is **manual only**. Patch metadata, the catalogu
 
 The app guides distinguish patched official APK checks from separately tested source-fork implementations. Recorded checks include patch application, native assertions and synthetic UI/data-retention fixtures. They are prior evidence, not a claim that every check runs automatically on each commit.
 
-Physical-device acceptance, mobile Morphe Manager execution and app-specific sync, storage or carrier scenarios remain open as described in each guide. Only the declared APK versions are supported.
+Physical-device acceptance and app-specific sync, storage or carrier scenarios remain open as described in each guide. Android Manager execution is verified for Finamp on the API 35 emulator; other apps retain their documented Manager limits. Only the declared APK versions are supported.
 
 For a reproducible problem, [open an issue](https://github.com/pengusto/penguin-patches/issues/new/choose) with the original app version, selected patches, Android/Morphe versions and minimal steps. Remove personal contacts, messages, calendar data, Reddit account names, OAuth codes or tokens and signing material from reports.
 

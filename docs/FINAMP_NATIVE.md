@@ -113,14 +113,30 @@ uses URLClassLoader over the MPP. Both support the bundle-anchored resources.
 Manager filters unselected dependency results, so the composition runs once
 through the **selected patches' finalizers**, with failures propagated to every
 selection. The hidden dependency only initializes invocation state. Source
-inspection complements the real Desktop 2.0.1 tests; it is not on-device Manager
-execution.
+inspection is now complemented by the actual Android Manager run below.
 
 The synthetic HTTP fixture is local and serves generated WAV audio, not personal
 music or accounts. Neither its response timing nor widget captures are a
-live-server performance or RAM benchmark. Physical/OEM devices, other Android
-versions and on-device Morphe Manager execution have separate verification
-limits; see the current acceptance report.
+live-server performance or RAM benchmark. Physical/OEM devices and other Android
+versions remain outside this profile.
+
+## Actual Android Manager acceptance
+
+[Manager 2.2.0 acceptance](../tests/finamp/evidence/2026-10-28-manager/README.md)
+passes on the Android 15/API 35 ARM64 emulator. The remote source downloads the
+exact released Penguin 1.1.0 bundle. All three rows are off by default and can
+be selected independently. Title-only, artists-only, loading-only and all-three
+runs succeed with the default embedded JVM; all-three also succeeds in Android
+ART. All five exported APKs match their native output hashes, retained APK
+entries, expected signer, uncompressed native entries and 16 KiB ZIP alignment.
+
+Manager's combined export installs through the Android update UI and starts
+with the existing synthetic login, Dark theme and Metadata order. A controlled
+corrupted-input test visibly fails through a selected patch; after restoring
+the original test input, ART succeeds again. No production patch change was
+needed. [Workflow and verification tools](../tests/finamp/README-manager.md).
+This establishes Android Manager execution on the emulator, not physical phones
+or other Android/Manager releases; pairwise masks remain Desktop-tested.
 
 ## Rebuild and licenses
 

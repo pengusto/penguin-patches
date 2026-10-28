@@ -98,6 +98,8 @@ auxiliary primitive Hive box avoids registering new types in original settings.
 Actual APK captures and machine-readable results are in
 [evidence/2026-10-28](evidence/2026-10-28). These use disposable synthetic data.
 They do not establish physical-device, other-Android-version, live-server timing
-or RAM results. Manager's ZIP-resource loader has been checked against primary
-source; on-device Manager patch execution has not been run. The source/widget
-screenshots in the upstream PRs are separate from these APK captures.
+or RAM results. The subsequent [actual Android Manager acceptance](evidence/2026-10-28-manager/README.md)
+verifies selection/apply/export, both execution backends, one update/start and
+state retention on the same API 35 emulator; physical phones remain untested.
+[Repeatable Manager workflow](README-manager.md). The source/widget screenshots
+in the upstream PRs are separate from these APK captures.
