@@ -24,11 +24,13 @@ ENGINE_SHA = 'd70bbedc2b157630f90123a32ca894a6fa1816ec10cda9f335bada0692b376ee'
 FLUTTER_REV = 'd3b14c876900e553bc736ca19295fc09e3853e8e'
 ENGINE_REV = 'a804b261645ef8c13eb3d5c44a5c2fb0340c5539'
 SNAPSHOT = re.compile(rb'\xf5\xf5\xdc\xdc.{16}([0-9a-f]{32})([^\x00]*)\x00', re.S)
+MASKS = range(1, 32)
+
 PRODUCTION = ROOT / 'patches/src/main/resources/finamp/1.0.1'
 
 
 def payload_output(masks, requested, work):
-    complete = set(masks) == set(range(1, 8))
+    complete = set(masks) == set(MASKS)
     destination = (requested or (PRODUCTION if complete else work / 'partial-payloads')).resolve()
     if not complete and (destination == PRODUCTION.resolve() or PRODUCTION.resolve() in destination.parents):
         raise ValueError('Partial rebuilds must use a private output directory')
@@ -51,11 +53,11 @@ def main():
     for name in ['source-repo', 'source-matrix', 'flutter', 'original-apk', 'strip', 'work-dir']:
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--output', type=Path)
-    parser.add_argument('--masks', default='1,2,3,4,5,6,7')
+    parser.add_argument('--masks', default=','.join(map(str, MASKS)))
     args = parser.parse_args()
     masks = [int(value) for value in args.masks.split(',')]
-    if not masks or len(set(masks)) != len(masks) or any(mask not in range(1, 8) for mask in masks):
-        raise ValueError('Select unique source masks 1..7')
+    if not masks or len(set(masks)) != len(masks) or any(mask not in MASKS for mask in masks):
+        raise ValueError('Select unique source masks 1..31')
     output = payload_output(masks, args.output, args.work_dir.resolve())
     flutter = args.flutter.resolve()
     versions = json.loads(run([str(flutter), '--version', '--machine']))
@@ -93,7 +95,7 @@ def main():
     report = {'original_apk_sha256': APK_SHA, 'original_native_sha256': LIBRARY_SHA,
               'flutter': versions, 'masks': {}}
     manifest_path = output / 'manifest.properties'
-    if set(masks) == set(range(1, 8)) and manifest_path.exists():
+    if set(masks) == set(MASKS) and manifest_path.exists():
         manifest_path.unlink()  # A failed/incomplete rebuild cannot leave a stale publishable manifest.
     properties = ['schema=1', 'package=com.unicornsonlsd.finamp', 'version=1.0.1',
                   'flutter=3.47.2', 'dart=3.13.2', 'abi.arm64-v8a.base.sha256=' + LIBRARY_SHA,
@@ -104,6 +106,8 @@ def main():
         if run(['git', 'status', '--porcelain', '--untracked-files=no'], cwd=source):
             raise ValueError('Build source has unexpected tracked changes')
         run(['git', 'checkout', '--quiet', '--detach', revision], cwd=source)
+        if run(['git', 'rev-parse', 'HEAD^{tree}'], cwd=source) != matrix['masks'][str(mask)]['tree']:
+            raise ValueError(f'Pinned source tree mismatch for mask {mask}')
         run([str(flutter), 'pub', 'get', '--enforce-lockfile'], cwd=source, log=work / f'pub-{mask}.log')
         run([str(flutter), 'gen-l10n'], cwd=source, log=work / f'l10n-{mask}.log')
         bundle = source / f'build/native-mask-{mask}'
@@ -139,7 +143,7 @@ def main():
         (work / 'native-build-report.json').write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps({'mask': mask, **record}), flush=True)
     # A partial developer run is not a publishable matrix; never overwrite the production manifest.
-    if set(masks) == set(range(1, 8)):
+    if set(masks) == set(MASKS):
         manifest_path.write_text('\n'.join(properties) + '\n')
     else:
         (work / 'partial-manifest.properties').write_text('\n'.join(properties) + '\n')

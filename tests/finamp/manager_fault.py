@@ -36,12 +36,16 @@ def verify_mutant(original, mutant):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path, required=True)
+    parser.add_argument('--mask', type=int, choices=range(1, 32), default=31)
+    parser.add_argument('--out-root', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0')
     parser.add_argument('--mutant-apk', type=Path, required=True)
     parser.add_argument('--original-apk', type=Path, required=True)
     args = parser.parse_args()
     verify_mutant(args.original_apk, args.mutant_apk)
     base.PACKAGE = 'app.morphe.manager'
-    base.OUT_ROOT = base.REPO_ROOT / '.scratch/finamp/manager-2.2.0'
+    base.OUT_ROOT = args.out_root.expanduser().resolve()
+    if not base.OUT_ROOT.is_relative_to((base.REPO_ROOT / '.scratch').resolve()):
+        parser.error('--out-root must stay inside this repository scratch directory')
     ui = base.Android(out=base.OUT_ROOT / 'ui', adb=args.adb)
     expected_mutant = hashlib.sha256(args.mutant_apk.read_bytes()).hexdigest()
     def runtime_lines():
@@ -66,12 +70,12 @@ def main():
         assert sha(CACHE) == expected_mutant
         ui.tap('Finamp', class_name='android.widget.TextView')
         ui.tap('Patch', class_name='android.widget.TextView')
-        for name in NAMES.values():
+        for bit, name in NAMES.items():
             root, _ = ui.dump()
             states = [n.get('content-desc') for n in root.iter('node')
                       if n.get('content-desc') in (name + ', Enabled', name + ', Disabled')]
             assert len(states) == 1
-            if states[0].endswith(', Disabled'):
+            if states[0].endswith(', Enabled') != bool(args.mask & bit):
                 ui.tap(name, class_name='android.widget.TextView')
         ui.capture('fault-art-selection')
         ui.tap('Patch', class_name='android.widget.TextView')
@@ -89,7 +93,7 @@ def main():
                 normalized = [label.replace('\u200b', '') for label in labels]
                 failed = [label.removeprefix('Failed to apply ') for label in normalized
                           if label.startswith('Failed to apply ')]
-                assert len(failed) == 1 and failed[0] in NAMES.values(), 'Error not attributed to a selected patch'
+                assert len(failed) == 1 and failed[0] in [name for bit, name in NAMES.items() if args.mask & bit], 'Error not attributed to a selected patch'
                 assert any('unsupported ARM64 libflutter.so' in label for label in normalized)
                 runtime = runtime_lines()
                 assert runtime != previous_runtime and 'name=art ' in runtime[-1], 'No new ART invocation'

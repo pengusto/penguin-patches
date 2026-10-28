@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply the real MPP to all seven selections; verify retained APK contents."""
+"""Apply the real MPP to all 31 selections; verify retained APK contents."""
 import argparse
 import hashlib
 import json
@@ -8,9 +8,10 @@ from pathlib import Path
 import subprocess
 import zipfile
 
-from build_native_payloads import APK_SHA, LIBRARY_SHA
+from build_native_payloads import APK_SHA, LIBRARY_SHA, MASKS
 
-NAMES = {1: 'Fix section title validation', 2: 'Song artist order', 4: 'Load artist pages faster'}
+NAMES = {1: 'Fix section title validation', 2: 'Song artist order', 4: 'Load artist pages faster',
+         8: 'Fix offline artist tracks', 16: 'Fix track alphabet navigation'}
 
 
 def sha(data):
@@ -54,7 +55,7 @@ def main():
     directory = args.output_dir.resolve()
     directory.mkdir(parents=True, exist_ok=True)
     results = {}
-    for mask in range(1, 8):
+    for mask in MASKS:
         output = directory / f'mask-{mask}-unsigned.apk'
         result_file = directory / f'mask-{mask}-patcher.json'
         if output.exists() or result_file.exists():

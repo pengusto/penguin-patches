@@ -6,7 +6,9 @@
   "mask_bits": {
     "1": "title validation PR1830",
     "2": "artist order PR1831 with auxiliary-box persistence",
-    "4": "artist loading PR1832"
+    "4": "artist loading PR1832",
+    "8": "offline artist filtering issue1689",
+    "16": "track alphabet navigation issue1790"
   },
   "masks": {
     "0": {
@@ -78,6 +80,254 @@
         "804e47f619f6ff261378a15cded3077e9e07217d",
         "ff52acf0b44c5119c47cac40295ae7cb33238d71",
         "558800d09d7e958aece9572016e98116aea278d4"
+      ]
+    },
+    "8": {
+      "commit": "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+      "tree": "bd34c91e8dab670007e422d2200ec51826ee1a35",
+      "branch": "penguin/finamp-native-1.0.1-mask-8",
+      "features": [
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "9": {
+      "commit": "4f1f6c1a8ed5f2e7b7e10fc17d6dfd14d7e3a1fd",
+      "tree": "8cce6b7019c4f862a23bbfbf09344faa5f9afaa3",
+      "branch": "penguin/finamp-native-1.0.1-mask-9",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "10": {
+      "commit": "9600ec634a21ff38c4cce200421e34438de592b0",
+      "tree": "5f396499c036e08e5c43fe6524d91baf715d27e2",
+      "branch": "penguin/finamp-native-1.0.1-mask-10",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "11": {
+      "commit": "61df7ad93c106f997f632c23cb3874f631729439",
+      "tree": "eec1ae2e9affd401f486449640f0f15e08b03717",
+      "branch": "penguin/finamp-native-1.0.1-mask-11",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "12": {
+      "commit": "43b93eed0de6f8a3c410fe95dffafffa9f29265e",
+      "tree": "a063388bd54ff42e206cffe6f5a13931d64147aa",
+      "branch": "penguin/finamp-native-1.0.1-mask-12",
+      "features": [
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "13": {
+      "commit": "d1fa77ba05cc6ecb4e9800b021abd4cd703f0383",
+      "tree": "d3a6224e94c457a3703e2896ed1541be5b7a0c79",
+      "branch": "penguin/finamp-native-1.0.1-mask-13",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "14": {
+      "commit": "93f096c4f921c547a41ab9606e02d739eebf53fa",
+      "tree": "e694c67c7653c933310766e2801d7c579c55e78b",
+      "branch": "penguin/finamp-native-1.0.1-mask-14",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "15": {
+      "commit": "fe7611b5c599336979ca7d65509542dfe1458744",
+      "tree": "c74860a33c3c6e7546ac6c51970d74644fe2894c",
+      "branch": "penguin/finamp-native-1.0.1-mask-15",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe"
+      ]
+    },
+    "16": {
+      "commit": "d41c02a461c6c84bfa1c385f887cefdbaa373ec4",
+      "tree": "291627f28d5319a6ce4c46e5136774441acd670b",
+      "branch": "penguin/finamp-native-1.0.1-mask-16",
+      "features": [
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "17": {
+      "commit": "6d4fa55d7ed2379da3e63452b0728f3bc8b2a537",
+      "tree": "1f6903a21aa85e38783d9ee4d3c282256cf1ffa3",
+      "branch": "penguin/finamp-native-1.0.1-mask-17",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "18": {
+      "commit": "08f6c139a9e4a75219c35fe995cb906f4ca17e76",
+      "tree": "9237eadf7b70dac8c66b357edc734e8aad589af9",
+      "branch": "penguin/finamp-native-1.0.1-mask-18",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "19": {
+      "commit": "e9c5297b6c562ca35038a15694aa58e4bec524ea",
+      "tree": "109d7f3ae6960a6c8bf34805de09012853ea3e33",
+      "branch": "penguin/finamp-native-1.0.1-mask-19",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "20": {
+      "commit": "8820950b95d39520441bf0a9eb90f75adb1bc33a",
+      "tree": "224bc62d74a7feef650a6913ce82ffe2b161c52b",
+      "branch": "penguin/finamp-native-1.0.1-mask-20",
+      "features": [
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "21": {
+      "commit": "1eb6cbab2f016dffc66c9ee70ec9367da90849cc",
+      "tree": "b374fad178e58cfc671cf6333dde26fe82060651",
+      "branch": "penguin/finamp-native-1.0.1-mask-21",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "22": {
+      "commit": "2a9f609fc388b64b1c0d796689a2fed73a6dee27",
+      "tree": "70f8ddc41878f100576150fc102e0d3d9865e5f5",
+      "branch": "penguin/finamp-native-1.0.1-mask-22",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "23": {
+      "commit": "364f636e8f56de633f46164da9d43b187c043a3b",
+      "tree": "f88713f4303ed262f92cd359d397030cfb26f34e",
+      "branch": "penguin/finamp-native-1.0.1-mask-23",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "24": {
+      "commit": "6af9580f2c62b2ea0bc090df66e585f7dd6dc257",
+      "tree": "07b742f44c2ce3d2ff4787d95635e230d74cb44d",
+      "branch": "penguin/finamp-native-1.0.1-mask-24",
+      "features": [
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "25": {
+      "commit": "e5472b259f9545c53f183320dcb2869db78f38d1",
+      "tree": "c554a68a471ce0a4b8d031c8efb6d9ba5c47055f",
+      "branch": "penguin/finamp-native-1.0.1-mask-25",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "26": {
+      "commit": "09db3c5ab4f6285dd4466af3dd05bcf69accf0bb",
+      "tree": "0bef311216704cfc98510490e31d87469c309f12",
+      "branch": "penguin/finamp-native-1.0.1-mask-26",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "27": {
+      "commit": "719ac15a1bd1ef8a93920a6d567fecfa6996219c",
+      "tree": "c128ce8115e2a889fefa3eb381776ba0b3d8531a",
+      "branch": "penguin/finamp-native-1.0.1-mask-27",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "28": {
+      "commit": "9669e2548b336450e5e8e50e5b883382e4bc7e71",
+      "tree": "f67a39561ffd924029f2fd96b9bb0eebc5d372f2",
+      "branch": "penguin/finamp-native-1.0.1-mask-28",
+      "features": [
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "29": {
+      "commit": "8d9d740492db1ec42dc7f8c2d66e6246c84a0991",
+      "tree": "362758e4bd82f5295987acfd68c8bfed4b233e55",
+      "branch": "penguin/finamp-native-1.0.1-mask-29",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "30": {
+      "commit": "551bd197c47ba9de728528d67459671e94d0d2e9",
+      "tree": "67783318a568714fd9e33a20cd197d554bb7c0e5",
+      "branch": "penguin/finamp-native-1.0.1-mask-30",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
+      ]
+    },
+    "31": {
+      "commit": "313694b7d4cfd5c738964b785cc78ebd721b9ea6",
+      "tree": "ff3959124d5eb3b13841aafd2ba4acb8e8d9f98b",
+      "branch": "penguin/finamp-native-1.0.1-mask-31",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4",
+        "0aec0a7143b3ba4eab85f02bd0c3bb4dd61ec4fe",
+        "d41c02a461c6c84bfa1c385f887cefdbaa373ec4"
       ]
     }
   }

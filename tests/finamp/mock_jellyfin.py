@@ -25,6 +25,7 @@ from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, unquote, urlsplit
 import uuid
+import unicodedata
 import wave
 import zlib
 
@@ -175,7 +176,10 @@ class Query:
 
 
 class Fixture:
-    def __init__(self, *, mode="off", scope="artist", hold_timeout=120, data_dir=None):
+    def __init__(self, *, mode="off", scope="artist", hold_timeout=120, data_dir=None, profile="credits"):
+        if profile not in ("credits", "navigation"):
+            raise ValueError("Unknown synthetic fixture profile")
+        self.profile = profile
         self.lock = threading.RLock()
         self.records = deque(maxlen=5000)
         self.sequence = 0
@@ -247,6 +251,35 @@ class Fixture:
                           "DateCreated": "2026-01-%02dT12:00:00.0000000Z" % index,
                           "UserData": user_data(item_id, index)})
             items.append(track)
+        if self.profile == "navigation":
+            # A second album leaves the existing credit/download fixture intact.
+            # 105 extra tracks cross the app's 100-item page boundary. Every
+            # extra stream reuses our generated PCM bytes; no music is imported.
+            navigation_album = copy.deepcopy(album)
+            navigation_id = stable_id("navigation-album")
+            navigation_album.update({"Id": navigation_id, "Name": "Alphabet Library",
+                                     "SortName": "alphabet library", "ChildCount": 105,
+                                     "RecursiveItemCount": 105, "RunTimeTicks": 105 * RUNTIME_TICKS})
+            items.append(navigation_album)
+            names = ["01 Numbers"]
+            for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+                title = {"E": "Écho", "M": "Midnight", "Z": "Zebra"}.get(letter, letter + " Song")
+                names.extend(title + " %02d" % index for index in range(1, 5))
+            template = next(item for item in items if item["Id"] == TRACK_IDS[0])
+            for index, name in enumerate(names, 1):
+                item_id = stable_id("navigation-track:" + str(index))
+                self.audio[item_id] = self.audio[TRACK_IDS[0]]
+                track = copy.deepcopy(template)
+                source = media_source(item_id, len(self.audio[item_id]))
+                sort_name = "".join(c for c in unicodedata.normalize("NFKD", name.casefold())
+                                    if not unicodedata.combining(c))
+                track.update({"Id": item_id, "Name": name, "SortName": sort_name,
+                              "ParentId": navigation_id, "AlbumId": navigation_id, "Album": "Alphabet Library",
+                              "IndexNumber": index, "Artists": ["Z Lead"], "ArtistItems": album_credits,
+                              "MediaSources": [source], "MediaStreams": source["MediaStreams"], "Path": source["Path"],
+                              "ParentPrimaryImageItemId": navigation_id, "UserData": user_data(item_id)})
+                items.append(track)
+            library.update({"ChildCount": 2, "RecursiveItemCount": 115})
         return {item["Id"]: item for item in items}
 
     def manifest(self, port, host="127.0.0.1"):
@@ -254,7 +287,8 @@ class Fixture:
         return {"fixture": "finamp-morphe-v1", "baseUrl": "http://%s:%d" % (host, port),
                 "username": "fixture", "password": "", "serverId": SERVER_ID, "userId": USER_ID,
                 "libraryId": LIBRARY_ID, "albumId": ALBUM_ID, "artistIds": ARTIST_IDS,
-                "genreIds": GENRE_IDS, "trackIds": TRACK_IDS, "durationSeconds": DURATION_SECONDS,
+                "genreIds": GENRE_IDS, "trackIds": tuple(self.audio), "durationSeconds": DURATION_SECONDS,
+                "profile": self.profile,
                 "controlHeader": "X-Fixture-Control", "controlToken": self.control_token,
                 "dataDir": str(self.data_dir) if self.data_dir else None,
                 "unboundedMode": self.mode, "unboundedScope": self.scope}
@@ -717,12 +751,14 @@ def main(argv=None):
     parser.add_argument("--port", type=int, default=18961, help="HTTP port; 0 chooses a free port (default: 18961)")
     parser.add_argument("--data-dir", type=Path, help="explicit output directory for manifest.json, WAVs, requests.jsonl; default: memory only")
     parser.add_argument("--unbounded-mode", choices=("off", "hold", "reject"), default="off")
+    parser.add_argument("--profile", choices=("credits", "navigation"), default="credits")
     parser.add_argument("--unbounded-scope", choices=("artist", "all"), default="artist")
     parser.add_argument("--hold-timeout", type=float, default=120, help="hold ceiling in seconds, 0.1..300 (default: 120)")
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535 or not 0.1 <= args.hold_timeout <= 300:
         parser.error("Invalid port or hold timeout")
-    fixture = Fixture(mode=args.unbounded_mode, scope=args.unbounded_scope, hold_timeout=args.hold_timeout, data_dir=args.data_dir)
+    fixture = Fixture(mode=args.unbounded_mode, scope=args.unbounded_scope, hold_timeout=args.hold_timeout,
+                      data_dir=args.data_dir, profile=args.profile)
     try:
         server = FixtureServer((args.host, args.port), fixture)
     except (ValueError, OSError):

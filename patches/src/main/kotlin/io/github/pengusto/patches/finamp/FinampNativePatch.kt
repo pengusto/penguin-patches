@@ -94,8 +94,18 @@ val finampFasterArtistPagePatch = finampFeature(
     "Load artist pages faster", "Load artist previews and track counts without downloading the full discography (#1832).", 4,
 )
 
+@Suppress("unused")
+val finampOfflineArtistTracksPatch = finampFeature(
+    "Fix offline artist tracks", "Exclude unrelated songs from shared albums on offline performing-artist pages (#1689).", 8,
+)
+
+@Suppress("unused")
+val finampTrackAlphabetPatch = finampFeature(
+    "Fix track alphabet navigation", "Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790).", 16,
+)
+
 private fun ResourcePatchContext.applyFinampComposition(mask: Int) {
-    nativeCheck(mask in 1..7, "invalid selection mask $mask")
+    nativeCheck(mask in 1..31, "invalid selection mask $mask")
     nativeCheck(packageMetadata.packageName == FINAMP_PACKAGE && packageMetadata.versionName == FINAMP_VERSION,
         "unsupported app; use the original official Finamp 1.0.1 APK")
 
