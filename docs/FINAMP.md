@@ -96,6 +96,13 @@ not established by these tests. This is a source contribution and debug build,
 with no new Morphe catalogue entry. The section-title fix #1830 remains a separate
 PR and is not part of the independent artist-order branch.
 
+The separate [combined preview source](https://github.com/pengusto/finamp/tree/12b2f2103186692506523bcc359c27c1ea5103e6)
+contains both PRs. Its **62 tests pass** and its debug APK builds and starts to
+the welcome screen on the isolated Android 15 ARM64 emulator. It uses package
+`com.unicornsonlsd.finamp.debug` and an Android debug certificate, allowing a
+separate installation alongside the official app. This is a local preview
+artifact, not a new Penguin Morphe release or upstream-signed Finamp release.
+
 ## Morphe feasibility
 
 Flutter release apps compile Dart to native machine code; see the
