@@ -119,8 +119,9 @@ The local QR image encodes only the linked source URL; it is an installation sho
 Open-source app fixes are paired with focused upstream source PRs. The
 [contribution queue](docs/ROADMAP.md) records related issues, competing PRs and
 the next verification steps. [Finamp source contributions](docs/FINAMP.md) address
-custom-section title validation and configurable song-artist order; Finamp
-currently has no Morphe catalogue entry.
+custom-section title validation, configurable song-artist order and artist-page
+loading. The separate [native patches](docs/FINAMP_NATIVE.md) support the original
+official Finamp 1.0.1 APK with ARM64 output.
 
 ## Development
 
