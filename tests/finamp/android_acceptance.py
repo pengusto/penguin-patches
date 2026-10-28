@@ -458,7 +458,7 @@ class FixtureControl:
             raw = response.read()
             return json.loads(raw) if raw else None
 
-    def start(self, android):
+    def start(self, android, profile=None):
         self.directory.mkdir(exist_ok=True)
         try:
             with urllib.request.urlopen(BASE_URL + "/System/Info/Public", timeout=1) as response:
@@ -468,8 +468,12 @@ class FixtureControl:
             if self.manifest["baseUrl"] != BASE_URL:
                 raise RuntimeError("Unexpected fixture manifest address")
             self.call("/_fixture")
+            if profile is not None and self.manifest.get("profile", "credits") != profile:
+                raise RuntimeError("Fixture profile differs; stop the owned fixture explicitly before switching")
         except (urllib.error.URLError, ConnectionError):
             command = [sys.executable, "-B", str(ROOT / "mock_jellyfin.py"), "--port", str(PORT), "--data-dir", str(self.directory)]
+            if profile is not None:
+                command += ["--profile", profile]
             with (self.directory / "server.log").open("ab") as log:
                 process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
             write_json(self.directory / "process.json", {"pid": process.pid, "command": command, "startedAt": utc(),
@@ -1008,8 +1012,10 @@ def make_parser():
     parser.add_argument("--expected-features", type=int, choices=range(8), default=0,
                         help="bitmask: title=1, artist credits=2, bounded artist page=4")
     sub = parser.add_subparsers(dest="command", required=True)
-    for command in ("verify", "start-fixture", "launch", "restart", "back", "hide-ime", "self-check"):
+    for command in ("verify", "launch", "restart", "back", "hide-ime", "self-check"):
         sub.add_parser(command)
+    fixture_parser = sub.add_parser("start-fixture")
+    fixture_parser.add_argument("--profile", choices=("credits", "navigation"), default="credits")
     inspect = sub.add_parser("inspect")
     inspect.add_argument("--limit", type=int, choices=range(1, 51), default=12)
     inspect.add_argument("--contains", default="")
@@ -1108,7 +1114,7 @@ def main(argv=None):
         print(json.dumps(android.identity))
     elif args.command == "start-fixture":
         fixture = FixtureControl()
-        manifest = fixture.start(android)
+        manifest = fixture.start(android, profile=args.profile)
         print(json.dumps({"baseUrl": manifest["baseUrl"], "process": str(fixture.directory / "process.json")}))
     elif args.command == "install":
         print(json.dumps(android.install(args.apk, args.sha256, args.clean, args.baseline_data)))

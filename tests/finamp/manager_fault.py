@@ -20,6 +20,17 @@ CACHE = '/data/user/0/app.morphe.manager/app_original-apks/com.unicornsonlsd.fin
 MUTANT = '/sdcard/Download/finamp-manager-test/Finamp-invalid-engine.apk'
 
 
+def selected_failure(labels, selected):
+    """Accept the observed error dialog or diagnostics table, never Unknown."""
+    normalized = [label.replace('\u200b', '') for label in labels]
+    failed = {label.removeprefix('Failed to apply ') for label in normalized
+              if label.startswith('Failed to apply ')}
+    failed.update(value for caption, value in zip(normalized, normalized[1:]) if caption == 'Failed patch')
+    if len(failed) != 1 or not failed <= set(selected):
+        raise AssertionError('Error not attributed to one selected patch')
+    return failed.pop()
+
+
 def verify_mutant(original, mutant):
     if hashlib.sha256(original.read_bytes()).hexdigest() != APK_SHA:
         raise ValueError('Not the pinned official original APK')
@@ -36,12 +47,16 @@ def verify_mutant(original, mutant):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path, required=True)
+    parser.add_argument('--mask', type=int, choices=range(1, 32), default=31)
+    parser.add_argument('--out-root', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0')
     parser.add_argument('--mutant-apk', type=Path, required=True)
     parser.add_argument('--original-apk', type=Path, required=True)
     args = parser.parse_args()
     verify_mutant(args.original_apk, args.mutant_apk)
     base.PACKAGE = 'app.morphe.manager'
-    base.OUT_ROOT = base.REPO_ROOT / '.scratch/finamp/manager-2.2.0'
+    base.OUT_ROOT = args.out_root.expanduser().resolve()
+    if not base.OUT_ROOT.is_relative_to((base.REPO_ROOT / '.scratch').resolve()):
+        parser.error('--out-root must stay inside this repository scratch directory')
     ui = base.Android(out=base.OUT_ROOT / 'ui', adb=args.adb)
     expected_mutant = hashlib.sha256(args.mutant_apk.read_bytes()).hexdigest()
     def runtime_lines():
@@ -66,12 +81,12 @@ def main():
         assert sha(CACHE) == expected_mutant
         ui.tap('Finamp', class_name='android.widget.TextView')
         ui.tap('Patch', class_name='android.widget.TextView')
-        for name in NAMES.values():
+        for bit, name in NAMES.items():
             root, _ = ui.dump()
             states = [n.get('content-desc') for n in root.iter('node')
                       if n.get('content-desc') in (name + ', Enabled', name + ', Disabled')]
             assert len(states) == 1
-            if states[0].endswith(', Disabled'):
+            if states[0].endswith(', Enabled') != bool(args.mask & bit):
                 ui.tap(name, class_name='android.widget.TextView')
         ui.capture('fault-art-selection')
         ui.tap('Patch', class_name='android.widget.TextView')
@@ -87,13 +102,11 @@ def main():
                 report['success_actions_absent'] = True
                 report['labels'] = [label for label in labels if label]
                 normalized = [label.replace('\u200b', '') for label in labels]
-                failed = [label.removeprefix('Failed to apply ') for label in normalized
-                          if label.startswith('Failed to apply ')]
-                assert len(failed) == 1 and failed[0] in NAMES.values(), 'Error not attributed to a selected patch'
+                failed = selected_failure(normalized, [name for bit, name in NAMES.items() if args.mask & bit])
                 assert any('unsupported ARM64 libflutter.so' in label for label in normalized)
                 runtime = runtime_lines()
                 assert runtime != previous_runtime and 'name=art ' in runtime[-1], 'No new ART invocation'
-                report.update(selected_failed_patch=failed[0], guard='unsupported ARM64 libflutter.so',
+                report.update(selected_failed_patch=failed, guard='unsupported ARM64 libflutter.so',
                               runtime='art', runtime_log=runtime[-1])
                 break
             time.sleep(0.3)

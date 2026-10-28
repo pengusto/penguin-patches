@@ -199,3 +199,19 @@ four artist menu options were visible; default and Metadata order were exercised
 Auxiliary-file hashing now checks a real stat size first, so remote cat diagnostics
 cannot masquerade as file contents. The initial authoring-run mask-0 raw auxiliary
 probe was not verified and must not be used as an existence claim.
+
+
+## Alphabet-navigation profile
+
+`mock_jellyfin.py --profile navigation` preserves the original eight-track credit
+fixture and adds **Alphabet Library**, a second album with 105 generated tracks.
+The combined Tracks tab crosses its 100-item page boundary. Titles include
+numeric entries, `Écho`, `Midnight` and `Zebra`; no personal files are used.
+`android_acceptance.py start-fixture --profile navigation` selects this profile
+when starting a new owned server and refuses to silently switch a running server.
+
+On the original 1.0.1 build, Android Back can minimize Finamp while its drawer
+hierarchy is visible. The new acceptance helper closes it by selecting the
+observed **Fixture Music** library button before resolving tab controls.
+Screenshots use fixed portrait size, Dark theme, matching filters and sort order;
+the evidence documents any emulator density/SystemUI demo settings.

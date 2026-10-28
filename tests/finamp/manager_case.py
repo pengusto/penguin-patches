@@ -20,7 +20,9 @@ from patch_matrix import NAMES, check_contents
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path, required=True)
-    parser.add_argument('--mask', type=int, choices=(1, 2, 4, 7), required=True)
+    parser.add_argument('--mask', type=int, choices=range(1, 32), required=True)
+    parser.add_argument('--out-root', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0')
+    parser.add_argument('--remote-prefix', default='', help='Fresh alphanumeric filename prefix for shared-storage exports')
     parser.add_argument('--runtime', choices=('jvm', 'art'), required=True)
     parser.add_argument('--from-result', action='store_true')
     parser.add_argument('--recovery', action='store_true', help='Fresh export proving recovery after a rejected input')
@@ -28,12 +30,17 @@ def main():
     parser.add_argument('--native-report', type=Path, required=True)
     args = parser.parse_args()
     base.PACKAGE = 'app.morphe.manager'
-    base.OUT_ROOT = base.REPO_ROOT / '.scratch/finamp/manager-2.2.0'
+    base.OUT_ROOT = args.out_root.expanduser().resolve()
+    if not base.OUT_ROOT.is_relative_to((base.REPO_ROOT / '.scratch').resolve()):
+        parser.error('--out-root must stay inside this repository scratch directory')
     ui = base.Android(out=base.OUT_ROOT / 'ui', adb=args.adb)
     suffix = '-recovery' if args.recovery else ''
     name = f'manager-mask-{args.mask}-{args.runtime}{suffix}.apk'
     destination = base.OUT_ROOT / 'apks' / name
-    remote = '/sdcard/Download/finamp-manager-test/' + name
+    if not re.fullmatch(r'[A-Za-z0-9_-]*', args.remote_prefix):
+        parser.error('Use a simple shared-storage prefix')
+    remote_name = args.remote_prefix + name
+    remote = '/sdcard/Download/finamp-manager-test/' + remote_name
     if destination.exists() or ui.adb('shell', 'ls', '-d', remote, check=False).strip():
         raise ValueError('Refusing a stale output; use a fresh case')
 
@@ -85,7 +92,7 @@ def main():
         raise RuntimeError('Actual runtime differs: ' + runtime)
     ui.tap('Save', class_name='android.view.View')
     base.PACKAGE = 'com.android.documentsui'
-    ui.type_text(name, index=0, replace=True)
+    ui.type_text(remote_name, index=0, replace=True)
     ui.tap('SAVE')
     base.PACKAGE = 'app.morphe.manager'
     wait_for('Patched')

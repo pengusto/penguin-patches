@@ -213,3 +213,35 @@ still cannot establish binary APK compatibility.
 The [contribution queue](ROADMAP.md) records the next Finamp clusters and competing
 upstream work. Preserve Finamp's MPL-2.0 terms for source derivatives; Penguin's
 GPL license does not replace the upstream license.
+
+
+## Offline performing-artist tracks (#1689)
+
+[PR #1834](https://github.com/finamp-app/finamp/pull/1834) fixes a shadowed artist
+variable: each downloaded track credit is compared with the selected artist ID,
+rather than with itself. Shared albums keep valid feature credits; unrelated
+tracks are excluded from the performing subset. Album-artist inclusion and
+online server filters retain their existing behavior.
+
+Four provider regressions cover mixed credits, missing/empty metadata, favorites,
+filter forwarding and album-artist union/deduplication. Two fail before the fix;
+all **29** tests pass afterward with clean targeted analysis. The independently
+selectable native backport and actual APK captures are documented in
+[the two-fix acceptance](../tests/finamp/README-next-fixes.md).
+
+## Tracks alphabet navigation (#1790)
+
+[PR #1835](https://github.com/finamp-app/finamp/pull/1835) lowercases the selected
+sidebar letter, matching the existing candidate normalization. It preserves
+candidate keys, missing-letter fallback, # endpoints and sequential paging.
+This complements [PR #1786](https://github.com/finamp-app/finamp/pull/1786);
+the adjacent callback initialization needs a small manual merge. The broader
+paging/performance issue #694 remains separate.
+
+Six widget regressions invoke the actual AlphabetList callback and scroll
+controller, checking the destination in the visible viewport for ascending,
+descending, accented, mixed-case/offline and album-artist ordering, plus an
+unloaded target reached after the next page. Empty input, # and missing-letter
+fallback are also exercised. The first five fail with the old comparison;
+all **31** tests pass afterward with clean targeted analysis. The combined
+five-fix native source tree passes **66** tests.

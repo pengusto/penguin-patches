@@ -8,7 +8,7 @@ import re
 import zipfile
 
 from pfd import apply_delta
-from build_native_payloads import APK_SHA, ENGINE_SHA, LIBRARY_SHA, SNAPSHOT
+from build_native_payloads import APK_SHA, ENGINE_SHA, LIBRARY_SHA, SNAPSHOT, MASKS
 
 
 def main():
@@ -41,16 +41,16 @@ def main():
                 if key in props:
                     raise ValueError('Duplicate native manifest property')
                 props[key] = value
-        expected = {root + f'arm64-v8a/{mask}.pfd' for mask in range(1, 8)}
+        expected = {root + f'arm64-v8a/{mask}.pfd' for mask in MASKS}
         actual = {name for name in names if name.startswith(root) and name.endswith('.pfd')}
         if actual != expected:
-            raise ValueError('A publishable bundle must contain exactly all seven native selections')
+            raise ValueError('A publishable bundle must contain exactly all 31 native selections')
         for key, value in [('schema', '1'), ('package', 'com.unicornsonlsd.finamp'), ('version', '1.0.1'),
                            ('flutter', '3.47.2'), ('dart', '3.13.2'), ('abi.arm64-v8a.base.sha256', LIBRARY_SHA),
                            ('abi.arm64-v8a.engine.sha256', ENGINE_SHA)]:
             if props.get(key) != value:
                 raise ValueError('Wrong manifest value for ' + key)
-        for mask in range(1, 8):
+        for mask in MASKS:
             prefix = f'abi.arm64-v8a.mask.{mask}'
             resource = root + f'arm64-v8a/{mask}.pfd'
             if props.get(prefix + '.resource') != resource or props.get(prefix + '.source') != matrix['masks'][str(mask)]['commit']:
@@ -68,7 +68,7 @@ def main():
                                          'native_bytes': len(new), 'delta_bytes': len(delta), 'verified': True}
     args.report.parent.mkdir(parents=True, exist_ok=True)
     args.report.write_text(json.dumps(report, indent=2) + '\n')
-    print('All seven shipped PFD1 payloads, source pins and native output hashes verified')
+    print('All 31 shipped PFD1 payloads, source pins and native output hashes verified')
 
 
 if __name__ == '__main__':
