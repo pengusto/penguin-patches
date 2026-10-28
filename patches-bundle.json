@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-28T18:25:09",
-  "description": "## [1.1.0](https://github.com/pengusto/penguin-patches/compare/v1.0.1...v1.1.0) (2026-10-28)\n\n### ✨ New Features\n\n* **finamp:** add three selectable native fixes for Finamp 1.0.1 ([17786c3](https://github.com/pengusto/penguin-patches/commit/17786c3aeeb7c60a7b6a0c3c839c4fb83f180d51)), closes [finamp-app/finamp#1830](https://github.com/finamp-app/finamp/issues/1830) [#1831](https://github.com/pengusto/penguin-patches/issues/1831)",
-  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.1.0/patches-1.1.0.mpp",
+  "created_at": "2026-10-28T22:11:53",
+  "description": "## [1.2.0](https://github.com/pengusto/penguin-patches/compare/v1.1.0...v1.2.0) (2026-10-28)\n\n### ✨ New Features\n\n* **finamp:** add offline artist and track alphabet fixes ([436dc63](https://github.com/pengusto/penguin-patches/commit/436dc638e9298bf1ae6d6d061b0c7fd225db8822))",
+  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.2.0/patches-1.2.0.mpp",
   "signature_download_url": "",
-  "version": "1.1.0"
+  "version": "1.2.0"
 }

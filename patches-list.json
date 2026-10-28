@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "patches": [
     {
       "name": "Avoid notifications for visible conversations",
@@ -153,8 +153,60 @@
       "options": []
     },
     {
+      "name": "Fix offline artist tracks",
+      "description": "Exclude unrelated songs from shared albums on offline performing-artist pages (#1689). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed.",
+      "default": false,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.unicornsonlsd.finamp",
+          "name": "Finamp",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.0.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Fix section title validation",
       "description": "Update validation and enable Save when a custom home-section title is entered (#1830). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed.",
+      "default": false,
+      "category": null,
+      "compatiblePackages": [
+        {
+          "packageName": "com.unicornsonlsd.finamp",
+          "name": "Finamp",
+          "description": null,
+          "apkFileType": null,
+          "appIconColor": null,
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.0.1",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Fix track alphabet navigation",
+      "description": "Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed.",
       "default": false,
       "category": null,
       "compatiblePackages": [

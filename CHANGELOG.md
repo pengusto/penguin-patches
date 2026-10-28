@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/pengusto/penguin-patches/compare/v1.1.0...v1.2.0) (2026-10-28)
+
+### ✨ New Features
+
+* **finamp:** add offline artist and track alphabet fixes ([436dc63](https://github.com/pengusto/penguin-patches/commit/436dc638e9298bf1ae6d6d061b0c7fd225db8822))
+
 ## [1.1.0](https://github.com/pengusto/penguin-patches/compare/v1.0.1...v1.1.0) (2026-10-28)
 
 ### ✨ New Features

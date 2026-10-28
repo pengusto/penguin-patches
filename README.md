@@ -13,7 +13,7 @@ Focused Android fixes, ready for Morphe.
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe.svg" alt="Add to Morphe →" width="242" height="52"></a>
 
 <!-- PATCHES_SUMMARY_START -->
-**16 patches · 11 apps · [v1.1.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.1.0)**
+**18 patches · 11 apps · [v1.2.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.2.0)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](docs/PATCH_EXAMPLES.md) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -48,7 +48,7 @@ Choose song artist order, fix custom-section title validation or load artist pag
 <details>
 <summary><strong>All 11 apps and supported versions</strong></summary>
 
-> **[v1.1.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.1.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;16 patches total
+> **[v1.2.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;18 patches total
 <details>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -97,7 +97,7 @@ Choose song artist order, fix custom-section title validation or load artist pag
 </details>
 
 <details>
-<summary>📦 Finamp&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
+<summary>📦 Finamp&nbsp;&nbsp;•&nbsp;&nbsp;5 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -107,7 +107,9 @@ Choose song artist order, fix custom-section title validation or load artist pag
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
+| <a id="fix-offline-artist-tracks"></a>[Fix offline artist tracks](docs/FINAMP_NATIVE.md)<br>[Before / after](docs/PATCH_EXAMPLES.md#fix-offline-artist-tracks) | Exclude unrelated songs from shared albums on offline performing-artist pages (#1689). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="fix-section-title-validation"></a>[Fix section title validation](docs/FINAMP_NATIVE.md)<br>[Before / after](docs/PATCH_EXAMPLES.md#fix-section-title-validation) | Update validation and enable Save when a custom home-section title is entered (#1830). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="fix-track-alphabet-navigation"></a>[Fix track alphabet navigation](docs/FINAMP_NATIVE.md)<br>[Before / after](docs/PATCH_EXAMPLES.md#fix-track-alphabet-navigation) | Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="load-artist-pages-faster"></a>[Load artist pages faster](docs/FINAMP_NATIVE.md)<br>[Before / after](docs/PATCH_EXAMPLES.md#load-artist-pages-faster) | Load artist previews and track counts without downloading the full discography (#1832). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="song-artist-order"></a>[Song artist order](docs/FINAMP_NATIVE.md)<br>[Before / after](docs/PATCH_EXAMPLES.md#song-artist-order) | Choose song-credit display order, including album artists first, metadata order and alphabetical (#1831). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 
