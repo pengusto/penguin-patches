@@ -4,9 +4,11 @@ Checked **2026-10-28** against GitHub and current upstream source. Re-read issue
 discussions and PRs before implementation: this is a dated triage, not a claim
 that every reported symptom still reproduces.
 
-Penguin's current public baseline is [v1.0.1](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.1),
-**13 patches / 10 apps**, including Infinity+. Work below does not add a Morphe
-patch or change that release's compatibility catalogue.
+The contribution inventory below was taken against Penguin [v1.0.1](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.1)
+(13 patches / 10 apps). The three delivered Finamp source contributions now also
+have [selectable native patches](FINAMP_NATIVE.md) for the original official
+Finamp 1.0.1 APK, producing ARM64 output. Other roadmap candidates remain
+investigations; consult the generated catalogue for the current release.
 
 ## Finamp first
 

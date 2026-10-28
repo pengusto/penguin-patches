@@ -10,7 +10,7 @@
 
 Use **Infinity+ for Reddit with your own OAuth client**, without the app subscription gate. Read calendar invitations without raw HTML, zoom into Feeder images, and fix everyday annoyances across Fossify apps, Kvaesitso and Tasks.org.
 
-Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder and Infinity+ for Reddit. Independent project; not affiliated with Morphe, Fossify, Reddit or Infinity.
+Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder, Finamp and Infinity+ for Reddit. Independent project; not affiliated with Morphe or the original app projects.
 
 **Early-stage software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. Stable releases come from `main`; `dev` carries pre-releases of upcoming changes.
 
@@ -45,6 +45,7 @@ Use only the exact original APK version listed here. Each linked guide records t
 | Fossify Calendar **1.12.0** | Separate all-day reminder defaults and retain manual draft values per event mode | [All-day reminders](docs/CALENDAR_REMINDERS.md) |
 | Tasks.org **15.13**, project GitHub F-Droid APK | Open the immediate parent task, with Save / Discard / Cancel for edited drafts | [Tasks.org](docs/TASKS.md) |
 | Feeder **2.25.0**, project GitHub F-Droid APK | Open article images in a separate viewer with pinch, pan and double-tap; choose image or link for linked images | [Feeder](docs/FEEDER.md) |
+| Finamp **1.0.1**, official GitHub universal APK → **ARM64 output** | Select custom-title validation, configurable song artist order and faster artist pages independently | [Finamp native patches](docs/FINAMP_NATIVE.md) |
 
 ### Readable Calendar descriptions
 
