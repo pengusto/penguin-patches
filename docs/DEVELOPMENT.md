@@ -26,8 +26,14 @@ Use the branch and metadata belonging to the release when regenerating. The curr
 
 For a new patch, add a section with its explicit patch-name slug and an accurately
 labelled image pair to [the comparison gallery](PATCH_EXAMPLES.md). The generator
-discovers those anchors to add **Before / after** links. The regression suite
-checks that every currently released patch has both images and a reachable link.
+uses that evidence to embed every released pair directly in the README, grouped
+by app between `PATCHES_PREVIEWS_START` / `PATCHES_PREVIEWS_END`. It rewrites
+gallery-relative paths for the README and keeps baseline labels intact. The
+Finamp feature count also follows metadata through `FINAMP_COUNT_START` /
+`FINAMP_COUNT_END`; do not hard-code a separate patch count in the introduction.
+The regression suite checks every released pair, reachable local paths, distinct
+anchors, idempotent regeneration and stale feature counts. Missing comparison
+evidence aborts README generation instead of silently omitting a released patch.
 Keep remote captures pinned to immutable commits and state the actual comparison
 baseline beside the pair; see [asset guidance](assets/README.md).
 
