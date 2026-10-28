@@ -1,0 +1,84 @@
+{
+  "base": "65c1a78b1d04dd8525825ecdf2cf39c7442b51e9",
+  "flutter": "d3b14c876900e553bc736ca19295fc09e3853e8e",
+  "engine": "a804b261645ef8c13eb3d5c44a5c2fb0340c5539",
+  "dart": "3.13.2",
+  "mask_bits": {
+    "1": "title validation PR1830",
+    "2": "artist order PR1831 with auxiliary-box persistence",
+    "4": "artist loading PR1832"
+  },
+  "masks": {
+    "0": {
+      "commit": "03a9ab84f73058634b65edc3a92096b2ad8ec1ad",
+      "tree": "24b92e558df7df926012fc97e1b163eaf3aa3583",
+      "branch": "penguin/finamp-native-1.0.1-mask-0",
+      "features": []
+    },
+    "1": {
+      "commit": "6c1501ebdc0c6f89e359e0b3a048a97d5e3f0295",
+      "tree": "883379d6369f0b8dff99a6cb9597df1b088d0cc4",
+      "branch": "penguin/finamp-native-1.0.1-mask-1",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e"
+      ]
+    },
+    "2": {
+      "commit": "cb88a9c77e1382488d23b52614f88c5739fbeedd",
+      "tree": "8028126fa27f1be6ad8c7b2805ab2fbfc5e8f298",
+      "branch": "penguin/finamp-native-1.0.1-mask-2",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71"
+      ]
+    },
+    "3": {
+      "commit": "fd482788576a857719f89890788fd81e54bfbd04",
+      "tree": "f1cddb5fd11a689a4b102560760d0979584e4f93",
+      "branch": "penguin/finamp-native-1.0.1-mask-3",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71"
+      ]
+    },
+    "4": {
+      "commit": "2b38a855348e32457488f60c4ecfd2a424be6af4",
+      "tree": "a6aade54f218f72799237a539183d8072897c1c2",
+      "branch": "penguin/finamp-native-1.0.1-mask-4",
+      "features": [
+        "558800d09d7e958aece9572016e98116aea278d4"
+      ]
+    },
+    "5": {
+      "commit": "6944bc56e156dd9733509eac20626ffa34253888",
+      "tree": "abe6bdefbc98116c13be36b568ccf4fc27020b64",
+      "branch": "penguin/finamp-native-1.0.1-mask-5",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "558800d09d7e958aece9572016e98116aea278d4"
+      ]
+    },
+    "6": {
+      "commit": "0edcd44eea00f8d6f38ae2b893143c353d17b0a6",
+      "tree": "35509a5c3a6329f53f0d2cddb4c8a443b63f7e1f",
+      "branch": "penguin/finamp-native-1.0.1-mask-6",
+      "features": [
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4"
+      ]
+    },
+    "7": {
+      "commit": "20740d272b9fed9b5bf067ff5ca3291ef9332722",
+      "tree": "7538e906bdf47730fba9c0c45039e01a5a179873",
+      "branch": "penguin/finamp-native-1.0.1-mask-7",
+      "features": [
+        "b4acb34c02e6e566d007b62c7d62f4e4dc1cfc5e",
+        "804e47f619f6ff261378a15cded3077e9e07217d",
+        "ff52acf0b44c5119c47cac40295ae7cb33238d71",
+        "558800d09d7e958aece9572016e98116aea278d4"
+      ]
+    }
+  }
+}

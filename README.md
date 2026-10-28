@@ -10,7 +10,7 @@
 
 Use **Infinity+ for Reddit with your own OAuth client**, without the app subscription gate. Read calendar invitations without raw HTML, zoom into Feeder images, and fix everyday annoyances across Fossify apps, Kvaesitso and Tasks.org.
 
-Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder and Infinity+ for Reddit. Independent project; not affiliated with Morphe, Fossify, Reddit or Infinity.
+Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder, Finamp and Infinity+ for Reddit. Independent project; not affiliated with Morphe or the original app projects.
 
 **Early-stage software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. Stable releases come from `main`; `dev` carries pre-releases of upcoming changes.
 
@@ -45,6 +45,7 @@ Use only the exact original APK version listed here. Each linked guide records t
 | Fossify Calendar **1.12.0** | Separate all-day reminder defaults and retain manual draft values per event mode | [All-day reminders](docs/CALENDAR_REMINDERS.md) |
 | Tasks.org **15.13**, project GitHub F-Droid APK | Open the immediate parent task, with Save / Discard / Cancel for edited drafts | [Tasks.org](docs/TASKS.md) |
 | Feeder **2.25.0**, project GitHub F-Droid APK | Open article images in a separate viewer with pinch, pan and double-tap; choose image or link for linked images | [Feeder](docs/FEEDER.md) |
+| Finamp **1.0.1**, official GitHub universal APK → **ARM64 output** | Select custom-title validation, configurable song artist order and faster artist pages independently | [Finamp native patches](docs/FINAMP_NATIVE.md) |
 
 ### Readable Calendar descriptions
 
@@ -112,6 +113,14 @@ Opt-in and standalone: apply it alone to the original Infinity+ 8.3.4 APK. Suppl
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe-qr.png" alt="QR code: add Penguin Patches as a Morphe source" width="240" height="240"></a>
 
 The local QR image encodes only the linked source URL; it is an installation shortcut, not an app screenshot or test result. App-specific comparison images linked from the guides are documented emulator captures with synthetic content, not AI illustrations.
+
+## Upstream contributions and next fixes
+
+Open-source app fixes are paired with focused upstream source PRs. The
+[contribution queue](docs/ROADMAP.md) records related issues, competing PRs and
+the next verification steps. [Finamp source contributions](docs/FINAMP.md) address
+custom-section title validation and configurable song-artist order; Finamp
+currently has no Morphe catalogue entry.
 
 ## Development
 
