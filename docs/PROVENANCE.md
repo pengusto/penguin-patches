@@ -13,4 +13,3 @@ The Morphe link button is a local SVG containing plain text and a purple backgro
 Repository code is distributed under [GPL-3.0](../LICENSE), with the additional project-name terms retained in [NOTICE](../NOTICE). The project began from [Morphe's official patches template](https://github.com/MorpheApp/morphe-patches-template), initial template commit `d4fa104`. Morphe is referenced for compatibility; Penguin Patches uses its own project name.
 
 [NOTICE](../NOTICE) and the app guides credit upstream app source behavior, issue authors and reference implementations. Preserve those credits when redistributing derived work. The repository license does not transfer ownership of upstream app or Morphe branding, third-party app assets or APKs; original APKs come from their respective upstream releases. The source QR represents a URL, while linked UI captures document the upstream app and patched behavior with synthetic fixtures.
-

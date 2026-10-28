@@ -30,3 +30,7 @@ discovers those anchors to add **Before / after** links. The regression suite
 checks that every currently released patch has both images and a reachable link.
 Keep remote captures pinned to immutable commits and state the actual comparison
 baseline beside the pair; see [asset guidance](assets/README.md).
+
+Before merging documentation, check the complete PR range with
+`git diff --check <base>...HEAD`. A clean working-tree check alone does not inspect
+already committed changes.
