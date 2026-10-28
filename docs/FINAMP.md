@@ -52,6 +52,50 @@ This is **source-level/widget verification**. No Android APK build, real device,
 Android keyboard or live Jellyfin acceptance was performed. Upstream CI/review
 and merge remain separate from the passing local tests; check the live PR.
 
+## Song artist order
+
+User-selected default: **album artists first, remaining song artists
+alphabetically**. [Upstream PR #1831](https://github.com/finamp-app/finamp/pull/1831)
+implements the preference on the same `redesign` base; feature commit
+[`7c3dd62`](https://github.com/pengusto/finamp/commit/7c3dd62).
+
+Finamp explicitly alphabetizes player chips, track tiles and media labels.
+Jellyfin exposes song artists and album artists, without an authoritative
+per-song lead/featured role in these fields. Album artists therefore serve as a
+hint: promote only those also present in the song credits. If none match, keep
+the song's metadata order. Compilation names such as Various Artists are not
+inserted as song artists. Matching IDs take priority over display names.
+
+**Layout & Theme → Song artist order** offers:
+
+- Album artists first (new default), other song artists alphabetically.
+- Metadata order, for a credit order maintained in the server's metadata.
+- First credited artist first, then the remaining artists alphabetically.
+- Alphabetical, retaining the old display option.
+
+The preference is used for player/menu chips, track lists and subtitles,
+playback history, saved-queue previews and media labels. Changing it refreshes
+cached queue labels without reloading audio. Song metadata/tags and playback or
+library sorting are not rewritten. Name-only credits remain visible without an
+invented artist-navigation target.
+
+Verification of the independent feature branch: **58 tests pass**, including
+**33 new tests**. These cover ordering and IDs, unchanged DTOs, offline metadata,
+cached queue metadata, actual widget selection/navigation, narrow screens with
+enlarged text, persistence of every mode, layout reset and upgrade from an older
+Hive settings payload. Android ARM64 **debug APK compilation succeeds** with
+Flutter 3.47.8, the existing Android SDK/NDK and the existing Rust toolchain.
+The Rust path is required by the app's existing Discord plugin. Analysis has no
+errors/warnings on touched files; one existing informational lint remains outside
+the modified lines. Generated code, formatting and whitespace checks pass.
+
+Hive field **161** and adapter type **128** store the new preference. The old-to-new
+settings path is tested; downgrading to a build without the new adapter is not
+claimed as compatible. Real Jellyfin/OEM-device/media-notification acceptance is
+not established by these tests. This is a source contribution and debug build,
+with no new Morphe catalogue entry. The section-title fix #1830 remains a separate
+PR and is not part of the independent artist-order branch.
+
 ## Morphe feasibility
 
 Flutter release apps compile Dart to native machine code; see the
@@ -60,9 +104,13 @@ The home-section editor and the queued Finamp logic fixes are Dart code, whereas
 Penguin's existing app hooks operate on Android DEX/resources. Those hooks do not
 directly replace this Dart widget implementation.
 
+Morphe can also read and write arbitrary APK files, so changing native libraries
+is technically possible; Flutter does not make every APK change equally hard.
+The specific Dart logic fixes still need their own native patching method and
+per-version/architecture verification.
+
 Accordingly, Finamp currently uses upstream source contributions. It has **no
-declared Morphe patch, supported original APK, installable Penguin APK or new
-catalogue entry**. A native-library patch, Flutter-specific engine or a verified
+declared Morphe patch, supported original APK or new catalogue entry**. A native-library patch, Flutter-specific engine or a verified
 rebuild/distribution path would require its own investigation. Source tests and
 an upstream PR cannot establish binary APK compatibility.
 

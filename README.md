@@ -117,8 +117,9 @@ The local QR image encodes only the linked source URL; it is an installation sho
 
 Open-source app fixes are paired with focused upstream source PRs. The
 [contribution queue](docs/ROADMAP.md) records related issues, competing PRs and
-the next verification steps. [Finamp's first source fix](docs/FINAMP.md) addresses
-custom-section title validation; Finamp currently has no Morphe catalogue entry.
+the next verification steps. [Finamp source contributions](docs/FINAMP.md) address
+custom-section title validation and configurable song-artist order; Finamp
+currently has no Morphe catalogue entry.
 
 ## Development
 
