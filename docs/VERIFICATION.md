@@ -47,6 +47,15 @@ The original main Hive adapter remains unchanged.
 [Guide, provenance and limits](FINAMP_NATIVE.md),
 [repeatable checks](../tests/finamp/README.md),
 [recorded APK evidence](../tests/finamp/evidence/2026-10-28/README.md).
-Physical devices, other Android versions, real-library timing/RAM and on-device
-Manager execution remain unverified. This native release is separate from the
-upstream redesign PRs and rebuilt debug preview.
+Actual Android Manager 2.2.0 / Patcher 2.0.1 acceptance now passes on that API 35
+emulator: remote source download, default-off independent selections, four JVM
+exports (each single and all three), one ART all-three export, signature/native
+hash/retained-entry/alignment checks, and a GUI update/start retaining login,
+Dark theme and Metadata order. Controlled cached-input corruption fails visibly
+through a selected patch; restoring the original permits another successful ART
+run. No production patch change was needed.
+
+[Manager captures, normalized report and limits](../tests/finamp/evidence/2026-10-28-manager/README.md).
+Physical devices, other Android/Manager versions and real-library timing/RAM
+remain unverified. Pairwise masks were tested on Desktop. This native release
+is separate from the upstream redesign PRs and rebuilt debug preview.
