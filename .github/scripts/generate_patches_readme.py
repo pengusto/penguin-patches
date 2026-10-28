@@ -91,6 +91,8 @@ GUIDES = {
 PATCH_GUIDES = {
     "Separate all-day reminder defaults": "docs/CALENDAR_REMINDERS.md",
 }
+EXAMPLES_PATH = Path(__file__).resolve().parents[2] / "docs/PATCH_EXAMPLES.md"
+EXAMPLE_ANCHORS = set(re.findall(r'<a id="([^"]+)"></a>', EXAMPLES_PATH.read_text(encoding="utf-8")))
 
 
 def patches_table(patches, guide=None):
@@ -111,6 +113,8 @@ def patches_table(patches, guide=None):
         desc = (p.get("description") or "").replace("\n", "<br>")
         destination = PATCH_GUIDES.get(p["name"], guide)
         label = f"[{p['name']}]({destination})" if destination else p["name"]
+        if a in EXAMPLE_ANCHORS:
+            label += f"<br>[Before / after](docs/PATCH_EXAMPLES.md#{a})"
         # Preserve incoming README patch links, including the template's slug.
         legacy = ""
         if "'" in p["name"]:

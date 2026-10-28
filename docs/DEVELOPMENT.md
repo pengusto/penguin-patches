@@ -23,3 +23,10 @@ python3 .github/scripts/generate_patches_readme.py pengusto/penguin-patches main
 ```
 
 Use the branch and metadata belonging to the release when regenerating. The current checked-in metadata describes the stable `main` release even on `dev`. Omit `EXPANDED` from the README marker to keep the catalogue closed at every release size. The optional summary markers also update release counts and version in the introduction. Guide destinations belong to the generator; never change generated patch metadata to add documentation links.
+
+For a new patch, add a section with its explicit patch-name slug and an accurately
+labelled image pair to [the comparison gallery](PATCH_EXAMPLES.md). The generator
+discovers those anchors to add **Before / after** links. The regression suite
+checks that every currently released patch has both images and a reachable link.
+Keep remote captures pinned to immutable commits and state the actual comparison
+baseline beside the pair; see [asset guidance](assets/README.md).

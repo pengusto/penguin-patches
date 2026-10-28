@@ -61,6 +61,23 @@ class ReleaseReadmeTests(unittest.TestCase):
         catalogue = result.split("<!-- PATCHES_START EXPANDED -->")[1].split("<!-- PATCHES_END -->")[0]
         self.assertEqual(catalogue.count("<details open>"), 12)
 
+    def test_every_released_patch_has_a_reachable_image_pair(self):
+        gallery = (ROOT / "docs/PATCH_EXAMPLES.md").read_text()
+        sections = dict(re.findall(
+            r'<a id="([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', gallery, re.DOTALL
+        ))
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        rendered = self.render()
+        for patch in data["patches"]:
+            slug = re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", patch["name"].lower())).strip("-")
+            with self.subTest(patch=patch["name"]):
+                self.assertIn(slug, sections, "released patches need a comparison")
+                images = re.findall(r'<img src="([^"]+)"[^>]+alt="([^"]+)"', sections[slug])
+                self.assertEqual(len(images), 2, "each patch needs both sides of the comparison")
+                self.assertTrue(images[0][1].startswith("Before:"))
+                self.assertTrue(images[1][1].startswith("After:"))
+                self.assertIn(f"[Before / after](docs/PATCH_EXAMPLES.md#{slug})", rendered)
+
     def test_unknown_and_universal_patches_do_not_gain_dead_links(self):
         data = {"version": "2.0.0", "patches": [
             {"name": "New app fix", "description": "Keep \\1 literal", "compatiblePackages": [
