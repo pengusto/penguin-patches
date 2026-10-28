@@ -2,7 +2,7 @@
 
 Completed local-candidate acceptance on Android 15/API 35 ARM64, Manager
 2.2.0/Patcher 2.0.1. These captures precede publication; released-source
-verification is recorded separately after the normal release workflow.
+verification is [recorded separately](../2026-10-28-released-1.2.0/README.md) after the normal release workflow.
 
 ## Artifacts and source
 
