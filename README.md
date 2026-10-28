@@ -135,6 +135,10 @@ Physical-device acceptance, mobile Morphe Manager execution and app-specific syn
 
 For a reproducible problem, [open an issue](https://github.com/pengusto/penguin-patches/issues/new/choose) with the original app version, selected patches, Android/Morphe versions and minimal steps. Remove personal contacts, messages, calendar data, Reddit account names, OAuth codes or tokens and signing material from reports.
 
+## Support development
+
+If these patches help you, you can [support my open-source work](https://github.com/sponsors/pengusto). Your support helps me investigate bugs, test compatibility with supported app versions, and improve documentation. Sponsorship does not guarantee support for a particular app or version.
+
 ## License and provenance
 
 Banner: AI-generated with OpenAI’s built-in Imagegen on 2026-10-23, using the maintainer-provided purple profile banner as a reference for the penguin’s identity only. The textile-mending scene, colors and composition were developed independently. The approved light illustration is retained unchanged; its dark companion was created by editing that same image with Imagegen. The picture element selects the matching theme, with the light image as fallback. It is an original conceptual illustration with generic app tiles, not a screenshot; no Android, Fossify or Morphe logos/assets were supplied. Existing upstream credits, trademark caveats and code-license scope below remain applicable. The illustration does not establish rights to third-party branding or app assets.
