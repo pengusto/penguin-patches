@@ -11,6 +11,8 @@
 
 The full README stays native Markdown/HTML. App screenshots remain separate,
 unedited evidence files. See [provenance and license scope](../PROVENANCE.md).
+The hero specifies width only: GitHub's responsive `max-width` scaling must keep
+its intrinsic aspect ratio, rather than retaining a fixed HTML height.
 
 ## Production prompts
 

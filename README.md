@@ -3,7 +3,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme-hero-dark.png">
   <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme-hero-light.png">
-  <img src="docs/assets/readme-hero-light.png" alt="Your apps. A little better. — Penguin Patches, with a textile penguin sewing a mint and orange patch" width="1800" height="650">
+  <img src="docs/assets/readme-hero-light.png" alt="Your apps. A little better. — Penguin Patches, with a textile penguin sewing a mint and orange patch" width="1800">
 </picture>
 
 Focused Android fixes, ready for Morphe.
