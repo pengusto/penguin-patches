@@ -6,15 +6,27 @@
   <img src="docs/assets/penguin-patches-banner-tailor.png" alt="Penguin Patches — a penguin stitching a repair patch onto a fabric app tile in an embroidery hoop">
 </picture>
 
-**Small fixes for the Android apps you already use.**
+**Your Reddit client. Your OAuth settings. Better everyday Android apps.**
 
-Read a calendar invitation without wading through HTML. Keep a nested favorite pointing to the folder you renamed. See the cover embedded in the track that's actually playing.
+Use **Infinity+ for Reddit with your own OAuth client**, without the app subscription gate. Read calendar invitations without raw HTML, zoom into Feeder images, and fix everyday annoyances across Fossify apps, Kvaesitso and Tasks.org.
 
 Penguin Patches is a personal collection of focused Android patches, compatible with Morphe Manager. It is for Android users comfortable patching an original APK and managing backups and signing keys. The current catalogue targets Fossify apps, Kvaesitso, Tasks.org, Feeder and Infinity+ for Reddit. Independent project; not affiliated with Morphe, Fossify, Reddit or Infinity.
 
 **Early-stage software:** The [generated catalogue](#generated-patch-catalogue) lists the current release and every exact tested app version. Verification is documented on isolated Android 15 ARM64 emulators; physical devices and on-device Morphe Manager execution remain unverified. Stable releases come from `main`; `dev` carries pre-releases of upcoming changes.
 
-[Add to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches) · [Patch details](#the-fixes) · [Build from source](#development) · [Verification evidence](docs/VERIFICATION.md)
+[Add to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches) · [Set up Infinity+](docs/INFINITY.md) · [All patch details](#the-fixes) · [Build from source](#development) · [Verification evidence](docs/VERIFICATION.md)
+
+## Featured: Infinity+ with your own Reddit OAuth client
+
+**Keep using Infinity+ with a Reddit client you configure yourself.** The standalone patch connects Infinity+ **8.3.4** to your own OAuth client and opens the existing Reddit login flow without the app's subscription dialog.
+
+- **Your client settings:** provide your client ID, registered redirect URI and API user-agent in Morphe.
+- **Existing Reddit sign-in:** OAuth consent and account login stay with Reddit; no shared account or bundled credentials.
+- **Standalone patch:** select **Configure custom OAuth for Infinity+** on the original official APK. No additional spoof-client patch is needed.
+
+Emulator checks completed Reddit sign-in, loaded the authenticated Home feed and retained the session after an app restart. Only the official **Infinity+ 8.3.4** APK is verified; standard Infinity and other variants are outside the tested scope. Reddit API approval/access is still required, and phone execution and long-term token renewal remain unverified.
+
+**[Set up Infinity+ →](docs/INFINITY.md)** · [Add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches)
 
 ## The fixes
 
@@ -22,6 +34,7 @@ Use only the exact original APK version listed here. Each linked guide records t
 
 | Original app | What changes | Guide |
 | --- | --- | --- |
+| Infinity+ **8.3.4** | Sign in with your own Reddit OAuth client, without the subscription gate | [Infinity+](docs/INFINITY.md) |
 | Fossify Calendar **1.12.0** | Readable HTML descriptions in the editor and day/agenda lists, with explicit source editing | [Calendar](docs/CALENDAR.md) |
 | Fossify Messages **1.10.1** | Three selectable fixes for read notifications and foreground/background conversation handling | [Messages](docs/MESSAGES.md) |
 | Fossify File Manager **1.6.2** | Keep nested favorite paths consistent with folder renames and selected deletion cleanup | [File Manager](docs/FILE_MANAGER.md) |
@@ -32,7 +45,6 @@ Use only the exact original APK version listed here. Each linked guide records t
 | Fossify Calendar **1.12.0** | Separate all-day reminder defaults and retain manual draft values per event mode | [All-day reminders](docs/CALENDAR_REMINDERS.md) |
 | Tasks.org **15.13**, project GitHub F-Droid APK | Open the immediate parent task, with Save / Discard / Cancel for edited drafts | [Tasks.org](docs/TASKS.md) |
 | Feeder **2.25.0**, project GitHub F-Droid APK | Open article images in a separate viewer with pinch, pan and double-tap; choose image or link for linked images | [Feeder](docs/FEEDER.md) |
-| Infinity+ **8.3.4** | Sign in with your own Reddit OAuth client, without the subscription gate | [Infinity+](docs/INFINITY.md) |
 
 ### Readable Calendar descriptions
 
