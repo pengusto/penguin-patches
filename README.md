@@ -113,6 +113,14 @@ Opt-in and standalone: apply it alone to the original Infinity+ 8.3.4 APK. Suppl
 
 The local QR image encodes only the linked source URL; it is an installation shortcut, not an app screenshot or test result. App-specific comparison images linked from the guides are documented emulator captures with synthetic content, not AI illustrations.
 
+## Upstream contributions and next fixes
+
+Open-source app fixes are paired with focused upstream source PRs. The
+[contribution queue](docs/ROADMAP.md) records related issues, competing PRs and
+the next verification steps. [Finamp source contributions](docs/FINAMP.md) address
+custom-section title validation and configurable song-artist order; Finamp
+currently has no Morphe catalogue entry.
+
 ## Development
 
 Prerequisites: **Java 21**, an **Android SDK**, and authenticated read access to Morphe's GitHub Packages registry (`read:packages`). Supply `GITHUB_ACTOR` and `GITHUB_TOKEN` through your environment; never put credentials in tracked files. See the [official patcher setup](https://github.com/MorpheApp/morphe-patcher/blob/main/docs/2_1_setup.md).
