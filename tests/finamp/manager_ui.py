@@ -22,7 +22,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path)
     parser.add_argument('--package', choices=PACKAGES, default=PACKAGES[0])
-    parser.add_argument('--out', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0/ui')
+    parser.add_argument('--out-root', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0')
+    parser.add_argument('--out', type=Path, default=None)
     sub = parser.add_subparsers(dest='command', required=True)
     inspect = sub.add_parser('inspect')
     inspect.add_argument('--contains', default='')
@@ -50,8 +51,10 @@ def main():
     scroll.add_argument('direction', choices=('up', 'down'))
     args = parser.parse_args()
     base.PACKAGE = args.package
-    base.OUT_ROOT = base.REPO_ROOT / '.scratch/finamp/manager-2.2.0'
-    ui = base.Android(out=args.out, adb=args.adb)
+    base.OUT_ROOT = args.out_root.expanduser().resolve()
+    if not base.OUT_ROOT.is_relative_to((base.REPO_ROOT / '.scratch').resolve()):
+        parser.error('--out-root must stay inside this repository scratch directory')
+    ui = base.Android(out=args.out or base.OUT_ROOT / "ui", adb=args.adb)
     if args.command == 'capture':
         ui.capture(args.label)
     elif args.command == 'wait':

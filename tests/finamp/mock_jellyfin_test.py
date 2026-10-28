@@ -370,5 +370,25 @@ class FixtureHTTPTests(unittest.TestCase):
             self.skipTest("Local Finamp sources unavailable; HTTP tests remain standalone")
 
 
+class NavigationProfileTests(unittest.TestCase):
+    def test_extra_album_preserves_credits_and_crosses_the_page_boundary(self):
+        fixture = mock.Fixture(profile="navigation")
+        try:
+            album_id = mock.stable_id("navigation-album")
+            tracks = [item for item in fixture.items.values() if item.get("AlbumId") == album_id]
+            self.assertEqual(len(tracks), 105)
+            self.assertEqual(fixture.items[album_id]["ChildCount"], 105)
+            self.assertEqual(len([item for item in fixture.items.values() if item.get("AlbumId") == mock.ALBUM_ID]), 8)
+            self.assertTrue(any(item["Name"] == "Midnight 01" for item in tracks))
+            self.assertTrue(any(item["Name"] == "Écho 01" and item["SortName"] == "echo 01" for item in tracks))
+            for item in tracks:
+                self.assertEqual(item["ArtistItems"][0]["Id"], mock.ARTIST_IDS["Z Lead"])
+                self.assertIn(item["Id"], fixture.audio)
+                self.assertEqual(item["MediaSources"][0]["Id"], item["Id"])
+            self.assertEqual(len(fixture.manifest(18961)["trackIds"]), 113)
+        finally:
+            fixture.close()
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

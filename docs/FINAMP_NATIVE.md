@@ -2,7 +2,7 @@
 
 These patches apply directly to the **original official Finamp APK** through
 Morphe. They are separate from the earlier rebuilt `Finamp Debug` preview and
-from the three upstream source PRs.
+from the upstream source PRs.
 
 ## Supported input and output
 
@@ -19,15 +19,17 @@ Other versions, F-Droid/recompiled binaries and earlier `Finamp Debug` APKs do
 not have declared compatibility. Repatch the original APK with all desired
 selections together; an already patched snapshot is deliberately rejected.
 
-## Three independent selections
+## Five independent selections
 
 | Patch name in Morphe | Behavior | Upstream contribution |
 | --- | --- | --- |
 | **Fix section title validation** | Typing or clearing a custom section title refreshes validation and Save; cursor/IME state is retained | [PR #1830](https://github.com/finamp-app/finamp/pull/1830), [issue #1798](https://github.com/finamp-app/finamp/issues/1798) |
 | **Song artist order** | Adds **Layout & Theme → Song artist order** with album artists first, metadata order, first credit first and alphabetical modes | [PR #1831](https://github.com/finamp-app/finamp/pull/1831), [issue #1833](https://github.com/finamp-app/finamp/issues/1833) |
 | **Load artist pages faster** | Uses bounded preview/count requests; complete song enumeration stays behind playback actions | [PR #1832](https://github.com/finamp-app/finamp/pull/1832), [issue #1732](https://github.com/finamp-app/finamp/issues/1732) |
+| **Fix offline artist tracks** | Excludes unrelated tracks from downloaded shared albums when browsing a performing artist | [PR #1834](https://github.com/finamp-app/finamp/pull/1834), [issue #1689](https://github.com/finamp-app/finamp/issues/1689) |
+| **Fix track alphabet navigation** | Uses consistent case when comparing Tracks titles with a selected alphabet letter; preserves existing paging | [PR #1835](https://github.com/finamp-app/finamp/pull/1835), [issue #1790](https://github.com/finamp-app/finamp/issues/1790) |
 
-All three are optional (`default=false`). Choose one, any pair, or all three in
+All five are optional (`default=false`). Choose any subset of the five in
 one Morphe run. The artist-order default promotes only album artists also
 credited on the song, then alphabetizes remaining credits. With no matching
 album artist, it retains song metadata order. It does not rewrite music tags or
@@ -46,8 +48,8 @@ Same-key update/removal tests are distinct from changing signing certificates.
 ## Native implementation and source
 
 Flutter compiles this Dart logic into `libapp.so`. A shared raw-resource patch
-collects the three selection bits (1 title, 2 artists, 4 loading) and applies one
-precomposed delta for masks 1–7. The original APK's native and engine hashes are
+collects five selection bits (1 title, 2 artists, 4 loading, 8 offline artist
+filtering, 16 Tracks alphabet) and applies one precomposed delta for masks 1–31. The original APK's native and engine hashes are
 checked before the snapshot is replaced; the selected output is checked against
 its own SHA-256 and size. Unsupported input fails before an APK is published.
 
@@ -56,7 +58,7 @@ The original release source is
 The fixes are backported to that release rather than replacing it with current
 `redesign` or a debug app. Each complete selection tree is published in the
 [source matrix](../tests/finamp/native-sources.json), including
-[all three fixes](https://github.com/pengusto/finamp/tree/20740d272b9fed9b5bf067ff5ca3291ef9332722).
+[all five fixes](https://github.com/pengusto/finamp/tree/313694b7d4cfd5c738964b785cc78ebd721b9ea6).
 
 Build toolchain: Flutter **3.47.2**, Dart **3.13.2**, framework
 `d3b14c876900e553bc736ca19295fc09e3853e8e`, engine
@@ -66,7 +68,7 @@ version hash and feature flags also match. SDK-required dependency locks are
 recorded in every source tree; other app features are not pulled from later
 `redesign` commits.
 
-Real Morphe runs for all seven combinations verify that every retained APK entry
+Real Morphe runs for all 31 combinations verify that every retained APK entry
 except ARM64 `libapp.so` matches the original: DEX, manifest, engine, resources
 and Flutter assets remain byte-identical. Other CPU architectures are removed
 so they cannot silently run an unpatched snapshot. Snapshot files remain exactly
@@ -83,7 +85,14 @@ This differs from the earlier source/debug preview's field-161/adapter-128
 implementation, which lives in a different package. Native compatibility tests
 read saved settings with the frozen original adapter **without adapter 128**.
 
-## Verification
+## Current verification
+
+The two additional correctness fixes use 31 independently verified native
+selections. See [the new acceptance workflow](../tests/finamp/README-next-fixes.md)
+and [dated evidence](../tests/finamp/evidence/2026-10-28-next/README.md) for the
+source regressions, original-APK comparisons and actual Manager exports.
+
+## Historical 1.1.0 verification
 
 - **224 source tests** across the seven selected source trees: 4 / 36 / 40 / 16 /
   20 / 52 / 56. These are separate runs with overlapping tests, not 224 unique
@@ -120,7 +129,7 @@ music or accounts. Neither its response timing nor widget captures are a
 live-server performance or RAM benchmark. Physical/OEM devices and other Android
 versions remain outside this profile.
 
-## Actual Android Manager acceptance
+## Historical 1.1.0 Android Manager acceptance
 
 [Manager 2.2.0 acceptance](../tests/finamp/evidence/2026-10-28-manager/README.md)
 passes on the Android 15/API 35 ARM64 emulator. The remote source downloads the

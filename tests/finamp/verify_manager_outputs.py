@@ -12,7 +12,8 @@ import zipfile
 from build_native_payloads import APK_SHA
 from patch_matrix import check_contents
 
-FULL_SUITE = {'1-jvm', '2-jvm', '4-jvm', '7-jvm', '7-art'}
+FULL_SUITE = {'8-jvm', '16-jvm', '24-jvm', '31-jvm', '31-art', '7-jvm'}
+SUPPORTED_CASES = {f'{mask}-{runtime}' for mask in range(1, 32) for runtime in ('jvm', 'art')}
 
 
 def main():
@@ -27,7 +28,7 @@ def main():
     if not re.fullmatch(r'[0-9a-f]{64}', signer):
         raise ValueError('Invalid expected signer SHA-256')
     cases = args.expect.split(',')
-    if len(cases) != len(set(cases)) or not set(cases) <= FULL_SUITE:
+    if len(cases) != len(set(cases)) or not set(cases) <= SUPPORTED_CASES:
         raise ValueError('Select unique recorded Manager case IDs')
     if hashlib.sha256(args.original_apk.read_bytes()).hexdigest() != APK_SHA:
         raise ValueError('Wrong official APK input')
