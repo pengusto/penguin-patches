@@ -1,0 +1,132 @@
+# Finamp 1.0.1: selectable Penguin patches
+
+These patches apply directly to the **original official Finamp APK** through
+Morphe. They are separate from the earlier rebuilt `Finamp Debug` preview and
+from the three upstream source PRs.
+
+## Supported input and output
+
+| Property | Verified profile |
+| --- | --- |
+| Input | [Finamp-1.0.1-universal.apk](https://github.com/finamp-app/finamp/releases/download/1.0.1/Finamp-1.0.1-universal.apk) |
+| Package/version | `com.unicornsonlsd.finamp` / `1.0.1` |
+| Original APK SHA-256 | `0fc61e5cb80d37b10a735851c2217cbc855b3f1a04bde577187658531ffef581` |
+| Official signer SHA-256 | `2061c5c9289c00020881b7e5334d93a02dfa4be980af20c05db4e529c8da5b54` |
+| Output architecture | **ARM64 (`arm64-v8a`) only**; other native ABIs are removed |
+| Runtime test environment | Disposable Android 15 / API 35 ARM64 emulator, synthetic Jellyfin library |
+
+Other versions, F-Droid/recompiled binaries and earlier `Finamp Debug` APKs do
+not have declared compatibility. Repatch the original APK with all desired
+selections together; an already patched snapshot is deliberately rejected.
+
+## Three independent selections
+
+| Patch name in Morphe | Behavior | Upstream contribution |
+| --- | --- | --- |
+| **Fix section title validation** | Typing or clearing a custom section title refreshes validation and Save; cursor/IME state is retained | [PR #1830](https://github.com/finamp-app/finamp/pull/1830), [issue #1798](https://github.com/finamp-app/finamp/issues/1798) |
+| **Song artist order** | Adds **Layout & Theme → Song artist order** with album artists first, metadata order, first credit first and alphabetical modes | [PR #1831](https://github.com/finamp-app/finamp/pull/1831), [issue #1833](https://github.com/finamp-app/finamp/issues/1833) |
+| **Load artist pages faster** | Uses bounded preview/count requests; complete song enumeration stays behind playback actions | [PR #1832](https://github.com/finamp-app/finamp/pull/1832), [issue #1732](https://github.com/finamp-app/finamp/issues/1732) |
+
+All three are optional (`default=false`). Choose one, any pair, or all three in
+one Morphe run. The artist-order default promotes only album artists also
+credited on the song, then alphabetizes remaining credits. With no matching
+album artist, it retains song metadata order. It does not rewrite music tags or
+server metadata, or create a per-song lead role that Jellyfin does not provide.
+
+The title patch retains the existing validity rule: an empty title is invalid;
+it does not introduce whitespace trimming or change which section types require
+a title. The performance patch does not cap the eventual playback queue.
+
+Refresh the Penguin source in Morphe, select the supported original APK and the
+desired patches, then build and sign using your normal Morphe key. Keep that key
+for later updates. This uses the original package name; switching from the
+official signing certificate may require your existing backup/migration process.
+Same-key update/removal tests are distinct from changing signing certificates.
+
+## Native implementation and source
+
+Flutter compiles this Dart logic into `libapp.so`. A shared raw-resource patch
+collects the three selection bits (1 title, 2 artists, 4 loading) and applies one
+precomposed delta for masks 1–7. The original APK's native and engine hashes are
+checked before the snapshot is replaced; the selected output is checked against
+its own SHA-256 and size. Unsupported input fails before an APK is published.
+
+The original release source is
+[`65c1a78`](https://github.com/finamp-app/finamp/tree/65c1a78b1d04dd8525825ecdf2cf39c7442b51e9).
+The fixes are backported to that release rather than replacing it with current
+`redesign` or a debug app. Each complete selection tree is published in the
+[source matrix](../tests/finamp/native-sources.json), including
+[all three fixes](https://github.com/pengusto/finamp/tree/20740d272b9fed9b5bf067ff5ca3291ef9332722).
+
+Build toolchain: Flutter **3.47.2**, Dart **3.13.2**, framework
+`d3b14c876900e553bc736ca19295fc09e3853e8e`, engine
+`a804b261645ef8c13eb3d5c44a5c2fb0340c5539`. Normal Android stripping of that
+SDK's ARM64 engine produces the exact original APK engine bytes. The app snapshot
+version hash and feature flags also match. SDK-required dependency locks are
+recorded in every source tree; other app features are not pulled from later
+`redesign` commits.
+
+Real Morphe runs for all seven combinations verify that every retained APK entry
+except ARM64 `libapp.so` matches the original: DEX, manifest, engine, resources
+and Flutter assets remain byte-identical. Other CPU architectures are removed
+so they cannot silently run an unpatched snapshot. Snapshot files remain exactly
+22,283,144 bytes for this profile; runtime RAM changes have not been measured.
+
+## Preference compatibility
+
+The native backport keeps artist-mode persistence in a separate Hive box using
+primitive integers. The original main settings adapter remains unchanged. Builds
+without the artist patch ignore the auxiliary box, and reapplying the feature
+can restore its saved mode. Layout reset resets that mode too.
+
+This differs from the earlier source/debug preview's field-161/adapter-128
+implementation, which lives in a different package. Native compatibility tests
+read saved settings with the frozen original adapter **without adapter 128**.
+
+## Verification
+
+- **224 source tests** across the seven selected source trees: 4 / 36 / 40 / 16 /
+  20 / 52 / 56. These are separate runs with overlapping tests, not 224 unique
+  cases. The full three-fix tree passes 56 tests.
+- All **seven** payloads replay to their pinned output hashes, compile into the
+  MPP, and apply through real Morphe Desktop 1.18.1 / Patcher 1.15.1 and Desktop 1.19.1 / Patcher 2.0.1. All seven
+  resulting APKs pass retained-entry and ARM64-only checks.
+- Four altered-input cases (app snapshot, engine, missing ARM64, forced wrong
+  version) fail closed with no output APK. The selected finalizers' version check also
+  applies when the CLI's compatibility filter is forced.
+- PFD1 codec probes cover corruption, bounds, truncation, hash failures and
+  producer/decoder interoperability. Python probes and JVM probes are separate.
+- APKs are aligned for 16 KiB native loading and signed with one disposable test
+  certificate for update acceptance.
+
+The [recorded Android acceptance](../tests/finamp/evidence/2026-10-28/verification.json)
+passes the same-key **0 → 7 → 1 → 7 → 0 → 7** update chain. Synthetic login and
+Dark theme remain available in every stage. Metadata-order selection survives
+cold restart, feature removal and reapplication. The all-fix APK verifies live
+title validation before hiding the keyboard, album-first credits, the visible
+setting and bounded artist requests while unbounded requests are held. See
+[actual APK captures](../tests/finamp/evidence/2026-10-28/README.md).
+
+The current [Manager 2.2.0 loader](https://github.com/MorpheApp/morphe-manager/blob/v2.2.0/app/src/main/java/app/morphe/manager/patcher/patch/PatchBundle.kt)
+uses Patcher 2.0.1: ART retains the MPP through DexClassLoader; the embedded JVM
+uses URLClassLoader over the MPP. Both support the bundle-anchored resources.
+Manager filters unselected dependency results, so the composition runs once
+through the **selected patches' finalizers**, with failures propagated to every
+selection. The hidden dependency only initializes invocation state. Source
+inspection complements the real Desktop 2.0.1 tests; it is not on-device Manager
+execution.
+
+The synthetic HTTP fixture is local and serves generated WAV audio, not personal
+music or accounts. Neither its response timing nor widget captures are a
+live-server performance or RAM benchmark. Physical/OEM devices, other Android
+versions and on-device Morphe Manager execution have separate verification
+limits; see the current acceptance report.
+
+## Rebuild and licenses
+
+See [tests/finamp/README.md](../tests/finamp/README.md) for pinned source rebuild,
+PFD1 verification, real patcher combinations, rejection checks and Android
+acceptance. Source, the MPL-2.0 license, Flutter's BSD license and original
+third-party notices accompany the native resources. Kotlin patch logic remains
+under Penguin's GPL-3.0 license. This is an independent Penguin contribution;
+it is not an upstream-signed Finamp release.

@@ -5,6 +5,11 @@ Jellyfin music client built with Flutter/Dart. Its
 [contribution guide](https://github.com/finamp-app/finamp/blob/redesign/CONTRIBUTING.md)
 requests `redesign` as the source/PR branch.
 
+The three changes also have a separate, version-pinned
+[Penguin native-patch implementation](FINAMP_NATIVE.md) for the original official
+Finamp 1.0.1 APK with ARM64 output. The historical source-branch/debug-preview
+checks below are distinct from that APK compatibility evidence.
+
 ## Custom-section title validation
 
 - Issue: [#1798](https://github.com/finamp-app/finamp/issues/1798).
@@ -197,10 +202,13 @@ is technically possible; Flutter does not make every APK change equally hard.
 The specific Dart logic fixes still need their own native patching method and
 per-version/architecture verification.
 
-Accordingly, Finamp currently uses upstream source contributions. It has **no
-declared Morphe patch, supported original APK or new catalogue entry**. A native-library patch, Flutter-specific engine or a verified
-rebuild/distribution path would require its own investigation. Source tests and
-an upstream PR cannot establish binary APK compatibility.
+The separate [native profile](FINAMP_NATIVE.md) establishes this path for one
+specific original APK: Finamp 1.0.1 from GitHub. It applies composite binary deltas
+to the Dart app snapshot, verifies original/output hashes, retains the original
+engine/DEX/assets and produces ARM64-only output. Every selection has its own
+pinned source and expected native result. This does not establish compatibility
+with arbitrary Flutter APKs or app versions; source tests and an upstream PR alone
+still cannot establish binary APK compatibility.
 
 The [contribution queue](ROADMAP.md) records the next Finamp clusters and competing
 upstream work. Preserve Finamp's MPL-2.0 terms for source derivatives; Penguin's
