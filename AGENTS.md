@@ -4,6 +4,9 @@
 - Put app patches under `patches/src/main/kotlin/io/github/pengusto/patches/<app>/` and runtime extensions under `extensions/extension/src/main/java/io/github/pengusto/patches/extension/<app>/`.
 - Use official Morphe APIs and existing Gradle tooling. No embedded APKs, signing keys or tokens in Git.
 - Work on dev. Publish only patches tested against specified original APK versions, including signature/package identity, install, UI and save/data regression checks. Document original APK provenance and checksum.
+- For open-source app fixes, deliver a focused upstream source PR alongside the Penguin work; reuse an existing PR when it covers the fix. Follow the upstream contribution policy and record a concrete blocker when submission is unavailable.
+- Before selecting new issues, read `docs/ROADMAP.md`, then refresh the issue discussion, open/merged PRs and current source. Group related symptoms as investigation candidates; establish their common cause with a regression before combining fixes.
+- For Flutter/Dart app changes, use the source-contribution route documented in `docs/FINAMP.md`; establish original-APK compatibility separately before adding anything to the Morphe catalogue.
 - Do not claim compatibility with untested versions or silently rewrite stored app data. Fail clearly on unsupported bytecode.
 - Keep release workflow manual until the first patch is verified. Use the template semantic release pipeline; do not manually edit generated patch metadata.
 - Local build: Java 21, Android SDK, `./gradlew :patches:buildAndroid`. GitHub Packages needs read:packages; pass credentials via environment, never store them in project files.

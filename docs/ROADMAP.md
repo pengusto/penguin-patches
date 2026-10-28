@@ -1,0 +1,79 @@
+# Contribution queue
+
+Checked **2026-10-28** against GitHub and current upstream source. Re-read issue
+discussions and PRs before implementation: this is a dated triage, not a claim
+that every reported symptom still reproduces.
+
+Penguin's current public baseline is [v1.0.1](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.1),
+**13 patches / 10 apps**, including Infinity+. Work below does not add a Morphe
+patch or change that release's compatibility catalogue.
+
+## Finamp first
+
+[Finamp](https://github.com/finamp-app/finamp) is the Jellyfin music client,
+licensed MPL-2.0. Its contribution branch is `redesign`; inspected source:
+`b72ba46a45eb45836516f23e3df989c89c693c88`. The complete open-issue/PR inventory
+at the check contained **341 issues and 51 PRs**. Priority combines reproducibility,
+user impact, existing work and verification cost; it is not a reaction-count ranking.
+
+| Priority | Issue cluster | Decision and next acceptance evidence |
+| --- | --- | --- |
+| Delivered | [Custom-section title #1798](https://github.com/finamp-app/finamp/issues/1798) | [Source PR #1830](https://github.com/finamp-app/finamp/pull/1830): live validation/preview and a persistent text controller. Four widget regressions and all 29 tests pass. [Scope and verification](FINAMP.md). |
+| 1 — larger performance fix | [Artist screen #1732](https://github.com/finamp-app/finamp/issues/1732) | Opening an artist eagerly loads both performing-artist and album-artist track lists. Avoid full-discography loading for counters while preserving distinct track membership and download status. No matching implementation appeared in the 51 open PRs. Measure request count/bytes and UI responsiveness with a large synthetic library. |
+| 2 — correctness | [Likes disappear on track change #1822](https://github.com/finamp-app/finamp/issues/1822), [favorites do not reliably reach Jellyfin #1778](https://github.com/finamp-app/finamp/issues/1778) | Possible shared favorite-state/sync problem, not yet a proven common cause. Compare server state with UI state across track changes, delayed/failed requests, rapid toggles and restart. [PR #1736](https://github.com/finamp-app/finamp/pull/1736) adds star ratings and touches adjacent media/API paths; coordinate rather than assuming it fixes favorites. |
+| 3 — large libraries | [Tracks alphabet scroller #1790](https://github.com/finamp-app/finamp/issues/1790), [jump-to-letter #694](https://github.com/finamp-app/finamp/issues/694) | Reproduce the Tracks path on Android, with duplicates, non-letter titles and an offline library. [PR #1786](https://github.com/finamp-app/finamp/pull/1786) explicitly covers album/artist grids and excludes track-list fast scrolling. A track fix needs bounded seeks and queue-order regression checks. |
+
+### Performance scope that must survive a fix
+
+The #1732 discussion explains why two server counts cannot simply be added:
+performing artists and album artists overlap, and either set can contain unique
+tracks. Current `artist_screen_content.dart` also passes performing tracks into
+`DownloadButton` through `allChildren`. Removing that query solely because it
+feeds a counter would change download-status semantics. The next patch must
+account for this consumer and retain correct Play/Shuffle and downloads.
+The issue's network timings are the reporter's measurements, not our benchmark.
+
+### Reuse existing work and reject false starts
+
+| Candidate | Current evidence / action |
+| --- | --- |
+| [Search #1729](https://github.com/finamp-app/finamp/issues/1729) | Open [PR #1730](https://github.com/finamp-app/finamp/pull/1730); review or contribute there. |
+| [Local-network preference #1734](https://github.com/finamp-app/finamp/issues/1734) | Open [PR #1821](https://github.com/finamp-app/finamp/pull/1821) addresses Android network hand-offs; reproduce remaining behavior before proposing another fix. |
+| [Custom headers #1760](https://github.com/finamp-app/finamp/issues/1760) | Open [PR #1805](https://github.com/finamp-app/finamp/pull/1805). |
+| [Android widget #156](https://github.com/finamp-app/finamp/issues/156) / [Play On #616](https://github.com/finamp-app/finamp/issues/616) | Open [PR #1632](https://github.com/finamp-app/finamp/pull/1632) / [PR #1642](https://github.com/finamp-app/finamp/pull/1642). |
+| [Prefer downloaded files #1745](https://github.com/finamp-app/finamp/issues/1745), [cellular/local preference #1656](https://github.com/finamp-app/finamp/issues/1656) | Maintainer confirms local audio already takes precedence. Separate audio-source choice from online metadata fetching before calling this a missing feature. |
+| [Album normalization #1687](https://github.com/finamp-app/finamp/issues/1687) | Merged [PR #1596](https://github.com/finamp-app/finamp/pull/1596) adds album gain; reporter says current source works on Linux. Reproduce an Android-specific remainder first. |
+| [Empty Genres #1696](https://github.com/finamp-app/finamp/issues/1696) | Merged [PR #1670](https://github.com/finamp-app/finamp/pull/1670) fixes an empty Genres tab; verify a remainder on current source. |
+| [Empty album tracks #1766](https://github.com/finamp-app/finamp/issues/1766), [server-upgrade #1412](https://github.com/finamp-app/finamp/issues/1412) | Maintainer points to Jellyfin migration metadata and rescanning. The issue's proposed recursion change is a hypothesis, not a validated app fix. |
+| [Queue removal #1566](https://github.com/finamp-app/finamp/issues/1566) | Current `track_menu.dart` includes `RemoveFromQueueMenuEntry`. Verify the affected queue surface before adding a duplicate action. |
+
+## Other Android apps
+
+These are focused follow-on investigations. No new patch/APK compatibility is
+claimed. Finamp received a complete inventory; the other apps received targeted
+issue reads, recent issue samples, open-PR lists and relevant merged-PR searches.
+
+| Order | App / bundle | Why it is useful | Existing work and boundary |
+| --- | --- | --- | --- |
+| 1 | [ReadYou](https://github.com/ReadYouApp/ReadYou): [#1254](https://github.com/ReadYouApp/ReadYou/issues/1254), [#1121](https://github.com/ReadYouApp/ReadYou/issues/1121), [#1240](https://github.com/ReadYouApp/ReadYou/issues/1240) | Read articles become unread again after local/FreshRSS synchronization; repeated notifications can be another symptom. Strong state-preservation test opportunity in a native Android app. | [Merged PR #1269](https://github.com/ReadYouApp/ReadYou/pull/1269) fixes one DAO overload, so start after that fix and check the release containing it. #1254 still has a later 0.16.2 report. Local and FreshRSS paths may need separate fixes; no assumption of one cause. No matching read-state fix appeared in the 34 open PRs. |
+| 2 | [AntennaPod](https://github.com/AntennaPod/AntennaPod): [Inbox/tag filters #7782](https://github.com/AntennaPod/AntennaPod/issues/7782) | Clearly scoped queue/inbox navigation improvement with an implementation discussion. | Read the linked maintainer conclusions. No matching PR appeared in the 31 open PRs. [Contribution policy](https://github.com/AntennaPod/AntennaPod/blob/develop/CONTRIBUTING.md) requires an issue without Needs: Triage/Decision; #7782 currently meets that condition. Per-podcast enqueue settings [#7292](https://github.com/AntennaPod/AntennaPod/issues/7292) still need a decision and another author already has a prototype. |
+| 3 | [Feeder](https://github.com/spacecowboy/Feeder), [image zoom #391](https://github.com/spacecowboy/Feeder/issues/391) | Finish the upstream path for a Penguin patch that already exists. | Our [PR #1291](https://github.com/spacecowboy/Feeder/pull/1291) is open and mergeable; current applicable CI checks pass. The maintainer's formatting feedback already has a follow-up commit. Maintain this PR rather than submitting another. |
+| 4 | Existing Fossify / Tasks.org / Kvaesitso patches | Reuse the existing APK fixtures, runtime modules and prior evidence. | Refresh the linked issue conversations and native-PR state first. Historical local candidate notes are not the current release or PR inventory. |
+
+## Delivery workflow
+
+1. Read the current contribution policy, full issue discussion and relevant open,
+   merged and closed PRs. Check the actual current source and released app.
+2. Group symptoms by the state transition or subsystem they might share. Record
+   uncertainty; use reproduction to decide whether one or several patches fit.
+3. Reproduce with disposable data. Build the focused source fix and regressions;
+   retain existing behavior outside that fix.
+4. Submit one reviewable upstream PR per coherent source change, or update the
+   existing PR. Record concrete upstream restrictions or technical blockers.
+5. For a Morphe candidate, separately establish bytecode/native feasibility,
+   exact official APK provenance, negative-input behavior, UI acceptance and
+   update/data retention. Only then add supported versions and release metadata
+   through the existing release workflow.
+
+Refresh this dated snapshot before starting the next fix; linked issue
+discussions remain the authoritative scope evidence.
