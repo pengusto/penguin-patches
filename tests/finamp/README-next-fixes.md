@@ -114,5 +114,5 @@ the cache bytes/owner/mode afterward. Run a fresh successful recovery.
 
 Reviewed screenshots, reports, exact artifact provenance and limits belong in
 [evidence/2026-10-28-next](evidence/2026-10-28-next/README.md). Distinguish local
-candidate acceptance from subsequent released-source verification. Emulator
+candidate acceptance from [released 1.2.0 remote-source verification](evidence/2026-10-28-released-1.2.0/README.md). Emulator
 results do not establish physical/OEM-device or live Jellyfin-server coverage.

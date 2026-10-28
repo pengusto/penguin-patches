@@ -1,5 +1,8 @@
 # Actual Android Morphe Manager acceptance
 
+This records the historical 1.1.0 three-patch suite. For the five-patch 1.2.0
+suite and released remote-source checks, see [the next-fixes acceptance](README-next-fixes.md).
+
 This checks the Android app's real UI and exported APKs. It does not invoke the
 Desktop CLI, a Manager patcher API, or modify Manager's settings database.
 The tested profile is official Manager **2.2.0**, Penguin **1.1.0**, official
@@ -19,7 +22,10 @@ physical phone. Install the verified Manager APK. Add the remote source through
 **Sources → Add → Remote**, using `https://github.com/pengusto/penguin-patches`.
 Confirm Penguin 1.1.0 and independently hash Manager's cached `patches.jar` under
 its `app_patch_bundles` directory. This proves the normal source download, even
-if a local MPP was copied to shared storage for inspection.
+if a local MPP was copied to shared storage for inspection. A freshly published
+manifest can still be served from the raw CDN/HTTP cache: the 1.2.0 run observed
+`max-age=300` and succeeded after normal expiry. Wait and refresh through the UI;
+verify the cached MPP hash before reporting the released version as tested.
 
 Put the original APK in `/sdcard/Download/finamp-manager-test/`. Files copied by
 ADB may need `MEDIA_SCANNER_SCAN_FILE` and a provider refresh before Downloads
@@ -95,9 +101,9 @@ suite. No APK, keystore or private fixture state belongs in Git.
 
 Use Manager's Install/Reinstall and Android's UPDATE action with the same
 fixture signer, then hash the installed `base.apk` against the exported APK.
-The installer may return to its Settings trampoline rather than Manager. Inspect
-the actual foreground package instead of assuming a result screen. First-use
-notification/tour prompts must be handled before resuming the intended action.
+The installer may return to its Settings trampoline or directly to Manager.
+Inspect the actual foreground package and installed APK hash instead of waiting
+for a fixed installer success screen. First-use notification/tour prompts must be handled before resuming the intended action.
 
 Open Finamp from Manager. Use the existing local synthetic Jellyfin fixture and
 require preserved login. Read the actual **Dark** and **Metadata order** values
