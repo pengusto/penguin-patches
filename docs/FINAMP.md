@@ -103,6 +103,53 @@ the welcome screen on the isolated Android 15 ARM64 emulator. It uses package
 separate installation alongside the official app. This is a local preview
 artifact, not a new Penguin Morphe release or upstream-signed Finamp release.
 
+## Artist-page loading
+
+[PR #1832](https://github.com/finamp-app/finamp/pull/1832) addresses
+[issue #1732](https://github.com/finamp-app/finamp/issues/1732), independently on
+the same `redesign` base. Commit:
+[`8d6b4b6`](https://github.com/pengusto/finamp/commit/8d6b4b6868481175339137a32d057055e103289e).
+
+The page eagerly loads complete album-artist and performing-artist track lists
+for display, and its five-track preview reuses an unbounded list. The fix limits
+both preview requests to five records with the selected sort/favorite filter,
+uses one `TotalRecordCount` request with `Limit=1` and no optional fields, and
+keeps full track enumeration behind playback actions.
+
+Do not add album and performing counts: the sets overlap. Jellyfin's `ArtistIds`
+query already includes both track and album credits and counts each matching
+item once. Verified against the primary server implementations in
+[10.10.7](https://github.com/jellyfin/jellyfin/blob/v10.10.7/Emby.Server.Implementations/Data/SqliteItemRepository.cs#L3271-L3297)
+and the [current server source](https://github.com/jellyfin/jellyfin/blob/master/Jellyfin.Server.Implementations/Item/BaseItemRepository.TranslateQuery.cs#L562-L569).
+An album-only credit is therefore included by this filter despite the UI's
+"performing artist" terminology. This source evidence resolves the uncertainty
+raised in the issue discussion; it is not a live-server compatibility test.
+
+Download-status input remains the number of albums plus the performing-query
+track count. Loaded albums remain available for download-size warnings. Offline
+counts reuse existing local providers. A pending/failed count is hidden while
+the rest of the page renders; a confirmed zero is displayed as zero. Refresh
+invalidates the metadata provider.
+
+Independent branch verification: **41 tests pass**, including **16 new tests**;
+targeted Dart analysis has **no issues**. Code generation, formatting and
+whitespace checks pass. Android ARM64 debug APK compilation succeeds with the
+same runtime/toolchains documented above. No installation or live Jellyfin/device
+acceptance was performed for this third contribution.
+
+The regression runs the actual preview provider with only the API boundary
+faked: on unchanged upstream it requests 5 + 10,000 records, totaling **2,148,827
+synthetic serialized bytes**. The fix requests 5 + 5 records / **2,092 bytes**.
+This quantifies that fixture's preview response, not complete-page memory,
+real-library latency or every album request. Tests also cover all six selection
+types, filter forwarding, deduplication, count/error handling, disabled preview,
+full on-demand favorite playback, local offline-provider reuse and header UI.
+
+This PR is **not included in the two-change combined preview described above**.
+It is a separate source contribution, not a new Morphe catalogue entry or signed
+upstream release. Current GitHub review/CI/merge status is separate from these
+local checks.
+
 ## Morphe feasibility
 
 Flutter release apps compile Dart to native machine code; see the

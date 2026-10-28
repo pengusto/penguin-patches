@@ -20,19 +20,20 @@ user impact, existing work and verification cost; it is not a reaction-count ran
 | --- | --- | --- |
 | Delivered | [Custom-section title #1798](https://github.com/finamp-app/finamp/issues/1798) | [Source PR #1830](https://github.com/finamp-app/finamp/pull/1830): live validation/preview and a persistent text controller. Four widget regressions and all 29 tests pass. [Scope and verification](FINAMP.md). |
 | Delivered source contribution | Song artist credit order, requested 2026-10-28 | [Source PR #1831](https://github.com/finamp-app/finamp/pull/1831): album artists first, remaining credits alphabetically; metadata, first-credit and alphabetical alternatives. 58 tests and Android ARM64 debug compilation pass. [Scope and verification](FINAMP.md#song-artist-order). |
-| 1 — larger performance fix | [Artist screen #1732](https://github.com/finamp-app/finamp/issues/1732) | Opening an artist eagerly loads both performing-artist and album-artist track lists. Avoid full-discography loading for counters while preserving distinct track membership and download status. No matching implementation appeared in the 51 open PRs. Measure request count/bytes and UI responsiveness with a large synthetic library. |
-| 2 — correctness | [Likes disappear on track change #1822](https://github.com/finamp-app/finamp/issues/1822), [favorites do not reliably reach Jellyfin #1778](https://github.com/finamp-app/finamp/issues/1778) | Possible shared favorite-state/sync problem, not yet a proven common cause. Compare server state with UI state across track changes, delayed/failed requests, rapid toggles and restart. [PR #1736](https://github.com/finamp-app/finamp/pull/1736) adds star ratings and touches adjacent media/API paths; coordinate rather than assuming it fixes favorites. |
-| 3 — large libraries | [Tracks alphabet scroller #1790](https://github.com/finamp-app/finamp/issues/1790), [jump-to-letter #694](https://github.com/finamp-app/finamp/issues/694) | Reproduce the Tracks path on Android, with duplicates, non-letter titles and an offline library. [PR #1786](https://github.com/finamp-app/finamp/pull/1786) explicitly covers album/artist grids and excludes track-list fast scrolling. A track fix needs bounded seeks and queue-order regression checks. |
+| Delivered source contribution | [Artist screen #1732](https://github.com/finamp-app/finamp/issues/1732) | [Source PR #1832](https://github.com/finamp-app/finamp/pull/1832) removes full-discography display queries, uses bounded preview/count requests and preserves download-status inputs. 41 tests (16 new), clean targeted analysis and Android ARM64 debug compilation pass. Synthetic preview response: 2,148,827 → 2,092 bytes; not a live-library timing measurement. [Scope and verification](FINAMP.md#artist-page-loading). |
+| 1 — correctness | [Likes disappear on track change #1822](https://github.com/finamp-app/finamp/issues/1822), [favorites do not reliably reach Jellyfin #1778](https://github.com/finamp-app/finamp/issues/1778) | Possible shared favorite-state/sync problem, not yet a proven common cause. Compare server state with UI state across track changes, delayed/failed requests, rapid toggles and restart. [PR #1736](https://github.com/finamp-app/finamp/pull/1736) adds star ratings and touches adjacent media/API paths; coordinate rather than assuming it fixes favorites. |
+| 2 — large libraries | [Tracks alphabet scroller #1790](https://github.com/finamp-app/finamp/issues/1790), [jump-to-letter #694](https://github.com/finamp-app/finamp/issues/694) | Reproduce the Tracks path on Android, with duplicates, non-letter titles and an offline library. [PR #1786](https://github.com/finamp-app/finamp/pull/1786) explicitly covers album/artist grids and excludes track-list fast scrolling. A track fix needs bounded seeks and queue-order regression checks. |
 
 ### Performance scope that must survive a fix
 
-The #1732 discussion explains why two server counts cannot simply be added:
-performing artists and album artists overlap, and either set can contain unique
-tracks. Current `artist_screen_content.dart` also passes performing tracks into
-`DownloadButton` through `allChildren`. Removing that query solely because it
-feeds a counter would change download-status semantics. The next patch must
-account for this consumer and retain correct Play/Shuffle and downloads.
-The issue's network timings are the reporter's measurements, not our benchmark.
+The #1732 discussion correctly warns against adding overlapping counts. Primary
+server source establishes that `ArtistIds` already includes track and album
+credits, so PR #1832 uses its distinct `TotalRecordCount` instead. The download
+button still receives album count + performing-query track count as its expected
+direct-child count; complete Play/Shuffle enumeration stays on demand. Offline
+counts retain the existing local providers. See the linked server evidence in
+[FINAMP.md](FINAMP.md#artist-page-loading). The issue's network timings remain the
+reporter's measurements, not our benchmark.
 
 ### Reuse existing work and reject false starts
 
