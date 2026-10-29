@@ -104,8 +104,18 @@ val finampTrackAlphabetPatch = finampFeature(
     "Fix track alphabet navigation", "Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790).", 16,
 )
 
+@Suppress("unused")
+val finampPlayerOutputPatch = finampFeature(
+    "Keep player output controls accessible", "Open the existing output controls from the player menu even when bottom actions are hidden (#1355).", 32,
+)
+
+@Suppress("unused")
+val finampQuickSettingsBannerPatch = finampFeature(
+    "Fix quick settings banner contrast", "Use the banner's matching foreground color so its text stays readable with custom accents (#1756).", 64,
+)
+
 private fun ResourcePatchContext.applyFinampComposition(mask: Int) {
-    nativeCheck(mask in 1..31, "invalid selection mask $mask")
+    nativeCheck(mask in 1..127, "invalid selection mask $mask")
     nativeCheck(packageMetadata.packageName == FINAMP_PACKAGE && packageMetadata.versionName == FINAMP_VERSION,
         "unsupported app; use the original official Finamp 1.0.1 APK")
 

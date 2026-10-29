@@ -5,14 +5,16 @@ The supported input is the official **Finamp 1.0.1 universal APK**, SHA-256
 Output is ARM64 only. See [the user guide](../../docs/FINAMP_NATIVE.md).
 
 Bits: 1 = title validation, 2 = song artist order, 4 = artist-page loading,
-8 = offline performing-artist filtering, 16 = Tracks alphabet navigation.
+8 = offline performing-artist filtering, 16 = Tracks alphabet navigation,
+32 = player output access, 64 = quick-settings banner contrast.
 Every nonempty combination has its own delta against the original snapshot.
 The [source matrix](native-sources.json) pins complete, public MPL-2.0 source
 trees; it is not a set of patches against current Finamp redesign.
 
-The current matrix has 31 nonempty selections. Historical 1.1.0 reports below
+The current matrix has 127 nonempty selections. Historical 1.1.0 reports below
 cover seven selections; use that tag's scripts to reproduce its exact bundle.
-The new two-fix acceptance is documented separately in `README-next-fixes.md`.
+Current UI-fix acceptance is documented in `README-ui-fixes.md`; the earlier
+five-patch suite remains in `README-next-fixes.md`.
 
 ## Verify a release bundle
 
@@ -25,7 +27,7 @@ python3 -B tests/finamp/validate_bundle.py --bundle "$MPP" \
   --report .scratch/finamp/bundle-verification.json
 ```
 
-This replays all 31 payloads, checks source pins, output sizes/hashes, Dart
+This replays all 127 payloads, checks source pins, output sizes/hashes, Dart
 snapshot compatibility and compiled feature markers. The manual Release workflow
 runs it before publishing a bundle. APKs and signing keys are never committed
 or included in the MPP.
@@ -35,7 +37,7 @@ or included in the MPP.
 Use Flutter 3.47.2 framework `d3b14c876900e553bc736ca19295fc09e3853e8e`,
 engine `a804b261645ef8c13eb3d5c44a5c2fb0340c5539`, Dart 3.13.2, Android
 NDK `llvm-strip`, and a Python environment with `bsdiff4==1.2.6`.
-Clone `https://github.com/pengusto/finamp.git` and fetch the 32
+Clone `https://github.com/pengusto/finamp.git` and fetch the 128
 `penguin/finamp-native-1.0.1-mask-*` branches. Run:
 
 ```sh
@@ -48,7 +50,7 @@ python3 -B tests/finamp/build_native_payloads.py \
 The builder owns a separate checkout under its work directory, enforces the
 committed dependency lock, generates translations, compiles and strips the
 snapshot, then verifies a delta replay. It replaces the production manifest only
-after all 31 masks complete. `--masks 2` defaults to private partial output;
+after all 127 masks complete. `--masks 2` defaults to private partial output;
 partial runs cannot write into production resources. Use `--output` for a
 separate full exploratory rebuild too.
 

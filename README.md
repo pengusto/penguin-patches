@@ -34,9 +34,9 @@ Real Android APK captures with synthetic music data. [Evidence & limits](tests/f
 **[Explore the 5 Finamp patches →](docs/FINAMP_NATIVE.md)**
 <!-- FINAMP_COUNT_END -->
 
-Choose song artist order, fix offline artist lists and alphabet jumps, validate section titles, or load artist pages faster. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
+Choose how song credits appear, keep Output reachable with hidden player buttons, improve banner contrast, and fix library browsing or settings errors. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
 
-[Title validation](#preview-fix-section-title-validation) · [Artist-page loading](#preview-load-artist-pages-faster) · [Offline artists](#preview-fix-offline-artist-tracks) · [Alphabet jumps](#preview-fix-track-alphabet-navigation)
+[Player output](#preview-keep-player-output-controls-accessible) · [Banner contrast](#preview-fix-quick-settings-banner-contrast) · [Title validation](#preview-fix-section-title-validation) · [Artist-page loading](#preview-load-artist-pages-faster) · [Offline artists](#preview-fix-offline-artist-tracks) · [Alphabet jumps](#preview-fix-track-alphabet-navigation)
 
 | Feeder | Infinity+ |
 | :--- | :--- |

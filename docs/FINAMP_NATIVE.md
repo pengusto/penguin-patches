@@ -19,7 +19,7 @@ Other versions, F-Droid/recompiled binaries and earlier `Finamp Debug` APKs do
 not have declared compatibility. Repatch the original APK with all desired
 selections together; an already patched snapshot is deliberately rejected.
 
-## Five independent selections
+## Seven independent selections
 
 | Patch name in Morphe | Behavior | Upstream contribution |
 | --- | --- | --- |
@@ -29,7 +29,10 @@ selections together; an already patched snapshot is deliberately rejected.
 | **Fix offline artist tracks** | Excludes unrelated tracks from downloaded shared albums when browsing a performing artist | [PR #1834](https://github.com/finamp-app/finamp/pull/1834), [issue #1689](https://github.com/finamp-app/finamp/issues/1689) |
 | **Fix track alphabet navigation** | Uses consistent case when comparing Tracks titles with a selected alphabet letter; preserves existing paging | [PR #1835](https://github.com/finamp-app/finamp/pull/1835), [issue #1790](https://github.com/finamp-app/finamp/issues/1790) |
 
-All five are optional (`default=false`). Choose any subset of the five in
+| **Keep player output controls accessible** | Adds Output to the player track menu, including when bottom actions are hidden and gestures disabled | [PR #1836](https://github.com/finamp-app/finamp/pull/1836), [issue #1355](https://github.com/finamp-app/finamp/issues/1355) |
+| **Fix quick settings banner contrast** | Uses the matching foreground color for banner text with custom accents | [PR #1837](https://github.com/finamp-app/finamp/pull/1837), [issue #1756](https://github.com/finamp-app/finamp/issues/1756) |
+
+All seven are optional (`default=false`). Choose any subset of the seven in
 one Morphe run. The artist-order default promotes only album artists also
 credited on the song, then alphabetizes remaining credits. With no matching
 album artist, it retains song metadata order. It does not rewrite music tags or
@@ -48,8 +51,9 @@ Same-key update/removal tests are distinct from changing signing certificates.
 ## Native implementation and source
 
 Flutter compiles this Dart logic into `libapp.so`. A shared raw-resource patch
-collects five selection bits (1 title, 2 artists, 4 loading, 8 offline artist
-filtering, 16 Tracks alphabet) and applies one precomposed delta for masks 1–31. The original APK's native and engine hashes are
+collects seven selection bits (1 title, 2 artists, 4 loading, 8 offline artist
+filtering, 16 Tracks alphabet, 32 player output, 64 banner contrast) and applies
+one precomposed delta for masks 1–127. The original APK's native and engine hashes are
 checked before the snapshot is replaced; the selected output is checked against
 its own SHA-256 and size. Unsupported input fails before an APK is published.
 
@@ -58,7 +62,7 @@ The original release source is
 The fixes are backported to that release rather than replacing it with current
 `redesign` or a debug app. Each complete selection tree is published in the
 [source matrix](../tests/finamp/native-sources.json), including
-[all five fixes](https://github.com/pengusto/finamp/tree/313694b7d4cfd5c738964b785cc78ebd721b9ea6).
+[all seven fixes](https://github.com/pengusto/finamp/tree/d1bee93615ea5f567d048d69b6d7eb4f11919fba).
 
 Build toolchain: Flutter **3.47.2**, Dart **3.13.2**, framework
 `d3b14c876900e553bc736ca19295fc09e3853e8e`, engine
@@ -68,7 +72,7 @@ version hash and feature flags also match. SDK-required dependency locks are
 recorded in every source tree; other app features are not pulled from later
 `redesign` commits.
 
-Real Morphe runs for all 31 combinations verify that every retained APK entry
+Real Morphe runs for all 127 combinations verify that every retained APK entry
 except ARM64 `libapp.so` matches the original: DEX, manifest, engine, resources
 and Flutter assets remain byte-identical. Other CPU architectures are removed
 so they cannot silently run an unpatched snapshot. Snapshot files remain exactly
@@ -87,10 +91,11 @@ read saved settings with the frozen original adapter **without adapter 128**.
 
 ## Current verification
 
-The two additional correctness fixes use 31 independently verified native
-selections. See [the new acceptance workflow](../tests/finamp/README-next-fixes.md)
-and [dated evidence](../tests/finamp/evidence/2026-10-28-next/README.md) for the
-source regressions, original-APK comparisons and actual Manager exports.
+The player-output and banner-contrast fixes extend the matrix to 127 native
+selections. See [the UI-fix acceptance workflow](../tests/finamp/README-ui-fixes.md)
+for source regressions, original-APK comparisons and actual Manager exports.
+The [1.2.0 acceptance](../tests/finamp/README-next-fixes.md) records the earlier
+31-selection release.
 
 ## Historical 1.1.0 verification
 

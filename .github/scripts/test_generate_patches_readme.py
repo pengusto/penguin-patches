@@ -84,16 +84,16 @@ class ReleaseReadmeTests(unittest.TestCase):
         data = json.loads((ROOT / "patches-list.json").read_text())
         self.check_gallery(data, self.render())
 
-    def test_two_new_finamp_fixes_have_gallery_links(self):
-        data = {"version": "1.2.0", "patches": [
+    def test_two_additional_finamp_fixes_have_gallery_links(self):
+        data = {"version": "1.3.0", "patches": [
             {"name": name, "description": "A focused Finamp fix", "compatiblePackages": [
                 {"packageName": "com.unicornsonlsd.finamp", "name": "Finamp", "targets": [{"version": "1.0.1"}]}]}
-            for name in ("Fix offline artist tracks", "Fix track alphabet navigation")
+            for name in ("Keep player output controls accessible", "Fix quick settings banner contrast")
         ]}
         result = self.render(data)
         self.assertIn("2 patches · 1 app", result)
         self.check_gallery(data, result)
-        for slug in ("fix-offline-artist-tracks", "fix-track-alphabet-navigation"):
+        for slug in ("keep-player-output-controls-accessible", "fix-quick-settings-banner-contrast"):
             self.assertIn(f"[Before / after](#preview-{slug})", result)
         self.assertNotIn("<details open>", result)
 
@@ -125,8 +125,10 @@ class ReleaseReadmeTests(unittest.TestCase):
 
     def test_finamp_hero_count_follows_metadata_instead_of_stale_copy(self):
         data = json.loads((ROOT / "patches-list.json").read_text())
-        stale = (ROOT / "README.md").read_text().replace("Explore the 5 Finamp patches", "Explore the 3 Finamp patches")
-        self.assertIn("Explore the 5 Finamp patches", self.render(data, readme=stale))
+        count = sum(any(package.get("packageName") == "com.unicornsonlsd.finamp"
+                        for package in patch.get("compatiblePackages", [])) for patch in data["patches"])
+        stale = re.sub(r"Explore the \d+ Finamp patches", "Explore the 3 Finamp patches", (ROOT / "README.md").read_text())
+        self.assertIn(f"Explore the {count} Finamp patches", self.render(data, readme=stale))
         data["patches"] = [p for p in data["patches"] if p["name"] == "Song artist order"]
         result = self.render(data, readme=stale)
         self.assertIn("Explore the 1 Finamp patch →", result)

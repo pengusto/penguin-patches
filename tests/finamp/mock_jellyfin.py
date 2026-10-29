@@ -54,10 +54,10 @@ def now():
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
-def make_wav(number):
+def make_wav(number, duration_seconds=DURATION_SECONDS):
     """Four-second mono PCM sine, with a fade to avoid clicks."""
     frames = bytearray()
-    count = SAMPLE_RATE * DURATION_SECONDS
+    count = SAMPLE_RATE * duration_seconds
     frequency = 220 + number * 33
     for i in range(count):
         fade = min(1, i / 441, (count - i - 1) / 441)
@@ -177,7 +177,7 @@ class Query:
 
 class Fixture:
     def __init__(self, *, mode="off", scope="artist", hold_timeout=120, data_dir=None, profile="credits"):
-        if profile not in ("credits", "navigation"):
+        if profile not in ("credits", "navigation", "player"):
             raise ValueError("Unknown synthetic fixture profile")
         self.profile = profile
         self.lock = threading.RLock()
@@ -280,6 +280,21 @@ class Fixture:
                               "ParentPrimaryImageItemId": navigation_id, "UserData": user_data(item_id)})
                 items.append(track)
             library.update({"ChildCount": 2, "RecursiveItemCount": 115})
+        if self.profile == "player":
+            # Keep the original downloaded tracks unchanged. A separate two-minute
+            # synthetic stream gives UI acceptance time to open and pause Player.
+            player_id = stable_id("player-output-track")
+            self.audio[player_id] = make_wav(9, 120)
+            source = media_source(player_id, len(self.audio[player_id]))
+            source["RunTimeTicks"] = 120 * 10_000_000
+            track = copy.deepcopy(next(item for item in items if item["Id"] == TRACK_IDS[0]))
+            track.update({"Id": player_id, "Name": "Output Controls", "SortName": "output controls",
+                          "RunTimeTicks": 120 * 10_000_000, "IndexNumber": 9,
+                          "MediaSources": [source], "MediaStreams": source["MediaStreams"],
+                          "Path": source["Path"], "UserData": user_data(player_id)})
+            items.append(track)
+            album.update({"ChildCount": 9, "RecursiveItemCount": 9,
+                          "RunTimeTicks": 8 * RUNTIME_TICKS + 120 * 10_000_000})
         return {item["Id"]: item for item in items}
 
     def manifest(self, port, host="127.0.0.1"):
@@ -751,7 +766,7 @@ def main(argv=None):
     parser.add_argument("--port", type=int, default=18961, help="HTTP port; 0 chooses a free port (default: 18961)")
     parser.add_argument("--data-dir", type=Path, help="explicit output directory for manifest.json, WAVs, requests.jsonl; default: memory only")
     parser.add_argument("--unbounded-mode", choices=("off", "hold", "reject"), default="off")
-    parser.add_argument("--profile", choices=("credits", "navigation"), default="credits")
+    parser.add_argument("--profile", choices=("credits", "navigation", "player"), default="credits")
     parser.add_argument("--unbounded-scope", choices=("artist", "all"), default="artist")
     parser.add_argument("--hold-timeout", type=float, default=120, help="hold ceiling in seconds, 0.1..300 (default: 120)")
     args = parser.parse_args(argv)
