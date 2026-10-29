@@ -13,7 +13,7 @@ Focused Android fixes, ready for Morphe.
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe.svg" alt="Add to Morphe →" width="242" height="52"></a>
 
 <!-- PATCHES_SUMMARY_START -->
-**20 patches · 11 apps · [v1.3.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.3.0)**
+**21 patches · 12 apps · [v1.4.0-candidate](https://github.com/pengusto/penguin-patches/releases/tag/v1.4.0-candidate)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -504,6 +504,35 @@ Reach the existing widget editor from the search-bar menu even when the on-scree
 
 </details>
 
+<a id="previews-me-ash-reader"></a>
+
+### Read You · 1 patch
+
+<a id="preview-import-nested-opml-feeds"></a>
+
+<details>
+<summary><strong>Import nested OPML feeds</strong> · Before / after</summary>
+<br>
+
+**Read You 0.16.2 · official GitHub APK** · [Setup & patch details](docs/READYOU.md)
+
+Keep feeds inside nested OPML folders when importing subscriptions. Preserve feed
+order and per-feed settings within the app's existing flat outer group.
+
+**Android APK captures.** Same three-feed synthetic OPML, All filter, collapsed
+Default group, light theme, display size and density. Original official payload
+resigned with the fixture key versus the actual Morphe Manager export installed
+with that same key. Each import starts without the synthetic Manga news group.
+
+| Before | After |
+| :---: | :---: |
+| **Only 1 of 3 feeds imported** | **All 3 feeds imported** |
+| <img src="tests/readyou/evidence/2026-10-29/before.png" width="300" alt="Before: only Reader releases appears in Manga news"> | <img src="tests/readyou/evidence/2026-10-29/after.png" width="300" alt="After: Reader releases, Studio journal and Chapter notes appear in Manga news"> |
+
+[Capture provenance & checks](tests/readyou/evidence/2026-10-29/README.md) · [Back to patch index](#patch-previews)
+
+</details>
+
 <a id="previews-org-tasks"></a>
 
 ### Tasks.org · 1 patch
@@ -535,9 +564,9 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 
 <!-- PATCHES_START -->
 <details>
-<summary><strong>All 11 apps and supported versions</strong></summary>
+<summary><strong>All 12 apps and supported versions</strong></summary>
 
-> **[v1.3.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;20 patches total
+> **[v1.4.0-candidate](https://github.com/pengusto/penguin-patches/releases/tag/v1.4.0-candidate)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;21 patches total
 <details>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -603,6 +632,21 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 | <a id="keep-player-output-controls-accessible"></a>[Keep player output controls accessible](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-keep-player-output-controls-accessible) | Open the existing output controls from the player menu even when bottom actions are hidden (#1355). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="load-artist-pages-faster"></a>[Load artist pages faster](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-load-artist-pages-faster) | Load artist previews and track counts without downloading the full discography (#1832). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="song-artist-order"></a>[Song artist order](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-song-artist-order) | Choose song-credit display order, including album artists first, metadata order and alphabetical (#1831). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+
+</details>
+
+<details>
+<summary>📦 Read You&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 0.16.2 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| <a id="import-nested-opml-feeds"></a>[Import nested OPML feeds](docs/READYOU.md)<br>[Before / after](#preview-import-nested-opml-feeds) | Import feeds inside nested OPML folders into their outer group, preserving document order and feed settings. Official GitHub Read You 0.16.2 APK only. |  |
 
 </details>
 
