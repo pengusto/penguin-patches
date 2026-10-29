@@ -44,7 +44,7 @@ def main():
         expected = {root + f'arm64-v8a/{mask}.pfd' for mask in MASKS}
         actual = {name for name in names if name.startswith(root) and name.endswith('.pfd')}
         if actual != expected:
-            raise ValueError('A publishable bundle must contain exactly all 31 native selections')
+            raise ValueError(f'A publishable bundle must contain exactly all {len(MASKS)} native selections')
         for key, value in [('schema', '1'), ('package', 'com.unicornsonlsd.finamp'), ('version', '1.0.1'),
                            ('flutter', '3.47.2'), ('dart', '3.13.2'), ('abi.arm64-v8a.base.sha256', LIBRARY_SHA),
                            ('abi.arm64-v8a.engine.sha256', ENGINE_SHA)]:
@@ -66,9 +66,13 @@ def main():
                 raise ValueError('Wrong compiled features for the selected mask')
             report['masks'][str(mask)] = {'source': props[prefix + '.source'], 'native_sha256': sha(new),
                                          'native_bytes': len(new), 'delta_bytes': len(delta), 'verified': True}
+            if mask % 8 == 0 or mask == len(MASKS):
+                print(f'Verified native replay {mask}/{len(MASKS)}', flush=True)
     args.report.parent.mkdir(parents=True, exist_ok=True)
-    args.report.write_text(json.dumps(report, indent=2) + '\n')
-    print('All 31 shipped PFD1 payloads, source pins and native output hashes verified')
+    checkpoint = args.report.with_name(args.report.name + '.tmp')
+    checkpoint.write_text(json.dumps(report, indent=2) + '\n')
+    checkpoint.replace(args.report)
+    print(f'All {len(MASKS)} shipped PFD1 payloads, source pins and native output hashes verified')
 
 
 if __name__ == '__main__':

@@ -15,6 +15,7 @@ import zipfile
 import android_acceptance as base
 from build_native_payloads import APK_SHA
 from patch_matrix import NAMES
+from manager_selection import configure_selection
 
 CACHE = '/data/user/0/app.morphe.manager/app_original-apks/com.unicornsonlsd.finamp_1.0.1_original.apk'
 MUTANT = '/sdcard/Download/finamp-manager-test/Finamp-invalid-engine.apk'
@@ -47,7 +48,7 @@ def verify_mutant(original, mutant):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path, required=True)
-    parser.add_argument('--mask', type=int, choices=range(1, 32), default=31)
+    parser.add_argument('--mask', type=int, choices=range(1, 128), default=31)
     parser.add_argument('--out-root', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0')
     parser.add_argument('--mutant-apk', type=Path, required=True)
     parser.add_argument('--original-apk', type=Path, required=True)
@@ -81,13 +82,7 @@ def main():
         assert sha(CACHE) == expected_mutant
         ui.tap('Finamp', class_name='android.widget.TextView')
         ui.tap('Patch', class_name='android.widget.TextView')
-        for bit, name in NAMES.items():
-            root, _ = ui.dump()
-            states = [n.get('content-desc') for n in root.iter('node')
-                      if n.get('content-desc') in (name + ', Enabled', name + ', Disabled')]
-            assert len(states) == 1
-            if states[0].endswith(', Enabled') != bool(args.mask & bit):
-                ui.tap(name, class_name='android.widget.TextView')
+        report['verified_selection_states'] = configure_selection(ui, NAMES, args.mask)
         ui.capture('fault-art-selection')
         ui.tap('Patch', class_name='android.widget.TextView')
         deadline = time.monotonic() + 120

@@ -192,12 +192,17 @@ class Android:
         return after
 
     def launch(self, restart=False):
+        # Activity-manager defaults can target user0 after a profile switch.
+        # Resolve, stop and start against the same observed foreground profile.
+        user = self.adb("shell", "am", "get-current-user").strip()
+        if not user.isdigit():
+            raise RuntimeError("Cannot establish the active Android profile")
         if restart:
-            self.adb("shell", "am", "force-stop", PACKAGE)
-        component = self.adb("shell", "cmd", "package", "resolve-activity", "--brief", PACKAGE).strip().splitlines()[-1]
+            self.adb("shell", "am", "force-stop", "--user", user, PACKAGE)
+        component = self.adb("shell", "cmd", "package", "resolve-activity", "--user", user, "--brief", PACKAGE).strip().splitlines()[-1]
         if not component.startswith(PACKAGE + "/"):
             raise RuntimeError("Unexpected launch component: " + component)
-        self.adb("shell", "am", "start", "-W", "-n", component)
+        self.adb("shell", "am", "start", "--user", user, "-W", "-n", component)
         time.sleep(1)
         return self.capture("launched")
 
@@ -1015,7 +1020,7 @@ def make_parser():
     for command in ("verify", "launch", "restart", "back", "hide-ime", "self-check"):
         sub.add_parser(command)
     fixture_parser = sub.add_parser("start-fixture")
-    fixture_parser.add_argument("--profile", choices=("credits", "navigation"), default="credits")
+    fixture_parser.add_argument("--profile", choices=("credits", "navigation", "player"), default="credits")
     inspect = sub.add_parser("inspect")
     inspect.add_argument("--limit", type=int, choices=range(1, 51), default=12)
     inspect.add_argument("--contains", default="")

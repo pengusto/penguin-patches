@@ -15,20 +15,29 @@ import time
 
 import android_acceptance as base
 from patch_matrix import NAMES, check_contents
+from build_native_payloads import APK_SHA
+from manager_selection import configure_selection
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path, required=True)
-    parser.add_argument('--mask', type=int, choices=range(1, 32), required=True)
+    parser.add_argument('--mask', type=int, choices=range(1, 128), required=True)
     parser.add_argument('--out-root', type=Path, default=base.REPO_ROOT / '.scratch/finamp/manager-2.2.0')
     parser.add_argument('--remote-prefix', default='', help='Fresh alphanumeric filename prefix for shared-storage exports')
+    parser.add_argument('--export-directory', choices=('/sdcard/Download', '/sdcard/Download/finamp-manager-test'),
+                        default='/sdcard/Download/finamp-manager-test', help='Actual directory selected in Android Save; searching for a source can reset it to Downloads')
     parser.add_argument('--runtime', choices=('jvm', 'art'), required=True)
+    parser.add_argument('--available-mask', type=int, choices=(31, 63, 127), default=sum(NAMES),
+                        help='Explicit historical/candidate source mask; the current full source is the default')
     parser.add_argument('--from-result', action='store_true')
     parser.add_argument('--recovery', action='store_true', help='Fresh export proving recovery after a rejected input')
     parser.add_argument('--original-apk', type=Path, required=True)
     parser.add_argument('--native-report', type=Path, required=True)
     args = parser.parse_args()
+    if args.mask & ~args.available_mask:
+        parser.error('Selected patch is absent from this source version')
+    names = {bit: name for bit, name in NAMES.items() if bit & args.available_mask}
     base.PACKAGE = 'app.morphe.manager'
     base.OUT_ROOT = args.out_root.expanduser().resolve()
     if not base.OUT_ROOT.is_relative_to((base.REPO_ROOT / '.scratch').resolve()):
@@ -40,7 +49,7 @@ def main():
     if not re.fullmatch(r'[A-Za-z0-9_-]*', args.remote_prefix):
         parser.error('Use a simple shared-storage prefix')
     remote_name = args.remote_prefix + name
-    remote = '/sdcard/Download/finamp-manager-test/' + remote_name
+    remote = args.export_directory + '/' + remote_name
     if destination.exists() or ui.adb('shell', 'ls', '-d', remote, check=False).strip():
         raise ValueError('Refusing a stale output; use a fresh case')
 
@@ -66,19 +75,10 @@ def main():
         ui.tap('Finamp', class_name='android.widget.TextView')
         ui.tap('Patch', class_name='android.widget.TextView')
     wait_for('Fix section title validation')
-    for bit, patch in NAMES.items():
-        root, _ = ui.dump()
-        states = [n.get('content-desc') for n in root.iter('node')
-                  if n.get('content-desc') in (patch + ', Enabled', patch + ', Disabled')]
-        if len(states) != 1:
-            raise RuntimeError('Missing distinct patch row: ' + patch)
-        if (states[0].endswith(', Enabled')) != bool(args.mask & bit):
-            ui.tap(patch, class_name='android.widget.TextView')
-    root, _ = ui.dump()
-    assert any(n.get('text') == '0/5' for n in root.iter('node')), 'Unrelated Morphe patches selected'
-    for bit, patch in NAMES.items():
-        expected = patch + (', Enabled' if args.mask & bit else ', Disabled')
-        assert any(n.get('content-desc') == expected for n in root.iter('node'))
+    cache = '/data/user/0/app.morphe.manager/app_original-apks/com.unicornsonlsd.finamp_1.0.1_original.apk'
+    if ui.adb('shell', 'su', '0', 'sha256sum', cache).split()[0] != APK_SHA:
+        raise ValueError('Manager original-APK cache differs from the official verified input')
+    selection_states = configure_selection(ui, names, args.mask)
     ui.capture(f'mask-{args.mask}-{args.runtime}{suffix}-selection')
     previous_runtime = runtime_lines()
     ui.tap('Patch', class_name='android.widget.TextView')
@@ -105,6 +105,9 @@ def main():
               'apk_sha256': hashlib.sha256(destination.read_bytes()).hexdigest(), 'native_sha256': native,
               **contents}
     record['recovery'] = args.recovery
+    record['available_patch_mask'] = args.available_mask
+    record['actual_export_path'] = remote
+    record['verified_selection_states'] = selection_states
     (base.OUT_ROOT / f'case-{args.mask}-{args.runtime}{suffix}.json').write_text(json.dumps(record, indent=2) + '\n')
     print(json.dumps(record), flush=True)
 

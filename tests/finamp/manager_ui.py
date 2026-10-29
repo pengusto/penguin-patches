@@ -46,6 +46,7 @@ def main():
     text.add_argument('--label')
     text.add_argument('--index', type=int)
     text.add_argument('--replace', action='store_true')
+    text.add_argument('--class-name', choices=('android.widget.EditText', 'android.widget.AutoCompleteTextView'), default='android.widget.EditText')
     text.add_argument('--masked', action='store_true', help='Synthetic password; validate mask length, not plaintext')
     scroll = sub.add_parser('scroll')
     scroll.add_argument('direction', choices=('up', 'down'))
@@ -83,7 +84,26 @@ def main():
     elif args.command == 'tap':
         ui.tap(args.label, contains=args.contains, class_name=args.class_name, index=args.index)
     elif args.command == 'type':
-        if args.masked:
+        if args.class_name == 'android.widget.AutoCompleteTextView':
+            if args.package != 'com.android.documentsui' or args.masked or not re.fullmatch(r'[A-Za-z0-9_.-]+', args.value):
+                raise ValueError('Autocomplete typing is limited to synthetic DocumentsUI file searches')
+            root, _ = ui.dump()
+            field = ui.find(root, args.label, class_name=args.class_name, index=args.index)
+            x, y, right, bottom = ui.tap_bounds(field)
+            # Generic tap hides the IME first, which closes an empty picker search.
+            if field.get('focused') != 'true':
+                ui.adb('shell', 'input', 'tap', (x + right) // 2, (y + bottom) // 2)
+            previous = field.get('text', '')
+            if previous in ('Search…', 'Search...'):
+                previous = ''
+            if args.replace and previous:
+                ui.adb('shell', 'input', 'keyevent', 'KEYCODE_MOVE_END')
+                ui.adb('shell', 'input', 'keyevent', *(['KEYCODE_DEL'] * len(previous)))
+            ui.adb('shell', 'input', 'text', args.value)
+            field = ui.find(ui.dump()[0], class_name=args.class_name, index=args.index)
+            if field.get('text') != args.value:
+                raise RuntimeError('Picker search did not retain the requested file query')
+        elif args.masked:
             if not re.fullmatch(r'[A-Za-z0-9]*', args.value):
                 raise ValueError('Only synthetic alphanumeric passwords are supported')
             root, _ = ui.dump()

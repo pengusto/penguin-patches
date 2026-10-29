@@ -12,8 +12,8 @@ import zipfile
 from build_native_payloads import APK_SHA
 from patch_matrix import check_contents
 
-FULL_SUITE = {'8-jvm', '16-jvm', '24-jvm', '31-jvm', '31-art', '7-jvm'}
-SUPPORTED_CASES = {f'{mask}-{runtime}' for mask in range(1, 32) for runtime in ('jvm', 'art')}
+FULL_SUITE = {'32-jvm', '64-jvm', '96-jvm', '127-jvm', '31-jvm', '127-art'}
+SUPPORTED_CASES = {f'{mask}-{runtime}' for mask in range(1, 128) for runtime in ('jvm', 'art')}
 
 
 def main():

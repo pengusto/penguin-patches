@@ -24,7 +24,7 @@ ENGINE_SHA = 'd70bbedc2b157630f90123a32ca894a6fa1816ec10cda9f335bada0692b376ee'
 FLUTTER_REV = 'd3b14c876900e553bc736ca19295fc09e3853e8e'
 ENGINE_REV = 'a804b261645ef8c13eb3d5c44a5c2fb0340c5539'
 SNAPSHOT = re.compile(rb'\xf5\xf5\xdc\xdc.{16}([0-9a-f]{32})([^\x00]*)\x00', re.S)
-MASKS = range(1, 32)
+MASKS = range(1, 128)
 
 PRODUCTION = ROOT / 'patches/src/main/resources/finamp/1.0.1'
 
@@ -48,16 +48,30 @@ def run(command, cwd=None, log=None):
         subprocess.run(command, cwd=cwd, stdout=output, stderr=subprocess.STDOUT, check=True)
 
 
+def verify_receipts(receipts, matrix, output, original):
+    """Resume only hash-bound completed payloads with the same pinned source."""
+    for key, receipt in receipts.items():
+        if int(key) not in MASKS or receipt['source'] != matrix['masks'][key]['commit']:
+            raise ValueError('Resume source does not match the pinned matrix')
+        delta = (output / f'arm64-v8a/{key}.pfd').read_bytes()
+        replay = apply_delta(original, delta)
+        if (sha(delta) != receipt['delta_sha256'] or sha(replay) != receipt['native_sha256']
+                or len(delta) != receipt['delta_bytes'] or len(replay) != receipt['native_bytes']):
+            raise ValueError('Resume payload does not match its completed receipt')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ['source-repo', 'source-matrix', 'flutter', 'original-apk', 'strip', 'work-dir']:
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--masks', default=','.join(map(str, MASKS)))
+    parser.add_argument('--resume', action='store_true', help='Recheck and reuse completed receipts in this owned worker')
+    parser.add_argument('--discard-intermediates', action='store_true', help='Discard compiled libraries after verified delta/checkpoint writes')
     args = parser.parse_args()
     masks = [int(value) for value in args.masks.split(',')]
     if not masks or len(set(masks)) != len(masks) or any(mask not in MASKS for mask in masks):
-        raise ValueError('Select unique source masks 1..31')
+        raise ValueError('Select unique source masks 1..127')
     output = payload_output(masks, args.output, args.work_dir.resolve())
     flutter = args.flutter.resolve()
     versions = json.loads(run([str(flutter), '--version', '--machine']))
@@ -94,6 +108,13 @@ def main():
     libraries.mkdir(exist_ok=True)
     report = {'original_apk_sha256': APK_SHA, 'original_native_sha256': LIBRARY_SHA,
               'flutter': versions, 'masks': {}}
+    report_path = work / 'native-build-report.json'
+    if args.resume and report_path.exists():
+        previous = json.loads(report_path.read_text())
+        if any(previous.get(key) != report[key] for key in report if key != 'masks'):
+            raise ValueError('Resume receipt belongs to different input/toolchain')
+        verify_receipts(previous['masks'], matrix, output, old)
+        report['masks'].update(previous['masks'])
     manifest_path = output / 'manifest.properties'
     if set(masks) == set(MASKS) and manifest_path.exists():
         manifest_path.unlink()  # A failed/incomplete rebuild cannot leave a stale publishable manifest.
@@ -101,6 +122,11 @@ def main():
                   'flutter=3.47.2', 'dart=3.13.2', 'abi.arm64-v8a.base.sha256=' + LIBRARY_SHA,
                   'abi.arm64-v8a.engine.sha256=' + ENGINE_SHA]
     for mask in masks:
+        if str(mask) in report['masks']:
+            print(json.dumps({'mask': mask, 'reused_verified_receipt': True}), flush=True)
+            continue
+        if shutil.disk_usage(work).free < 2 * 1024**3:
+            raise ValueError('Worker stopped before build: preserve at least 2 GiB of free disk space')
         started = time.monotonic()
         revision = matrix['masks'][str(mask)]['commit']
         if run(['git', 'status', '--porcelain', '--untracked-files=no'], cwd=source):
@@ -110,8 +136,10 @@ def main():
             raise ValueError(f'Pinned source tree mismatch for mask {mask}')
         run([str(flutter), 'pub', 'get', '--enforce-lockfile'], cwd=source, log=work / f'pub-{mask}.log')
         run([str(flutter), 'gen-l10n'], cwd=source, log=work / f'l10n-{mask}.log')
-        bundle = source / f'build/native-mask-{mask}'
-        run([str(flutter), 'assemble', '--no-version-check', f'--output={bundle}',
+        # Output paths participate in Flutter's cache key. Reuse a fixed path
+        # inside this worker, rather than retaining a kernel/AOT cache per mask.
+        bundle = source / 'build/native-current'
+        run([str(flutter), 'assemble', '--no-version-check', '--resource-pool-size=1', f'--output={bundle}',
              '-dTargetPlatform=android-arm64', '-dBuildMode=release', '-dTargetFile=lib/main.dart',
              '-dDartObfuscation=false', '-dTrackWidgetCreation=false', '-dTreeShakeIcons=false',
              '-dExtraGenSnapshotOptions=--deterministic', 'android_aot_bundle_release_android-arm64'],
@@ -132,17 +160,27 @@ def main():
             raise ValueError('Native delta replay failed')
         destination = output / f'arm64-v8a/{mask}.pfd'
         destination.parent.mkdir(exist_ok=True)
-        destination.write_bytes(delta)
-        prefix = f'abi.arm64-v8a.mask.{mask}'
-        properties.extend([prefix + '.sha256=' + sha(new), prefix + '.size=' + str(len(new)),
-                           prefix + f'.resource=finamp/1.0.1/arm64-v8a/{mask}.pfd',
-                           prefix + '.source=' + revision])
+        temporary = destination.with_suffix('.pfd.tmp')
+        temporary.write_bytes(delta)
+        temporary.replace(destination)
         record = {'source': revision, 'native_sha256': sha(new), 'native_bytes': len(new),
                   'delta_sha256': sha(delta), 'delta_bytes': len(delta), 'seconds': round(time.monotonic() - started, 2)}
         report['masks'][str(mask)] = record
-        (work / 'native-build-report.json').write_text(json.dumps(report, indent=2) + '\n')
+        temporary_report = report_path.with_suffix('.json.tmp')
+        temporary_report.write_text(json.dumps(report, indent=2) + '\n')
+        temporary_report.replace(report_path)
         print(json.dumps({'mask': mask, **record}), flush=True)
+        if args.discard_intermediates:
+            library.unlink()
+            shutil.rmtree(bundle)
     # A partial developer run is not a publishable matrix; never overwrite the production manifest.
+    for mask in masks:
+        receipt = report['masks'][str(mask)]
+        prefix = f'abi.arm64-v8a.mask.{mask}'
+        properties.extend([prefix + '.sha256=' + receipt['native_sha256'],
+                           prefix + '.size=' + str(receipt['native_bytes']),
+                           prefix + f'.resource=finamp/1.0.1/arm64-v8a/{mask}.pfd',
+                           prefix + '.source=' + receipt['source']])
     if set(masks) == set(MASKS):
         manifest_path.write_text('\n'.join(properties) + '\n')
     else:
