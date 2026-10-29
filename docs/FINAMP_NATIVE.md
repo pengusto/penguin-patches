@@ -23,20 +23,26 @@ selections together; an already patched snapshot is deliberately rejected.
 
 | Patch name in Morphe | Behavior | Upstream contribution |
 | --- | --- | --- |
-| **Fix section title validation** | Typing or clearing a custom section title refreshes validation and Save; cursor/IME state is retained | [PR #1830](https://github.com/finamp-app/finamp/pull/1830), [issue #1798](https://github.com/finamp-app/finamp/issues/1798) |
+| **Fix section title validation** | Typing or clearing a custom section title refreshes validation and Save; cursor/IME state is retained | [PR #1830](https://github.com/finamp-app/finamp/pull/1830) **merged into `redesign` on 2026-10-29**; [issue #1798](https://github.com/finamp-app/finamp/issues/1798) |
 | **Song artist order** | Adds **Layout & Theme → Song artist order** with album artists first, metadata order, first credit first and alphabetical modes | [PR #1831](https://github.com/finamp-app/finamp/pull/1831), [issue #1833](https://github.com/finamp-app/finamp/issues/1833) |
 | **Load artist pages faster** | Uses bounded preview/count requests; complete song enumeration stays behind playback actions | [PR #1832](https://github.com/finamp-app/finamp/pull/1832), [issue #1732](https://github.com/finamp-app/finamp/issues/1732) |
 | **Fix offline artist tracks** | Excludes unrelated tracks from downloaded shared albums when browsing a performing artist | [PR #1834](https://github.com/finamp-app/finamp/pull/1834), [issue #1689](https://github.com/finamp-app/finamp/issues/1689) |
 | **Fix track alphabet navigation** | Uses consistent case when comparing Tracks titles with a selected alphabet letter; preserves existing paging | [PR #1835](https://github.com/finamp-app/finamp/pull/1835), [issue #1790](https://github.com/finamp-app/finamp/issues/1790) |
-
 | **Keep player output controls accessible** | Adds Output to the player track menu, including when bottom actions are hidden and gestures disabled | [PR #1836](https://github.com/finamp-app/finamp/pull/1836), [issue #1355](https://github.com/finamp-app/finamp/issues/1355) |
-| **Fix quick settings banner contrast** | Uses the matching foreground color for banner text with custom accents | [PR #1837](https://github.com/finamp-app/finamp/pull/1837), [issue #1756](https://github.com/finamp-app/finamp/issues/1756) |
+| **Fix quick settings banner contrast** | Uses the matching foreground color for banner text with custom accents | Existing [`hotfix-1.0.2` fix](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8); duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837) **closed on 2026-10-29**; [issue #1756](https://github.com/finamp-app/finamp/issues/1756) |
 
 All seven are optional (`default=false`). Choose any subset of the seven in
 one Morphe run. The artist-order default promotes only album artists also
 credited on the song, then alphabetizes remaining credits. With no matching
 album artist, it retains song metadata order. It does not rewrite music tags or
 server metadata, or create a per-song lead role that Jellyfin does not provide.
+
+**Upstream status checked 2026-10-29:** the title fix is merged and the banner
+fix exists on the hotfix branch, while the latest official release remains
+[1.0.1](https://github.com/finamp-app/finamp/releases/tag/1.0.1). **Both backports
+and all seven selections remain available for the original 1.0.1 APK.** A source
+merge or unreleased hotfix does not update that APK or extend compatibility to
+future versions. [Exact upstream refs and release status](FINAMP.md#upstream-status-2026-10-29).
 
 The title patch retains the existing validity rule: an empty title is invalid;
 it does not introduce whitespace trimming or change which section types require
