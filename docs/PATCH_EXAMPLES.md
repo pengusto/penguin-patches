@@ -6,6 +6,7 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 
 | App | Patch / visible change |
 | --- | --- |
+| Read You 0.16.2 | [Import nested OPML feeds](#import-nested-opml-feeds) |
 | Finamp 1.0.1 | [Song artist order](#song-artist-order) |
 | Finamp 1.0.1 | [Fix section title validation](#fix-section-title-validation) |
 | Finamp 1.0.1 | [Load artist pages faster](#load-artist-pages-faster) |
@@ -379,6 +380,27 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/tasks-2838/2026-10-24/before.png" width="300" alt="Before: Child editor has no parent-navigation action"> | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/tasks-2838/2026-10-24/after.png" width="300" alt="After: Up-arrow appears next to the existing actions"> |
 
 [Capture provenance & checks](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/tasks-2838/2026-10-24) · [Back to patch index](#before--after)
+
+<a id="import-nested-opml-feeds"></a>
+
+## Import nested OPML feeds
+
+**Read You 0.16.2 · official GitHub APK** · [Setup & patch details](READYOU.md)
+
+Keep feeds inside nested OPML folders when importing subscriptions. Preserve feed
+order and per-feed settings within the app's existing flat outer group.
+
+**Android APK captures.** Same three-feed synthetic OPML, All filter, collapsed
+Default group, light theme, display size and density. Original official payload
+resigned with the fixture key versus the actual Morphe Manager export installed
+with that same key. Each import starts without the synthetic Manga news group.
+
+| Before | After |
+| :---: | :---: |
+| **Only 1 of 3 feeds imported** | **All 3 feeds imported** |
+| <img src="../tests/readyou/evidence/2026-10-29/before.png" width="300" alt="Before: only Reader releases appears in Manga news"> | <img src="../tests/readyou/evidence/2026-10-29/after.png" width="300" alt="After: Reader releases, Studio journal and Chapter notes appear in Manga news"> |
+
+[Capture provenance & checks](../tests/readyou/evidence/2026-10-29/README.md) · [Back to patch index](#before--after)
 
 ## About these comparisons
 

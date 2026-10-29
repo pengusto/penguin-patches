@@ -212,7 +212,9 @@ class Android:
                 for node in root.iter("node") if node.get("text") or node.get("content-desc") or node.get("class") == "android.widget.EditText"]
 
     def dump(self):
-        remote = "/sdcard/finamp-acceptance-ui.xml"
+        # Writing in the browsed storage root makes DocumentsUI reload its list
+        # during every dump. Keep temporary hierarchies outside document providers.
+        remote = "/data/local/tmp/penguin-acceptance-ui.xml"
         for _ in range(4):
             self.adb("shell", "rm", "-f", remote)
             result = self.adb("shell", "uiautomator", "dump", remote, timeout=25)

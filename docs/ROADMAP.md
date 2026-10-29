@@ -1,5 +1,17 @@
 # Contribution queue
 
+## Current direction — 2026-10-29
+
+The next application tracks are **Mihon**, **Read You** and **AntennaPod**, focused
+on reliable downloads/reading state, complete feed imports and Android Auto queue
+updates. The [dated app-expansion plan](research/2026-10-29-app-expansion.md)
+records current source facts, existing PRs, contribution restrictions, first
+release slices and acceptance gates. These are investigation targets, not
+released or APK-verified patches. Maintain the seven shipped Finamp patches and
+their source PRs alongside this expansion.
+
+The following sections preserve the earlier 2026-10-28 inventory.
+
 Checked **2026-10-28** against GitHub and current upstream source. Re-read issue
 discussions and PRs before implementation: this is a dated triage, not a claim
 that every reported symptom still reproduces.
@@ -13,7 +25,7 @@ have [selectable native patches](FINAMP_NATIVE.md) for the original official
 Finamp 1.0.1 APK, producing ARM64 output. Other roadmap candidates remain
 investigations; consult the generated catalogue for the current release.
 
-## Finamp first
+## Historical Finamp-first queue
 
 [Finamp](https://github.com/finamp-app/finamp) is the Jellyfin music client,
 licensed MPL-2.0. Its contribution branch is `redesign`; inspected source:

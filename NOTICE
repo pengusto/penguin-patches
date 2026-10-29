@@ -106,3 +106,13 @@ for each selectable combination at the revisions in tests/finamp/native-sources.
 (https://github.com/pengusto/finamp). Source contributions: PR1830, PR1831,
 PR1832, PR1834, PR1835, PR1836 and PR1837 in finamp-app/finamp. See docs/FINAMP_NATIVE.md for
 toolchain pins, original-APK provenance and the verified output profile.
+
+Read You nested OPML import
+--------------------------
+Targets Read You 0.16.2 by Ashinch / ReadYouApp and contributors, GPL-3.0
+(https://github.com/ReadYouApp/ReadYou), official source release
+091c9207527a10a135b307c9f7747306da36f686. Issue #1143 identifies missing feeds
+in nested folders. Penguin supplies a separate Java depth-first iterator and
+retains the installed application's existing feed/group construction and save
+path. Compile-only be.ceau.opml signatures are never distributed in the APK.
+See docs/READYOU.md for exact APK provenance and acceptance evidence.

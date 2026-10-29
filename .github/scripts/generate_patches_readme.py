@@ -91,6 +91,7 @@ GUIDES = {
     "org.fossify.clock": "docs/CLOCK.md",
     "org.tasks": "docs/TASKS.md",
     "com.nononsenseapps.feeder": "docs/FEEDER.md",
+    "me.ash.reader": "docs/READYOU.md",
     "com.unicornsonlsd.finamp": "docs/FINAMP_NATIVE.md",
     "ml.docilealligator.infinityforreddit.plus": "docs/INFINITY.md",
 }
