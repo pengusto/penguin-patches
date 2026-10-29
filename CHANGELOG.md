@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/pengusto/penguin-patches/compare/v1.3.0...v1.4.0) (2026-10-29)
+
+### ✨ New Features
+
+* **ReadYou:** import all feeds from nested OPML folders ([cccb14e](https://github.com/pengusto/penguin-patches/commit/cccb14e27fdfe7e7d6529223e2a9f1943c288b3b))
+
 ## [1.3.0](https://github.com/pengusto/penguin-patches/compare/v1.2.0...v1.3.0) (2026-10-29)
 
 ### ✨ New Features
