@@ -52,6 +52,8 @@ Put the album artist first, then alphabetize the other song credits. Choose alte
 
 Typing a valid custom home-section title updates validation and enables Save immediately.
 
+**Upstream status · 2026-10-29:** [PR #1830](https://github.com/finamp-app/finamp/pull/1830) is merged into `redesign`. This Penguin backport remains selectable for the original Finamp 1.0.1 APK.
+
 **Source-widget comparison, not Android APK screenshots.** These are actual Finamp widgets rendered by Flutter tests, upstream redesign versus the combined source fixes. The native APK fix is verified separately in the [APK record](../tests/finamp/evidence/2026-10-28/README.md); its original before-image is obscured by the keyboard.
 
 | Before | After |
@@ -146,6 +148,8 @@ actual Morphe Manager export, installed with the same test key.
 
 Keep the quick-settings banner readable with a custom accent. Its text uses the matching `onPrimaryContainer` color, like its existing icons.
 
+**Upstream status · 2026-10-29:** the fix already exists on [`hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2) ([`124edc8`](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8)). Duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837) is closed; this Penguin backport remains selectable for the original Finamp 1.0.1 APK.
+
 **Android APK captures.** Same Home screen, synthetic music, Light theme, accent **#152E85**, viewport and clock. The before retains the official native code; the after is the installed Manager export with only this patch selected.
 
 | Before | After |
@@ -153,7 +157,7 @@ Keep the quick-settings banner readable with a custom accent. Its text uses the 
 | **Dark text is hard to read on the blue banner** | **Matching foreground keeps the banner readable** |
 | <img src="../tests/finamp/evidence/2026-10-29-ui/banner-before.png" width="300" alt="Before: Dark text is hard to read on the blue banner"> | <img src="../tests/finamp/evidence/2026-10-29-ui/banner-after.png" width="300" alt="After: Matching foreground keeps the banner readable"> |
 
-[Raw captures, provenance & Manager checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Upstream PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#before--after)
+[Raw captures, provenance & Manager checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Closed duplicate PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#before--after)
 
 <a id="zoom-article-images"></a>
 

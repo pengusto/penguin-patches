@@ -1,19 +1,40 @@
 # Finamp source contributions
 
-Checked 2026-10-28. [Finamp](https://github.com/finamp-app/finamp) is an MPL-2.0
+Source/test records checked 2026-10-28; title/banner upstream status refreshed
+2026-10-29. [Finamp](https://github.com/finamp-app/finamp) is an MPL-2.0
 Jellyfin music client built with Flutter/Dart. Its
 [contribution guide](https://github.com/finamp-app/finamp/blob/redesign/CONTRIBUTING.md)
 requests `redesign` as the source/PR branch.
 
-The three changes also have a separate, version-pinned
+The three original changes also have a separate, version-pinned
 [Penguin native-patch implementation](FINAMP_NATIVE.md) for the original official
 Finamp 1.0.1 APK with ARM64 output. The historical source-branch/debug-preview
 checks below are distinct from that APK compatibility evidence.
 
+## Upstream status (2026-10-29)
+
+- **Section-title validation:** [PR #1830](https://github.com/finamp-app/finamp/pull/1830)
+  was merged into `redesign` on 2026-10-29, merge commit
+  [`5afdf76`](https://github.com/finamp-app/finamp/commit/5afdf765a43221a44bfdcaef55713c6988f86f06).
+- **Quick-settings banner contrast:** the correction already exists on
+  [`hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2), originally
+  committed on 2026-10-17 as
+  [`124edc8`](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8).
+  Our duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837)
+  was closed on 2026-10-29 in favor of that existing fix.
+
+The latest official release checked on this date is still
+[Finamp 1.0.1](https://github.com/finamp-app/finamp/releases/tag/1.0.1).
+Neither the title merge nor the unreleased hotfix changes that original APK.
+**All seven Penguin patches remain selectable for the original official 1.0.1
+APK, including the title and banner backports.** Future upstream releases must
+be checked for included fixes and APK compatibility separately; no later-version
+compatibility is declared here. [Native-patch setup and verification](FINAMP_NATIVE.md).
+
 ## Custom-section title validation
 
 - Issue: [#1798](https://github.com/finamp-app/finamp/issues/1798).
-- Upstream PR: [#1830 — Fix custom home-section title validation while typing](https://github.com/finamp-app/finamp/pull/1830).
+- Upstream PR: [#1830 — Fix custom home-section title validation while typing](https://github.com/finamp-app/finamp/pull/1830), **merged into `redesign` on 2026-10-29**.
 - Inspected/tested base: `b72ba46a45eb45836516f23e3df989c89c693c88` on `redesign`.
 - Fix commit: [`7d30912`](https://github.com/pengusto/finamp/commit/7d30912).
 
@@ -53,9 +74,11 @@ or personal database. Targeted Dart analysis reports no issues; formatting and
 whitespace checks pass. No generated schema, API, settings or localization files
 change.
 
-This is **source-level/widget verification**. No Android APK build, real device,
-Android keyboard or live Jellyfin acceptance was performed. Upstream CI/review
-and merge remain separate from the passing local tests; check the live PR.
+This independent source test run provides **source-level/widget verification**.
+It did not include an Android APK build, real device, Android keyboard or live
+Jellyfin acceptance. The upstream merge recorded above is separate from these
+local test results; native-backport APK acceptance is documented in
+[FINAMP_NATIVE.md](FINAMP_NATIVE.md).
 
 ## Song artist order
 
@@ -186,8 +209,10 @@ source, MPL-2.0 license, artifact hashes and verification. Its package remains
 signed with the same Android debug certificate. Targeted analysis has no
 errors/warnings; one existing informational lint remains outside the changed
 lines. Physical/OEM-device, live Jellyfin, playback, downloads and lock-screen
-acceptance remain open. Upstream workflow runs for all three independent heads
-report `action_required` and require maintainer approval.
+acceptance remain open. At the 2026-10-28 evidence capture, upstream workflow
+runs for all three independent heads reported `action_required` and required
+maintainer approval. This historical CI snapshot is separate from the title
+PR's subsequent merge recorded above.
 
 ## Morphe feasibility
 
@@ -245,3 +270,15 @@ unloaded target reached after the next page. Empty input, # and missing-letter
 fallback are also exercised. The first five fail with the old comparison;
 all **31** tests pass afterward with clean targeted analysis. The combined
 five-fix native source tree passes **66** tests.
+
+## Quick-settings banner contrast (#1756)
+
+The banner text now uses `onPrimaryContainer`, matching the icons on its
+`primaryContainer` background. This keeps the text readable with custom accents.
+The existing upstream hotfix and the closed duplicate PR are recorded in
+[the status update above](#upstream-status-2026-10-29).
+
+The optional **Fix quick settings banner contrast** Penguin patch remains
+available for the original Finamp 1.0.1 APK. Its source regressions and matched
+original/patched Android captures are documented in
+[the UI-fix acceptance record](../tests/finamp/README-ui-fixes.md).
