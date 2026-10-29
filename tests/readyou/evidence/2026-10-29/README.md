@@ -23,3 +23,7 @@ the unrelated release subscription, account and settings stay intact.
 The initial app setup also exposed a separate pre-existing startup race; its
 stacktrace is retained privately and is outside this import patch. Physical
 devices and remote subscription-service accounts are outside this acceptance.
+
+[Actual Manager JVM/ART acceptance](manager-acceptance.json) includes exported
+APK hashes and new runtime logs. Same-key original-code removal and patch
+reapplication both preserve all three imported subscriptions and DataStore bytes.

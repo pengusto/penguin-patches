@@ -13,7 +13,7 @@ application does not acquire a new nested-group data model. Default is off.
 - Official signer on Android 33+: `721e4043c439bd70c90f46ae166ddc233fc75c1235bf8cb27b99a4df09cc3b99`.
 - Earlier signing lineage (Android 24–32): `715696914a35366d98fa45312af96811f7e6de4085b5e4709f4c1e74f8bde4d0`.
 - Issue: [ReadYouApp/ReadYou #1143](https://github.com/ReadYouApp/ReadYou/issues/1143).
-- Source baseline: `d2b979ccad9a3e54b9499929a9dc2824578b0fd9`; source PR pending delivery.
+- Source baseline: `d2b979ccad9a3e54b9499929a9dc2824578b0fd9`; [source PR #1345](https://github.com/ReadYouApp/ReadYou/pull/1345).
 
 ## Implementation
 
@@ -37,11 +37,20 @@ feeds); the fixed source passes all 13 upstream app unit tests. On the original
 APK the three-feed synthetic OPML imports only Reader releases. Original and
 patched before/after imports use the same fixture bytes.
 
-Actual Android Morphe Manager 2.2.0 has imported the local candidate through its
-normal UI, selected only this Penguin patch (1/1, unrelated source 0/5), applied
-it using the embedded JVM and reached Patched. Export/install, ART, retained
-state, README screenshots and the public release remain in progress. No current
-public compatibility/release claim is made by this unfinished acceptance note.
+Actual Android Morphe Manager 2.2.0 imported the candidate through its normal UI,
+selected only this Penguin patch (1/1, unrelated source 0/5), applied it using
+both embedded JVM and Android ART and exported both APKs. Manager's UPDATE flow
+installed the JVM export; installed base.apk matches its exact hash. ART export
+was installed with the same disposable key. All 16,342 canonical class digests
+match between Desktop, JVM and ART despite different DEX partitioning. The
+existing subscription IDs, account and DataStore bytes survived the first update;
+the three imported feeds and their flags survived the ART update and same-key
+removal/reapply of the patch. Full evidence:
+[APK comparison and Manager receipts](../tests/readyou/evidence/2026-10-29/README.md).
+
+Screenshots appear directly in the generated README preview. Public source and
+patch are independent deliverables: the upstream PR remains under maintainer
+review; the Penguin release is recorded by the generated catalogue.
 
 Raw local artifacts: `.scratch/readyou/`. Reuse the owned `penguin` API35 ARM64
 AVD at `emulator-5580`; no physical-device coverage is claimed. Screenshots are
