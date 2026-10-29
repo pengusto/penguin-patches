@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/pengusto/penguin-patches/compare/v1.2.0...v1.3.0) (2026-10-29)
+
+### ✨ New Features
+
+* **Finamp:** keep output controls reachable and correct banner contrast ([f70e392](https://github.com/pengusto/penguin-patches/commit/f70e392614b1abb2ff2ac3da262849098ca4ee9f))
+
 ## [1.2.0](https://github.com/pengusto/penguin-patches/compare/v1.1.0...v1.2.0) (2026-10-28)
 
 ### ✨ New Features

@@ -531,7 +531,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 <details>
 <summary><strong>All 11 apps and supported versions</strong></summary>
 
-> **[v1.3.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;20 patches total
+> **[v1.3.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;20 patches total
 <details>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
