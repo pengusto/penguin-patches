@@ -116,7 +116,7 @@ already been dismissed. Preserve profile 0 and any pre-existing test profiles.
 Keep the new profile awake during capture; its default screen timeout can differ
 from profile0 even though the emulator itself remains running.
 Log into the local synthetic fixture, configure Light theme and accent **#152E85**
-through Layout & Theme, then select Tracks with Name order and no filter. Open
+through Layout & Theme, then keep the same Home screen for both final captures. Tracks with Name order and no filter can also be used for a matched pair. Open
 settings through the drawer, avoiding the banner until both captures are saved.
 The accent picker responds to the trailing color control rather than the center
 of its merged accessibility row; observe it before tapping. Capture original

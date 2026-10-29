@@ -39,6 +39,26 @@ Raw PNGs, XML and capture JSON are preserved alongside the acceptance receipts.
 [checksums.json](checksums.json) hashes the evidence files. No images were edited.
 No APK, signing key, fixture credentials or fixture-control token is committed.
 
+## Matched quick-settings banner pair
+
+| Before: original native code | After: Manager banner patch alone |
+| --- | --- |
+| ![Before: dark text on the blue banner](banner-before.png) | ![After: matching readable foreground](banner-after.png) |
+
+Same Home screen, synthetic data, English, Light theme, accent **#152E85**,
+1080×1920/density320 and clock09:41. Both final captures use the same owned
+secondary profile without switching users between captures. Raw images were not
+edited. Same-key original-code removal and Manager64 reapply retain login and
+appearance. The [actual Quick Settings screen](banner-quick-settings.png) opens
+from the banner; dismissal persists after an explicit restart of that profile.
+
+Manager mask64 APK SHA-256 is
+`3de300e4ef2395e8e87f7b3c0e0c140fb5eebe742aca2e0e1e2401b5b4acd4c8`,
+native `f7d19019147e976515a3de0cdc355a0cf6ba129a7e5f3c16218dedc221510199`,
+source `e39a3d939f233a1721d6129343847e19afec8c93`. The original-code baseline
+and unchanged engine match the identity table above. Manager Install → Android
+UPDATE succeeded and the installed APK hash matches its fresh export.
+
 ## Six-patch checkpoint for #1355
 
 Official Manager2.2.0 / Patcher2.0.1, Android15/API35 ARM64, disposable

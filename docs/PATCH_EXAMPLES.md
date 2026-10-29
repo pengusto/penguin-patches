@@ -12,6 +12,7 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 | Finamp 1.0.1 | [Fix offline artist tracks](#fix-offline-artist-tracks) |
 | Finamp 1.0.1 | [Fix track alphabet navigation](#fix-track-alphabet-navigation) |
 | Finamp 1.0.1 | [Keep player output controls accessible](#keep-player-output-controls-accessible) |
+| Finamp 1.0.1 | [Fix quick settings banner contrast](#fix-quick-settings-banner-contrast) |
 | Feeder 2.25.0 · project GitHub F-Droid APK | [Zoom article images](#zoom-article-images) |
 | Infinity+ 8.3.4 | [Configure custom OAuth for Infinity+](#configure-custom-oauth-for-infinity) |
 | Fossify Calendar 1.12.0 | [Readable Calendar descriptions](#readable-calendar-descriptions) |
@@ -136,6 +137,23 @@ actual Morphe Manager export, installed with the same test key.
 | <img src="../tests/finamp/evidence/2026-10-29-ui/player-output-before.png" width="300" alt="Before: player menu has no Output entry with bottom actions hidden"> | <img src="../tests/finamp/evidence/2026-10-29-ui/player-output-after.png" width="300" alt="After: Output is available in the player menu"> |
 
 [Capture provenance & checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Back to patch index](#before--after)
+
+<a id="fix-quick-settings-banner-contrast"></a>
+
+## Fix quick settings banner contrast
+
+**Finamp 1.0.1** · [Setup & patch details](FINAMP_NATIVE.md)
+
+Keep the quick-settings banner readable with a custom accent. Its text uses the matching `onPrimaryContainer` color, like its existing icons.
+
+**Android APK captures.** Same Home screen, synthetic music, Light theme, accent **#152E85**, viewport and clock. The before retains the official native code; the after is the installed Manager export with only this patch selected.
+
+| Before | After |
+| :---: | :---: |
+| **Dark text is hard to read on the blue banner** | **Matching foreground keeps the banner readable** |
+| <img src="../tests/finamp/evidence/2026-10-29-ui/banner-before.png" width="300" alt="Before: Dark text is hard to read on the blue banner"> | <img src="../tests/finamp/evidence/2026-10-29-ui/banner-after.png" width="300" alt="After: Matching foreground keeps the banner readable"> |
+
+[Raw captures, provenance & Manager checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Upstream PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#before--after)
 
 <a id="zoom-article-images"></a>
 
