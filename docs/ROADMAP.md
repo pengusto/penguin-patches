@@ -4,6 +4,9 @@ Checked **2026-10-28** against GitHub and current upstream source. Re-read issue
 discussions and PRs before implementation: this is a dated triage, not a claim
 that every reported symptom still reproduces.
 
+Finamp title/banner upstream statuses were refreshed **2026-10-29** below;
+the remaining issue inventory and test records retain their dated scope.
+
 The contribution inventory below was taken against Penguin [v1.0.1](https://github.com/pengusto/penguin-patches/releases/tag/v1.0.1)
 (13 patches / 10 apps). The three delivered Finamp source contributions now also
 have [selectable native patches](FINAMP_NATIVE.md) for the original official
@@ -20,7 +23,8 @@ user impact, existing work and verification cost; it is not a reaction-count ran
 
 | Priority | Issue cluster | Decision and next acceptance evidence |
 | --- | --- | --- |
-| Delivered | [Custom-section title #1798](https://github.com/finamp-app/finamp/issues/1798) | [Source PR #1830](https://github.com/finamp-app/finamp/pull/1830): live validation/preview and a persistent text controller. Four widget regressions and all 29 tests pass. [Scope and verification](FINAMP.md). |
+| Merged upstream; 1.0.1 backport retained | [Custom-section title #1798](https://github.com/finamp-app/finamp/issues/1798) | [Source PR #1830](https://github.com/finamp-app/finamp/pull/1830) merged into `redesign` on 2026-10-29: live validation/preview and a persistent text controller. Four widget regressions and all 29 tests pass. The selectable Penguin patch remains available for original 1.0.1. [Scope and verification](FINAMP.md). |
+| Existing upstream hotfix; 1.0.1 backport retained | [Quick-settings banner contrast #1756](https://github.com/finamp-app/finamp/issues/1756) | Existing fix on `hotfix-1.0.2`, originally committed as [`124edc8`](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8) on 2026-10-17. Duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837) closed on 2026-10-29. The selectable Penguin patch remains available for original 1.0.1. [Release status and refs](FINAMP.md#upstream-status-2026-10-29). |
 | Delivered source contribution | [Song artist credit order #1833](https://github.com/finamp-app/finamp/issues/1833) | [Source PR #1831](https://github.com/finamp-app/finamp/pull/1831): album artists first, remaining credits alphabetically; metadata, first-credit and alphabetical alternatives. 58 tests and Android ARM64 debug compilation pass. [Scope and verification](FINAMP.md#song-artist-order). |
 | Delivered source contribution | [Artist screen #1732](https://github.com/finamp-app/finamp/issues/1732) | [Source PR #1832](https://github.com/finamp-app/finamp/pull/1832) removes full-discography display queries, uses bounded preview/count requests and preserves download-status inputs. 41 tests (16 new), clean targeted analysis and Android ARM64 debug compilation pass. Synthetic preview response: 2,148,827 → 2,092 bytes; not a live-library timing measurement. [Scope and verification](FINAMP.md#artist-page-loading). |
 | Delivered | [Offline artist tracks #1689](https://github.com/finamp-app/finamp/issues/1689) | [PR #1834](https://github.com/finamp-app/finamp/pull/1834): compare downloaded track credits with the selected artist. Optional native patch and matched APK captures: [acceptance](../tests/finamp/README-next-fixes.md). |
@@ -35,9 +39,10 @@ The combined source passes **78 tests** and its ARM64 debug APK updates the
 previous fixture preview and starts to the welcome screen on Android 15. All
 seven PNGs reproduce byte for byte in isolated clones; the
 [public harness and provenance](https://github.com/pengusto/finamp/tree/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28)
-identify synthetic fixture data and exact revisions. Upstream Actions require
-maintainer approval (`action_required`); local checks do not establish CI success
-or live Jellyfin/device acceptance.
+identify synthetic fixture data and exact revisions. At the 2026-10-28 evidence
+capture, upstream Actions required maintainer approval (`action_required`);
+local checks do not establish CI success or live Jellyfin/device acceptance.
+The title PR's subsequent upstream merge is recorded separately above.
 
 The #1732 discussion correctly warns against adding overlapping counts. Primary
 server source establishes that `ArtistIds` already includes track and album
