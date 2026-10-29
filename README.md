@@ -13,7 +13,7 @@ Focused Android fixes, ready for Morphe.
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe.svg" alt="Add to Morphe →" width="242" height="52"></a>
 
 <!-- PATCHES_SUMMARY_START -->
-**18 patches · 11 apps · [v1.2.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.2.0)**
+**20 patches · 11 apps · [v1.3.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.3.0)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -31,12 +31,12 @@ Album artists first. Other credits alphabetical. More modes in settings.
 Real Android APK captures with synthetic music data. [Evidence & limits](tests/finamp/evidence/2026-10-28/README.md).
 
 <!-- FINAMP_COUNT_START -->
-**[Explore the 5 Finamp patches →](docs/FINAMP_NATIVE.md)**
+**[Explore the 7 Finamp patches →](docs/FINAMP_NATIVE.md)**
 <!-- FINAMP_COUNT_END -->
 
-Choose song artist order, fix offline artist lists and alphabet jumps, validate section titles, or load artist pages faster. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
+Choose how song credits appear, keep Output reachable with hidden player buttons, improve banner contrast, and fix library browsing or settings errors. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
 
-[Title validation](#preview-fix-section-title-validation) · [Artist-page loading](#preview-load-artist-pages-faster) · [Offline artists](#preview-fix-offline-artist-tracks) · [Alphabet jumps](#preview-fix-track-alphabet-navigation)
+[Player output](#preview-keep-player-output-controls-accessible) · [Banner contrast](#preview-fix-quick-settings-banner-contrast) · [Title validation](#preview-fix-section-title-validation) · [Artist-page loading](#preview-load-artist-pages-faster) · [Offline artists](#preview-fix-offline-artist-tracks) · [Alphabet jumps](#preview-fix-track-alphabet-navigation)
 
 | Feeder | Infinity+ |
 | :--- | :--- |
@@ -52,7 +52,7 @@ Open any patch below to see its matching before/after pair, right here. Grouped 
 <!-- PATCHES_PREVIEWS_START -->
 <a id="previews-com-unicornsonlsd-finamp"></a>
 
-### Finamp · 5 patches
+### Finamp · 7 patches
 
 <a id="preview-fix-offline-artist-tracks"></a>
 
@@ -75,6 +75,27 @@ The after image is an actual Morphe Manager export installed with the same key.
 | <img src="tests/finamp/evidence/2026-10-28-next/1689-before-tracks.png" width="300" alt="Before: B Guest includes Lead Solo and Album Credit Only"> | <img src="tests/finamp/evidence/2026-10-28-next/1689-after-tracks.png" width="300" alt="After: B Guest contains only the six credited songs"> |
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#patch-previews)
+
+</details>
+
+<a id="preview-fix-quick-settings-banner-contrast"></a>
+
+<details>
+<summary><strong>Fix quick settings banner contrast</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+Keep the quick-settings banner readable with a custom accent. Its text uses the matching `onPrimaryContainer` color, like its existing icons.
+
+**Android APK captures.** Same Home screen, synthetic music, Light theme, accent **#152E85**, viewport and clock. The before retains the official native code; the after is the installed Manager export with only this patch selected.
+
+| Before | After |
+| :---: | :---: |
+| **Dark text is hard to read on the blue banner** | **Matching foreground keeps the banner readable** |
+| <img src="tests/finamp/evidence/2026-10-29-ui/banner-before.png" width="300" alt="Before: Dark text is hard to read on the blue banner"> | <img src="tests/finamp/evidence/2026-10-29-ui/banner-after.png" width="300" alt="After: Matching foreground keeps the banner readable"> |
+
+[Raw captures, provenance & Manager checks](tests/finamp/evidence/2026-10-29-ui/README.md) · [Upstream PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#patch-previews)
 
 </details>
 
@@ -120,6 +141,30 @@ exported by Morphe Manager. This is a correctness comparison, not a performance 
 | <img src="tests/finamp/evidence/2026-10-28-next/1790-before-M.png" width="300" alt="Before: an M jump stays among numeric track titles"> | <img src="tests/finamp/evidence/2026-10-28-next/1790-after-M.png" width="300" alt="After: the same M jump reaches Midnight 01"> |
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#patch-previews)
+
+</details>
+
+<a id="preview-keep-player-output-controls-accessible"></a>
+
+<details>
+<summary><strong>Keep player output controls accessible</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+Open the existing output controls from the player menu even when bottom actions
+are hidden and gestures disabled.
+
+**Android APK captures.** Same paused synthetic track, Dark theme, settings and
+viewport. The before APK retains the official native code; the after APK is an
+actual Morphe Manager export, installed with the same test key.
+
+| Before | After |
+| :---: | :---: |
+| **No Output entry in the player menu** | **Output opens the existing volume/device sheet** |
+| <img src="tests/finamp/evidence/2026-10-29-ui/player-output-before.png" width="300" alt="Before: player menu has no Output entry with bottom actions hidden"> | <img src="tests/finamp/evidence/2026-10-29-ui/player-output-after.png" width="300" alt="After: Output is available in the player menu"> |
+
+[Capture provenance & checks](tests/finamp/evidence/2026-10-29-ui/README.md) · [Back to patch index](#patch-previews)
 
 </details>
 
@@ -486,7 +531,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 <details>
 <summary><strong>All 11 apps and supported versions</strong></summary>
 
-> **[v1.2.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;18 patches total
+> **[v1.3.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.3.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;20 patches total
 <details>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -535,7 +580,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 </details>
 
 <details>
-<summary>📦 Finamp&nbsp;&nbsp;•&nbsp;&nbsp;5 patches</summary>
+<summary>📦 Finamp&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -546,8 +591,10 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | <a id="fix-offline-artist-tracks"></a>[Fix offline artist tracks](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-offline-artist-tracks) | Exclude unrelated songs from shared albums on offline performing-artist pages (#1689). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="fix-quick-settings-banner-contrast"></a>[Fix quick settings banner contrast](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-quick-settings-banner-contrast) | Use the banner's matching foreground color so its text stays readable with custom accents (#1756). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="fix-section-title-validation"></a>[Fix section title validation](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-section-title-validation) | Update validation and enable Save when a custom home-section title is entered (#1830). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="fix-track-alphabet-navigation"></a>[Fix track alphabet navigation](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-track-alphabet-navigation) | Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="keep-player-output-controls-accessible"></a>[Keep player output controls accessible](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-keep-player-output-controls-accessible) | Open the existing output controls from the player menu even when bottom actions are hidden (#1355). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="load-artist-pages-faster"></a>[Load artist pages faster](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-load-artist-pages-faster) | Load artist previews and track counts without downloading the full discography (#1832). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="song-artist-order"></a>[Song artist order](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-song-artist-order) | Choose song-credit display order, including album artists first, metadata order and alphabetical (#1831). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 

@@ -2,6 +2,10 @@
 from pathlib import Path
 import json
 import unittest
+import tempfile
+from copy import deepcopy
+from pfd import make_delta
+from build_native_payloads import sha, verify_receipts
 
 from build_native_payloads import PRODUCTION, payload_output
 
@@ -17,15 +21,16 @@ class OutputPolicyTests(unittest.TestCase):
                 payload_output([2], target, Path('/tmp/finamp-test'))
 
     def test_old_seven_mask_matrix_is_partial_now(self):
-        with self.assertRaises(ValueError):
-            payload_output(range(1, 8), PRODUCTION, Path('/tmp/finamp-test'))
+        for limit in (8, 32, 64):
+            with self.subTest(limit=limit), self.assertRaises(ValueError):
+                payload_output(range(1, limit), PRODUCTION, Path('/tmp/finamp-test'))
 
     def test_source_matrix_contains_every_independent_combination(self):
         matrix = json.loads(Path(__file__).with_name('native-sources.json').read_text())
-        bits = [1, 2, 4, 8, 16]
+        bits = [1, 2, 4, 8, 16, 32, 64]
         self.assertEqual(set(map(int, matrix['mask_bits'])), set(bits))
-        self.assertEqual(set(map(int, matrix['masks'])), set(range(32)))
-        for mask in range(32):
+        self.assertEqual(set(map(int, matrix['masks'])), set(range(128)))
+        for mask in range(128):
             entry = matrix['masks'][str(mask)]
             expected = {feature for bit in bits if mask & bit
                         for feature in matrix['masks'][str(bit)]['features']}
@@ -35,5 +40,31 @@ class OutputPolicyTests(unittest.TestCase):
             self.assertEqual(entry['branch'], f'penguin/finamp-native-1.0.1-mask-{mask}')
 
     def test_complete_matrix_can_replace_production(self):
-        self.assertEqual(payload_output(range(1, 32), None, Path('/tmp/finamp-test')),
+        self.assertEqual(payload_output(range(1, 128), None, Path('/tmp/finamp-test')),
                          PRODUCTION.resolve())
+
+
+class ResumeTests(unittest.TestCase):
+    def test_resume_rejects_changed_receipt_source_size_hash_and_payload(self):
+        before, after = b'original native bytes' * 10, b'changed native bytes' * 10
+        delta = make_delta(before, after)
+        matrix = {'masks': {'32': {'commit': 'source32'}}}
+        receipt = {'32': {'source': 'source32', 'delta_sha256': sha(delta),
+                          'native_sha256': sha(after), 'native_bytes': len(after),
+                          'delta_bytes': len(delta)}}
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory)
+            (output / 'arm64-v8a').mkdir()
+            payload = output / 'arm64-v8a/32.pfd'
+            payload.write_bytes(delta)
+            verify_receipts(receipt, matrix, output, before)
+            for key, bad in [('source', 'other'), ('native_bytes', 1),
+                             ('delta_bytes', 1), ('native_sha256', '0' * 64),
+                             ('delta_sha256', '0' * 64)]:
+                changed = deepcopy(receipt)
+                changed['32'][key] = bad
+                with self.subTest(key=key), self.assertRaises(ValueError):
+                    verify_receipts(changed, matrix, output, before)
+            payload.write_bytes(delta[:-1])
+            with self.assertRaises(ValueError):
+                verify_receipts(receipt, matrix, output, before)

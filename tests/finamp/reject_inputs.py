@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import shutil
 import zipfile
 
 from build_native_payloads import APK_SHA
@@ -33,6 +34,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ['java', 'desktop', 'bundle', 'original-apk', 'output-dir']:
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--discard-verified-inputs', action='store_true',
+                        help='After recording a complete successful rejection, discard that owned mutant APK and work directory')
     args = parser.parse_args()
     if hashlib.sha256(args.original_apk.read_bytes()).hexdigest() != APK_SHA:
         raise ValueError('Wrong official APK input')
@@ -72,8 +75,16 @@ def main():
             raise ValueError('Guard failure is not attributed to a selected patch for ' + kind)
         results[kind] = {'rejected': True, 'output_created': False, 'exit_code': completed.returncode,
                          'mutant_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'guard': expected,
-                         'patcher_report_json_valid': True, 'selected_failure_names': selected_failures}
-        (output / 'rejection-report.json').write_text(json.dumps(results, indent=2) + '\n')
+                         'patcher_report_json_valid': True, 'selected_failure_names': selected_failures,
+                         'mutant_retained': not args.discard_verified_inputs}
+        checkpoint = output / 'rejection-report.json.tmp'
+        checkpoint.write_text(json.dumps(results, indent=2) + '\n')
+        checkpoint.replace(output / 'rejection-report.json')
+        if args.discard_verified_inputs:
+            apk.unlink()
+            temporary = output / (kind + '-work')
+            if temporary.is_dir():
+                shutil.rmtree(temporary)
         print('Verified fail-closed guard: ' + kind, flush=True)
 
 

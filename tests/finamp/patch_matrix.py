@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Apply the real MPP to all 31 selections; verify retained APK contents."""
+"""Apply the real MPP to every native selection; verify retained APK contents."""
 import argparse
 import hashlib
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import zipfile
@@ -12,6 +13,8 @@ from build_native_payloads import APK_SHA, LIBRARY_SHA, MASKS
 
 NAMES = {1: 'Fix section title validation', 2: 'Song artist order', 4: 'Load artist pages faster',
          8: 'Fix offline artist tracks', 16: 'Fix track alphabet navigation'}
+NAMES[32] = 'Keep player output controls accessible'
+NAMES[64] = 'Fix quick settings banner contrast'
 
 
 def sha(data):
@@ -48,6 +51,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ['java', 'desktop', 'bundle', 'original-apk', 'native-report', 'output-dir']:
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--discard-verified-apks', action='store_true',
+                        help='Keep receipts/hashes but discard each successful APK and its owned work directory')
     args = parser.parse_args()
     if sha(args.original_apk.read_bytes()) != APK_SHA:
         raise ValueError('Wrong official APK input')
@@ -78,8 +83,17 @@ def main():
             raise ValueError('Patcher step failed')
         content = check_contents(args.original_apk, output, report['masks'][str(mask)]['native_sha256'])
         results[str(mask)] = {'selected': selections, 'patcher_succeeded': True, **content,
-                              'unsigned_apk': str(output), 'unsigned_apk_sha256': sha(output.read_bytes())}
-        (directory / 'matrix-report.json').write_text(json.dumps(results, indent=2) + '\n')
+                              'unsigned_apk': None if args.discard_verified_apks else str(output),
+                              'unsigned_apk_sha256': sha(output.read_bytes()),
+                              'unsigned_apk_retained': not args.discard_verified_apks}
+        temporary_report = directory / 'matrix-report.json.tmp'
+        temporary_report.write_text(json.dumps(results, indent=2) + '\n')
+        temporary_report.replace(directory / 'matrix-report.json')
+        if args.discard_verified_apks:
+            output.unlink()
+            temporary = directory / f'work-{mask}'
+            if temporary.is_dir():
+                shutil.rmtree(temporary)
         print('Verified real Morphe selection ' + str(mask), flush=True)
 
 

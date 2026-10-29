@@ -11,6 +11,8 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 | Finamp 1.0.1 | [Load artist pages faster](#load-artist-pages-faster) |
 | Finamp 1.0.1 | [Fix offline artist tracks](#fix-offline-artist-tracks) |
 | Finamp 1.0.1 | [Fix track alphabet navigation](#fix-track-alphabet-navigation) |
+| Finamp 1.0.1 | [Keep player output controls accessible](#keep-player-output-controls-accessible) |
+| Finamp 1.0.1 | [Fix quick settings banner contrast](#fix-quick-settings-banner-contrast) |
 | Feeder 2.25.0 · project GitHub F-Droid APK | [Zoom article images](#zoom-article-images) |
 | Infinity+ 8.3.4 | [Configure custom OAuth for Infinity+](#configure-custom-oauth-for-infinity) |
 | Fossify Calendar 1.12.0 | [Readable Calendar descriptions](#readable-calendar-descriptions) |
@@ -115,6 +117,43 @@ exported by Morphe Manager. This is a correctness comparison, not a performance 
 | <img src="../tests/finamp/evidence/2026-10-28-next/1790-before-M.png" width="300" alt="Before: an M jump stays among numeric track titles"> | <img src="../tests/finamp/evidence/2026-10-28-next/1790-after-M.png" width="300" alt="After: the same M jump reaches Midnight 01"> |
 
 [Capture provenance & checks](../tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#before--after)
+
+<a id="keep-player-output-controls-accessible"></a>
+
+## Keep player output controls accessible
+
+**Finamp 1.0.1** · [Setup & patch details](FINAMP_NATIVE.md)
+
+Open the existing output controls from the player menu even when bottom actions
+are hidden and gestures disabled.
+
+**Android APK captures.** Same paused synthetic track, Dark theme, settings and
+viewport. The before APK retains the official native code; the after APK is an
+actual Morphe Manager export, installed with the same test key.
+
+| Before | After |
+| :---: | :---: |
+| **No Output entry in the player menu** | **Output opens the existing volume/device sheet** |
+| <img src="../tests/finamp/evidence/2026-10-29-ui/player-output-before.png" width="300" alt="Before: player menu has no Output entry with bottom actions hidden"> | <img src="../tests/finamp/evidence/2026-10-29-ui/player-output-after.png" width="300" alt="After: Output is available in the player menu"> |
+
+[Capture provenance & checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Back to patch index](#before--after)
+
+<a id="fix-quick-settings-banner-contrast"></a>
+
+## Fix quick settings banner contrast
+
+**Finamp 1.0.1** · [Setup & patch details](FINAMP_NATIVE.md)
+
+Keep the quick-settings banner readable with a custom accent. Its text uses the matching `onPrimaryContainer` color, like its existing icons.
+
+**Android APK captures.** Same Home screen, synthetic music, Light theme, accent **#152E85**, viewport and clock. The before retains the official native code; the after is the installed Manager export with only this patch selected.
+
+| Before | After |
+| :---: | :---: |
+| **Dark text is hard to read on the blue banner** | **Matching foreground keeps the banner readable** |
+| <img src="../tests/finamp/evidence/2026-10-29-ui/banner-before.png" width="300" alt="Before: Dark text is hard to read on the blue banner"> | <img src="../tests/finamp/evidence/2026-10-29-ui/banner-after.png" width="300" alt="After: Matching foreground keeps the banner readable"> |
+
+[Raw captures, provenance & Manager checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Upstream PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#before--after)
 
 <a id="zoom-article-images"></a>
 
