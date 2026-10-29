@@ -1,0 +1,173 @@
+{
+  "capturedAt": "2026-10-29T01:19:17.154936+00:00",
+  "serial": "emulator-5580",
+  "package": "com.unicornsonlsd.finamp",
+  "labels": [
+    {
+      "text": "",
+      "content-desc": "Back",
+      "class": "android.view.View",
+      "bounds": "[0,48][112,160]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Layout & Theme",
+      "class": "android.view.View",
+      "bounds": "[144,76][460,132]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Reset to defaults",
+      "class": "android.widget.Button",
+      "bounds": "[984,56][1080,152]",
+      "clickable": "true",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Use System Accent Color",
+      "class": "android.view.View",
+      "bounds": "[0,160][1080,239]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Music Screen Display Type\nControls grid or list mode for all music screen tabs, excepting the home screen.",
+      "class": "android.view.View",
+      "bounds": "[0,271][1080,551]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "Albums only in grid",
+      "content-desc": "",
+      "class": "android.widget.Button",
+      "bounds": "[32,423][1032,535]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Grid Tile Size\nSelect the size of items in grid view\n~4 columns (medium)",
+      "class": "android.view.View",
+      "bounds": "[0,551][1080,863]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "30%, 4",
+      "class": "android.widget.SeekBar",
+      "bounds": "[297,695][393,791]",
+      "clickable": "true",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Home Screen Tile Size\nSelect the size of items on the home screen\n~6 columns (medium)",
+      "class": "android.view.View",
+      "bounds": "[0,863][1080,1175]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "50%, 6",
+      "class": "android.widget.SeekBar",
+      "bounds": "[492,1007][588,1103]",
+      "clickable": "true",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "",
+      "content-desc": "Show text in grid view\nWhether or not to show the text (title, artist etc) on the grid music screen. Text is always shown on the home screen, ignoring this setting.",
+      "class": "android.widget.Switch",
+      "bounds": "[0,1175][1080,1375]",
+      "clickable": "true",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "true",
+      "checked": "true"
+    },
+    {
+      "text": "",
+      "content-desc": "Use blurred cover as background\nWhether or not to use a blurred album cover as background in various parts of the app.",
+      "class": "android.widget.Switch",
+      "bounds": "[0,1375][1080,1535]",
+      "clickable": "true",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "true",
+      "checked": "true"
+    },
+    {
+      "text": "",
+      "content-desc": "Show artist images with artist name\nThis affects small artist image previews, such as on the player screen.",
+      "class": "android.widget.Switch",
+      "bounds": "[0,1535][1080,1695]",
+      "clickable": "true",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "true",
+      "checked": "true"
+    },
+    {
+      "text": "",
+      "content-desc": "Song artist order\nAlbum artists first places credited album artists before other song artists sorted alphabetically. If no album artist matches, metadata order is kept.",
+      "class": "android.view.View",
+      "bounds": "[0,1695][1080,1920]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    },
+    {
+      "text": "Metadata order",
+      "content-desc": "",
+      "class": "android.widget.Button",
+      "bounds": "[32,1855][1032,1920]",
+      "clickable": "false",
+      "enabled": "true",
+      "focused": "false",
+      "checkable": "false",
+      "checked": "false"
+    }
+  ],
+  "pngSha256": "7223581cf4cf77c36345ddcae4995278621133c5fa07a6d22fdaf2f558a3568c"
+}

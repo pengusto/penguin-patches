@@ -7,12 +7,14 @@ def configure_selection(ui, names, mask):
     def row(name, direction='up'):
         for _ in range(8):
             root, _ = ui.dump()
-            patch = ui.find(root, 'Patch', class_name='android.widget.TextView')
+            # An empty intermediate selection disables Patch; its visible
+            # bounds still delimit the safe area for selecting another row.
+            patch = ui.find(root, 'Patch', class_name='android.widget.TextView', allow_disabled=True)
             parents = {child: parent for parent in root.iter() for child in parent}
             footer = patch
             while footer.get('clickable') != 'true' and footer in parents:
                 footer = parents[footer]
-            footer_top = ui.bounds(footer)[1]
+            footer_top = ui.bounds(footer, allow_disabled=True)[1]
             controls = [ui.bounds(node)[3] for node in root.iter('node')
                         if node.get('content-desc') in ('Enable all', 'Disable all')]
             content_top = max(controls, default=0)

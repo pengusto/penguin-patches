@@ -82,8 +82,47 @@ Manager export was recovered from the observed Downloads path and independently
 verified. The receipt records this correction; subsequent runs take an explicit
 `--export-directory`. This was a runner path assumption, not a patcher failure.
 
-The complete seven-patch candidate/release results and banner pair are recorded
-when their acceptance finishes. This checkpoint alone is not the final suite.
+## Complete seven-patch acceptance
+
+The complete candidate is **374,737,080 bytes**, SHA-256
+`d8afd8a1cd55e7f5114e494afa1d099553e34d24c350f0aec2b6208d371c9038`.
+The normal file-picker import updates the existing local source identity and
+retains its earlier UI alias, “Penguin UI output checkpoint”, enabled state and
+saved selection. Its cached bytes were independently verified and it was enabled
+explicitly. The old remote source stayed disabled during candidate acceptance.
+
+- All seven generated catalogue defaults are false. Manager's recommended
+  selection is **0/7**, with unrelated Morphe patches **0/5**.
+- All **127 native payloads** replay to their pinned hashes and all **127 real
+  Desktop 1.19.1 / Patcher 2.0.1 selections** pass retained-entry/ARM64 checks.
+  Four unsupported-input guards reject their inputs without an output APK.
+- Actual Android Manager: JVM **32, 64, 96, 127, 31**, plus ART **127**, each
+  with fresh runtime logs, UI apply/save and independently inspected exports.
+  All six pass signature, uncompressed-native and **16-KiB alignment** checks.
+  This is six Manager cases, separately from the 127 Desktop selections.
+- With **only the banner patch selected under ART**, a controlled engine-cache
+  fault produces a visible, correctly attributed failure and no success actions.
+  Original cache bytes, owner and mode are restored in `finally`. A fresh ART64
+  recovery succeeds and its saved APK passes signature/alignment checks too.
+- Manager Install → Android UPDATE installs all seven fixes. Its installed hash
+  matches the ART export. Normal UI retains login, **8 tracks / 22 complete / 0
+  failed**, Dark theme and **Metadata order**, without a data clear.
+- The earlier 31 deltas and all six unrelated MPEs are byte-identical to 1.2.0.
+  Each native output is **22,283,144 bytes**, unchanged in size. The bundle holds
+  every alternative composition; this size observation is not a RAM benchmark.
+
+[Acceptance summary](acceptance-summary.json), [Manager exports](manager-output-verification.json),
+[defaults](manager-defaults.json), [fault](manager-fault-art.json),
+[recovery](manager-case-64-art-recovery.json), [data retention](all-seven-persistence.json),
+[127 Desktop cases](desktop-127.json), [native replay](native-127.json) and
+[preserved payloads](preserved-payloads.json) preserve the measured results.
+The runtime/payload commit also passes the [GitHub build](https://github.com/pengusto/penguin-patches/actions/runs/40797714877).
+
+Published-artifact identities and the post-release Manager remote-source checks
+are recorded with the [1.3.0 release acceptance report](https://github.com/pengusto/penguin-patches/releases/download/v1.3.0/finamp-1.3.0-acceptance.json).
+The release workflow regenerates the catalogue and all **20 README preview pairs**
+from real release metadata. The two focused upstream PRs are ready for review.
+
 
 ## Reproduction and limits
 

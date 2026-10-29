@@ -93,7 +93,9 @@ read saved settings with the frozen original adapter **without adapter 128**.
 
 The player-output and banner-contrast fixes extend the matrix to 127 native
 selections. See [the UI-fix acceptance workflow](../tests/finamp/README-ui-fixes.md)
-for source regressions, original-APK comparisons and actual Manager exports.
+and [dated acceptance](../tests/finamp/evidence/2026-10-29-ui/README.md)
+for the passing source regressions, matched original-APK comparisons, all 127
+Desktop selections and actual Manager JVM/ART exports.
 The [1.2.0 acceptance](../tests/finamp/README-next-fixes.md) records the earlier
 31-selection release.
 

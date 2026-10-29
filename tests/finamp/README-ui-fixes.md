@@ -52,7 +52,7 @@ Manager 2.2.0 / Patcher 2.0.1 and the existing disposable fixture signer. The
 Add a complete local candidate through the UI, disable the older Penguin source
 while testing it, and independently verify the cached MPP hash. After release,
 refresh and test the public remote source, then remove the local candidate.
-All seven Penguin rows must default off; unrelated universal patches stay 0/5.
+All seven catalogue defaults are off; verify the recommended selection is 0/7 and unrelated universal patches stay 0/5. Reimporting a local source updates the existing source identity, retaining its UI alias, enabled state and saved selection; check and enable the updated source explicitly.
 
 The full current suite is JVM masks **32,64,96,127,31**, then ART mask **127**.
 It covers each new patch alone, both new patches, all seven and the original five.
