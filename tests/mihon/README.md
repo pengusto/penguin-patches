@@ -65,3 +65,12 @@ rows and persistent-file hashes. Retained download bytes must be identical.
 [Fresh complete acceptance](evidence/2026-10-30/README.md) includes real
 selection/application/export/install and state retention. A Desktop run or source
 test is not a substitute for Manager acceptance.
+
+## Final publication boundary
+
+The Gradle semantic-release plugin rebuilds during its `publish` hook, after
+`prepareCmd` validation. Validate again in `@semantic-release/exec.publishCmd`,
+ordered after Gradle and before `@semantic-release/github`, so the upload uses the
+actually checked final artifact. `test_release_order.py` protects this ordering.
+The v1.5.0 published bundle was also downloaded and independently validated;
+its Manager source cache SHA matches the public release asset exactly.
