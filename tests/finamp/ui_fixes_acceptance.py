@@ -53,6 +53,44 @@ def reveal_menu_bottom(ui):
     raise RuntimeError('Player menu did not reach a stable bottom position')
 
 
+
+def exercise_reviewed_routes(ui, label):
+    ui.tap('Track Menu')
+    reveal_menu_bottom(ui)
+    ui.tap('Queue')
+    ui.find(ui.dump()[0], 'Previous Tracks')
+    ui.capture(label + '-queue')
+    ui.back()
+    ui.find(ui.dump()[0], 'Track Menu')
+    ui.tap('Track Menu')
+    reveal_menu_bottom(ui)
+    ui.tap('Lyrics')
+    ui.find(ui.dump()[0], 'Penguin synthetic lyrics')
+    ui.capture(label + '-lyrics')
+    ui.tap('Track Menu')
+    visible, _ = reveal_menu_bottom(ui)
+    if [value for value in visible if value in ('Output', 'Queue', 'Lyrics')] != ['Output', 'Queue']:
+        raise AssertionError('Lyrics menu has missing, duplicate or recursive routes')
+    ui.capture(label + '-lyrics-menu')
+    ui.tap('Output')
+    ui.find(ui.dump()[0], 'Volume')
+    ui.capture(label + '-lyrics-output')
+    ui.back()
+    ui.find(ui.dump()[0], 'Penguin synthetic lyrics')
+    ui.tap('Track Menu')
+    reveal_menu_bottom(ui)
+    ui.tap('Queue')
+    ui.find(ui.dump()[0], 'Previous Tracks')
+    ui.capture(label + '-lyrics-queue')
+    ui.back()
+    ui.find(ui.dump()[0], 'Penguin synthetic lyrics')
+    ui.back()
+    ui.find(ui.dump()[0], 'Output Controls (Title)')
+    return {'player_queue_and_lyrics_opened_and_returned': True,
+            'lyrics_output_and_queue_opened_and_returned': True,
+            'lyrics_recursive_route_absent': True}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('case', choices=('player', 'banner'))
@@ -151,6 +189,8 @@ def main():
             if 'Volume' in labels(ui):
                 raise AssertionError('Output sheet did not close back to Player')
             record['real_output_sheet_opened_and_dismissed'] = True
+            if args.reviewed_player_actions:
+                record.update(exercise_reviewed_routes(ui, args.label))
     else:
         root, _ = ui.dump()
         ui.find(root, BANNER)

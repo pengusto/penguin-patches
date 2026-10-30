@@ -150,19 +150,21 @@ exported by Morphe Manager. This is a correctness comparison, not a performance 
 
 **Finamp 1.0.1** · [Setup & patch details](FINAMP_NATIVE.md)
 
-Open the existing output controls from the player menu even when bottom actions
-are hidden and gestures disabled.
+When bottom actions are hidden, the track menu ends with **Output, Queue and
+Lyrics**. Both menu-button and artwork-context access respect disabled gestures.
+Visible bottom actions have no duplicates in the menu.
 
-**Android APK captures.** Same paused synthetic track, Dark theme, settings and
-viewport. The before APK retains the official native code; the after APK is an
-actual Morphe Manager export, installed with the same test key.
+**Android APK captures.** Same synthetic track paused at 00:17, Dark theme, hidden
+bottom actions, disabled gestures, 1080×1920 viewport and 09:41 clock. The before
+APK retains the official native code; the after APK is the actual Player-only
+Morphe Manager export, installed through Android UPDATE with the same test key.
 
 | Before | After |
 | :---: | :---: |
-| **No Output entry in the player menu** | **Output opens the existing volume/device sheet** |
-| <img src="../tests/finamp/evidence/2026-10-29-ui/player-output-before.png" width="300" alt="Before: player menu has no Output entry with bottom actions hidden"> | <img src="../tests/finamp/evidence/2026-10-29-ui/player-output-after.png" width="300" alt="After: Output is available in the player menu"> |
+| **Hidden bottom actions leave no menu routes** | **Output, Queue and Lyrics remain reachable** |
+| <img src="../tests/finamp/evidence/2026-10-30-player/player-before.png" width="300" alt="Before: original player menu ends without Output, Queue or Lyrics"> | <img src="../tests/finamp/evidence/2026-10-30-player/player-after.png" width="300" alt="After: installed Manager export adds Output, Queue and Lyrics at the menu bottom"> |
 
-[Capture provenance & checks](../tests/finamp/evidence/2026-10-29-ui/README.md) · [Back to patch index](#before--after)
+[Capture provenance & checks](../tests/finamp/evidence/2026-10-30-player/README.md) · [Back to patch index](#before--after)
 
 <a id="fix-quick-settings-banner-contrast"></a>
 
