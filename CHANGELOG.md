@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/pengusto/penguin-patches/compare/v1.5.0...v1.6.0) (2026-10-30)
+
+### ✨ New Features
+
+* **Komikku:** preserve local manga in exclusion searches ([bbd60d4](https://github.com/pengusto/penguin-patches/commit/bbd60d42f85952f17205d8465f07e3d06686002c))
+
 ## [1.5.0](https://github.com/pengusto/penguin-patches/compare/v1.4.0...v1.5.0) (2026-10-30)
 
 ### ✨ New Features
