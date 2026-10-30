@@ -22,7 +22,7 @@ entry. The favorite and chapter database records survive in both cases.
   Selection, application and Android document export were performed in Manager
   2.2.0; [runtime log](manager-runtime.txt) confirms ART. The exported APK was
   installed with the same disposable key as the baseline.
-- [37 passing source tests](unit-summary.json); seven public deletion/pending-delete
+- [37 passing source tests](unit-summary.json), with [raw JUnit XML](source-tests); seven public deletion/pending-delete
   tests reproduce one failure before Marc Went / Dunky13's `0L` correction.
 - [Canonical comparison](canonical-manager-comparison.txt): all 19,958 app/library
   classes agree between Desktop and actual Manager exports. [Runtime-module check](module-verification.txt)

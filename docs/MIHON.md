@@ -18,7 +18,7 @@ download deletion exclusions. Only the GitHub ARM64 0.21.3 APK has been tested.
 - Official signer SHA-256: `9add655a78e96c4ec7a53ef89dccb557cb5d767489fac5e785d671a5a75d4da2`.
 - Source tag: `feadad5e1e2bf638be6e2ca317d11657b09d4596`. The affected file is identical at tested main `e588e04359fe1058206a2cbac1b01018ad787359`.
 - Reuses the `0L` correction proposed by Marc Went / Dunky13 in [existing PR #4182](https://github.com/mihonapp/mihon/pull/4182), commit `07e5882033ae664b0abcca3f5a64dc6e3e59e212`, Apache-2.0. No duplicate upstream fix PR.
-- [Public deletion and pending-delete regression tests](https://github.com/pengusto/mihon/commit/473c67a): 1/7 fail before, all 37 app unit tests pass after. Shared with the existing upstream work.
+- [Public deletion and pending-delete regression tests](https://github.com/pengusto/mihon/commit/473c67a): 1/7 fail before, all 37 app unit tests pass after. Shared in the [supporting comment](https://github.com/mihonapp/mihon/pull/4182#issuecomment-6520333921).
 
 ## Implementation and verification
 
