@@ -37,7 +37,11 @@ class OutputPolicyTests(unittest.TestCase):
             self.assertEqual(set(entry['features']), expected, mask)
             self.assertRegex(entry['commit'], r'^[0-9a-f]{40}$')
             self.assertRegex(entry['tree'], r'^[0-9a-f]{40}$')
-            self.assertEqual(entry['branch'], f'penguin/finamp-native-1.0.1-mask-{mask}')
+            # Review backports use distinct public branches while other chats
+            # update the canonical matrix. Every branch still identifies its
+            # exact mask; immutable commit/tree pins establish the source.
+            self.assertRegex(entry['branch'],
+                             rf'^penguin/finamp-native-1\.0\.1-(?:[a-z0-9]+-)*mask-{mask}$')
 
     def test_complete_matrix_can_replace_production(self):
         self.assertEqual(payload_output(range(1, 128), None, Path('/tmp/finamp-test')),
