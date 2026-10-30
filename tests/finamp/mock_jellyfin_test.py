@@ -390,5 +390,46 @@ class NavigationProfileTests(unittest.TestCase):
             fixture.close()
 
 
+class PlayerProfileTests(unittest.TestCase):
+    def test_player_lyrics_are_served_without_changing_original_tracks(self):
+        original = mock.Fixture()
+        fixture = mock.Fixture(profile="player")
+        server = mock.FixtureServer(("127.0.0.1", 0), fixture)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            for track_id in mock.TRACK_IDS:
+                self.assertEqual(fixture.items[track_id], original.items[track_id])
+                self.assertEqual(fixture.audio[track_id], original.audio[track_id])
+            track_id = mock.stable_id("player-output-track")
+            self.assertTrue(fixture.items[track_id]["HasLyrics"])
+            connection = http.client.HTTPConnection("127.0.0.1", server.server_port, timeout=5)
+            try:
+                connection.request("GET", "/Items/" + track_id + "/PlaybackInfo",
+                                   headers={"X-Emby-Token": mock.ACCESS_TOKEN})
+                playback_response = connection.getresponse()
+                playback_info = json.loads(playback_response.read())
+                self.assertEqual(playback_response.status, 200)
+                self.assertTrue(any(stream["Type"] == "Lyric"
+                                    for stream in playback_info["MediaSources"][0]["MediaStreams"]),
+                                "Finamp detects lyrics from PlaybackInfo.MediaStreams, not HasLyrics")
+                connection.request("GET", "/Audio/" + track_id + "/Lyrics",
+                                   headers={"X-Emby-Token": mock.ACCESS_TOKEN})
+                response = connection.getresponse()
+                lyrics = json.loads(response.read())
+                self.assertEqual(response.status, 200)
+                self.assertFalse(lyrics["Metadata"]["IsSynced"])
+                self.assertEqual([line["Text"] for line in lyrics["Lyrics"]],
+                                 ["Penguin synthetic lyrics", "Player actions remain reachable."])
+            finally:
+                connection.close()
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(2)
+            fixture.close()
+            original.close()
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

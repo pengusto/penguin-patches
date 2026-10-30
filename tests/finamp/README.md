@@ -13,7 +13,8 @@ trees; it is not a set of patches against current Finamp redesign.
 
 The current matrix has 127 nonempty selections. Historical 1.1.0 reports below
 cover seven selections; use that tag's scripts to reproduce its exact bundle.
-Current UI-fix acceptance is documented in `README-ui-fixes.md`; the earlier
+Current UI-fix acceptance is documented in `README-ui-fixes.md` and
+[the reviewed player evidence](evidence/2026-10-30-player/README.md); the earlier
 five-patch suite remains in `README-next-fixes.md`.
 
 ## Verify a release bundle
@@ -53,6 +54,12 @@ snapshot, then verifies a delta replay. It replaces the production manifest only
 after all 127 masks complete. `--masks 2` defaults to private partial output;
 partial runs cannot write into production resources. Use `--output` for a
 separate full exploratory rebuild too.
+
+Add `--test-source` to run each selected tree's complete Flutter suite before
+its native build. Each completed receipt records the passed count and test-log
+SHA-256. With `--resume --test-source`, an older untested receipt or a changed
+test log is rejected; successful payload replay alone cannot replace this source
+test evidence. Counts across combinations overlap and are not unique test cases.
 
 The published deltas replay byte for byte to their pinned hashes. A fresh source
 build in a different directory is **not claimed byte reproducible**: Flutter

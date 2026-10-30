@@ -136,3 +136,18 @@ later invocations. Close any visible diagnostics dialog before using Home.
 Keep raw APKs and private setup files ignored. Publish only reviewed synthetic
 screenshots, runtime/error excerpts and the normalized report, retaining exact
 artifact/source provenance and the physical-device limitation.
+
+Run one UI driver at a time on the owned AVD. Even read-only hierarchy dumps use
+a shared temporary filename; a simultaneous inspection can invalidate another
+driver's fresh capture. Wait for its completion before issuing another UI command.
+After confirming a local-source cache hash, remove only the owned imported MPP
+copies from shared storage when needed. Manager requires at least 1 GB free;
+keep verified exports on the host and remove each owned device copy after its
+hash/signature receipt has been recorded. Preserve other tasks' files.
+
+Android15 may complete a later Manager-owned update silently after tapping
+Install. Check a fresh PackageInstaller session success and the installed APK
+hash, then use Manager Open. Record whether an Android UPDATE confirmation was
+shown; waiting only for that dialog can misclassify a completed installation.
+Scroll to the actual selected dropdown control when checking settings: its label
+may be visible while the dropdown remains behind the navigation bar.
