@@ -39,33 +39,23 @@ or included in the MPP.
 Use Flutter 3.47.2 framework `d3b14c876900e553bc736ca19295fc09e3853e8e`,
 engine `a804b261645ef8c13eb3d5c44a5c2fb0340c5539`, Dart 3.13.2, Android
 NDK `llvm-strip`, and a Python environment with `bsdiff4==1.2.6`.
-The 192 historical mask branches were removed from `pengusto/finamp` during
-repository cleanup on 2026-10-30. Their full history is retained in the verified
-`finamp-before-cleanup.bundle` backup (117,776,785 bytes), SHA-256:
-`ada6381a8cb2a8eb10f883893018a4eeee158134f41f41c6b81be9f03fcefd84`.
-This backup is retained by the maintainer; it is not included in the MPP or
-published as a download. A fresh clone of the fork is insufficient to rebuild
-these historical payloads. Obtain the backup from the maintainer before using
-this procedure; no replacement source repository was created.
+The 192 historical mask branches were removed from `pengusto/finamp` on
+2026-10-30. The maintainer subsequently chose to delete the local Git backup
+and discontinue preservation of these old combinations. No replacement source
+repository or downloadable source backup is provided.
 
-In a directory containing the bundle and its `SHA256SUMS.txt`:
+The commit/tree pins and historical `branch` fields in `native-sources.json`
+remain as provenance records. They do not guarantee that the source objects are
+still retrievable from GitHub. Exact source rebuilds of the old combinations
+are no longer supported from the maintained repository alone. Do not request
+the deleted backup from the maintainer.
 
-```sh
-shasum -a 256 -c SHA256SUMS.txt
-git clone --bare finamp-before-cleanup.bundle finamp-restored.git
-git -C finamp-restored.git fsck --full
-export FINAMP_SOURCE="$PWD/finamp-restored.git"
-```
-
-The restored repository preserves all 192 original branch names and their
-complete histories, covering the v1.6.1 and v1.6.2 source matrices. The `branch`
-fields in `native-sources.json` identify those historical backup refs; they are
-not instructions to fetch deleted branches from GitHub. Immutable commit and
-tree hashes remain unchanged. Use the matrix and build scripts from the release
-being reproduced. The builder verifies the pinned source tree before compiling.
-The backup does not include external APKs, Flutter/engine binaries, Git LFS
-payloads or uncommitted local changes. Obtain the pinned build inputs separately.
-Already published patch bundles do not need this source backup to apply.
+The following command is only usable if you independently retained a complete
+source repository containing every required pinned commit and tree. Set
+`FINAMP_SOURCE` to that repository and use the matrix/scripts from the release
+being reproduced. The builder checks the pinned tree before compiling.
+Already published patch bundles do not require the old source repository to
+apply; bundle verification and patch application are separate from rebuilding.
 
 Run from the Penguin repository root:
 
