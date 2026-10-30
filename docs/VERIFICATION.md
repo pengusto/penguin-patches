@@ -59,3 +59,21 @@ run. No production patch change was needed.
 Physical devices, other Android/Manager versions and real-library timing/RAM
 remain unverified. Pairwise masks were tested on Desktop. This native release
 is separate from the upstream redesign PRs and rebuilt debug preview.
+
+## Mihon excluded Default downloads (2026-10-30)
+
+The optional Mihon 0.21.3 ARM64 patch reuses Marc Went / Dunky13's `0L` correction
+from existing PR #4182. The official APK, signer and exact owner bytecode are
+pinned. Seven source regressions reproduce one original failure; all 37 source
+app tests pass with the correction. The installed-APK six-case suite reproduces
+one lost protected page before and passes all six with the real Manager ART export.
+Same-key update/removal/reapply preserve database rows, preferences and downloads.
+Raw matched PNG/XML are used directly by the README generator. No new app schema,
+preference, Kotlin runtime or MPE is introduced; all seven prior MPEs are unchanged.
+
+The release gate applies the final MPP with pinned Morphe Desktop 1.19.1, verifies
+that only the deletion fallback/helper changes across 19,958 classes while keeping
+resources/native libraries, and rejects reapplication without export. It is
+separate from the real Android Manager acceptance. [Guide and limits](MIHON.md),
+[repeatable tests](../tests/mihon/README.md),
+[Manager and data evidence](../tests/mihon/evidence/2026-10-30/README.md).
