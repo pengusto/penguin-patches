@@ -57,6 +57,9 @@ on Player and Lyrics. The Lyrics screen's menu retains Output and Queue without
 adding another Lyrics route. The existing selectable patch name and bit remain
 unchanged; no setting or stored data format is added.
 
+[Released1.6.1 Manager and APK acceptance](../tests/finamp/evidence/2026-10-30-player/released-1.6.1/README.md)
+records the normal source download and retained settings/downloads.
+
 Refresh the Penguin source in Morphe, select the supported original APK and the
 desired patches, then build and sign using your normal Morphe key. Keep that key
 for later updates. This uses the original package name; switching from the

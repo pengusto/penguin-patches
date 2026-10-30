@@ -27,6 +27,11 @@ manifest can still be served from the raw CDN/HTTP cache: the 1.2.0 run observed
 `max-age=300` and succeeded after normal expiry. Wait and refresh through the UI;
 verify the cached MPP hash before reporting the released version as tested.
 
+Before recording release evidence, verify its source base. A dev-only clone can
+leave `origin/main` stale after `git fetch origin main`; use an explicit
+`refs/heads/main:refs/remotes/origin/main` refspec and require
+`git merge-base --is-ancestor <release-tag> HEAD`.
+
 Put the original APK in `/sdcard/Download/finamp-manager-test/`. Files copied by
 ADB may need `MEDIA_SCANNER_SCAN_FILE` and a provider refresh before Downloads
 lists them. Select **Finamp → No, I already have an APK**, then the original file
