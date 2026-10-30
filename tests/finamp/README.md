@@ -13,7 +13,8 @@ trees; it is not a set of patches against current Finamp redesign.
 
 The current matrix has 127 nonempty selections. Historical 1.1.0 reports below
 cover seven selections; use that tag's scripts to reproduce its exact bundle.
-Current UI-fix acceptance is documented in `README-ui-fixes.md` and
+Current reviewed Artist acceptance is documented in `README-artist-review.md`.
+Player/UI acceptance remains in `README-ui-fixes.md` and
 [the reviewed player evidence](evidence/2026-10-30-player/README.md); the earlier
 five-patch suite remains in `README-next-fixes.md`.
 
@@ -38,8 +39,10 @@ or included in the MPP.
 Use Flutter 3.47.2 framework `d3b14c876900e553bc736ca19295fc09e3853e8e`,
 engine `a804b261645ef8c13eb3d5c44a5c2fb0340c5539`, Dart 3.13.2, Android
 NDK `llvm-strip`, and a Python environment with `bsdiff4==1.2.6`.
-Clone `https://github.com/pengusto/finamp.git` and fetch the 128
-`penguin/finamp-native-1.0.1-mask-*` branches. Run:
+Clone `https://github.com/pengusto/finamp.git` and fetch the exact branches
+listed in `native-sources.json`. Review branches can have a descriptive infix;
+the immutable commit and tree hashes identify each of the 128 complete sources.
+Run:
 
 ```sh
 python3 -B tests/finamp/build_native_payloads.py \

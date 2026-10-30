@@ -126,11 +126,17 @@ class FixtureHTTPTests(unittest.TestCase):
         guest_b, guest_a = mock.ARTIST_IDS["B Guest"], mock.ARTIST_IDS["A Guest"]
         # Last track has only A Guest as song artist and Z Lead as album artist.
         union = self.items(IncludeItemTypes="Audio", ArtistIds=lead)
-        performing = self.items(IncludeItemTypes="Audio", ContributingArtistIds=lead)
+        contributing = self.items(IncludeItemTypes="Audio", ContributingArtistIds=lead)
         self.assertEqual(union["TotalRecordCount"], 8)
-        self.assertEqual(performing["TotalRecordCount"], 7)
+        self.assertEqual(contributing["TotalRecordCount"], 0)
         self.assertIn(mock.TRACK_IDS[-1], [i["Id"] for i in union["Items"]])
-        self.assertNotIn(mock.TRACK_IDS[-1], [i["Id"] for i in performing["Items"]])
+        self.assertEqual(contributing["Items"], [])
+        self.assertEqual(self.items(IncludeItemTypes="Audio", ContributingArtistIds=guest_b)["TotalRecordCount"], 6)
+        # A Guest has no album credit, including on the album-artist-only track
+        # for Z Lead. The union's count remains independent of its bounded page.
+        self.assertEqual(self.items(IncludeItemTypes="Audio", ContributingArtistIds=guest_a)["TotalRecordCount"], 7)
+        bounded = self.items(IncludeItemTypes="Audio", ArtistIds=lead, Limit=1, Fields="")
+        self.assertEqual((len(bounded["Items"]), bounded["TotalRecordCount"]), (1, 8))
         self.assertEqual(self.items(IncludeItemTypes="Audio", AlbumArtistIds=lead)["TotalRecordCount"], 8)
         self.assertEqual(self.items(IncludeItemTypes="Audio", AlbumArtistIds=guest_a)["TotalRecordCount"], 0)
         self.assertEqual(self.items(IncludeItemTypes="Audio", ArtistIds=guest_b)["TotalRecordCount"], 6)
@@ -278,6 +284,25 @@ class FixtureHTTPTests(unittest.TestCase):
             time.sleep(0.01)
         self.assertEqual(len(released), 2)
         self.assertTrue(all(r["state"] == "completed" and r["status"] == 200 for r in released))
+
+    def test_count_gate_does_not_hold_previews_or_enumeration(self):
+        lead = mock.ARTIST_IDS["Z Lead"]
+        query = {"IncludeItemTypes": "Audio", "ArtistIds": lead}
+        self.control("/_fixture/control", method="POST", body={"mode": "hold", "scope": "artist-count"})
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            held = pool.submit(self.items, **query, Limit=1, Fields="")
+            try:
+                pending = self.wait_for_pending(1)
+                self.assertTrue(pending["requests"][-1]["artistCountQuery"])
+                self.assertEqual(len(self.items(**query, Limit=5)["Items"]), 5)
+                self.assertEqual(len(self.items(**query)["Items"]), 8)
+                self.assertFalse(held.done())
+            finally:
+                self.control("/_fixture/release", method="POST")
+            self.assertEqual(held.result(timeout=3)["TotalRecordCount"], 8)
+        self.control("/_fixture/control", method="POST", body={"mode": "reject", "scope": "artist-count"})
+        self.assertEqual(self.request("/Items", query={**query, "Limit": 1})[0], 503)
+        self.assertEqual(len(self.items(**query, Limit=5)["Items"]), 5)
 
     def test_reject_all_scope_timeout_and_invalid_queries(self):
         self.control("/_fixture/control", method="POST", body={"mode": "reject", "scope": "all"})
