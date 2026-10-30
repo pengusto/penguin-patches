@@ -23,9 +23,11 @@ Its installed APK hash matches the export. No app data was cleared.
 
 The original APK is SHA256
 `0fc61e5cb80d37b10a735851c2217cbc855b3f1a04bde577187658531ffef581`.
-The integrated local candidate is SHA256
+The pre-publication integrated local candidate is SHA256
 `72921cf82a2a0787e5597721fa9e9291751e3f316e85614047593142df3eda12`.
 It retains the current dev Mihon/Komikku additions and all seven prior MPEs.
+The primary after captures now use the actual released1.6.1 Manager export,
+SHA256 `c60e6f8787aa32704ce482c6593a77a4a5581900b0f895aaa54899cfa947b08b`.
 
 ## Verified scope
 
@@ -74,8 +76,16 @@ The full127 update also completed through Android's normal silent owner-update
 path; its fresh successful session and installed/export hash are recorded.
 The separate final reapply includes the explicit UPDATE dialog.
 
-Released remote-source acceptance will be appended after publication.
- This evidence covers a synthetic Android15/API35 ARM64 emulator; physical
+## Released remote-source acceptance
+
+[Published v1.6.1 acceptance](released-1.6.1/README.md) passes the normal source
+download/hash, Player32 JVM and full127 ART apply/export/Install/Open, all127
+actual Desktop selections and all four guards. The final cold start preserves
+login, preferences,22 exact download files and the artist preference box.
+Released raw after screenshots now back the primary README comparison.
+
+MPP SHA256: `dc0b8fbc780befbbc6c25d5a448b6f21b4b285fe6dfea47529d87a5d4a0cc81b`.
+This evidence covers a synthetic Android15/API35 ARM64 emulator; physical
 phones, OEM behavior, other versions, real libraries and timing/RAM claims are
 outside this record. No patched APK, signing key or private app-data archive is
 committed here.

@@ -62,6 +62,12 @@ is separate from the upstream redesign PRs and rebuilt debug preview.
 
 ## Reviewed Finamp player menus (2026-10-30)
 
+[Released v1.6.1 remote-source acceptance](../tests/finamp/evidence/2026-10-30-player/released-1.6.1/README.md)
+passes normal Manager download/hash verification, Player32 JVM and full127 ART
+apply/export/Install/Open,127 fresh Desktop selections and four rejection cases.
+The final cold start retains login, preferences and all22 downloaded files.
+The primary raw after screenshots come from that released Player32 export.
+
 Final PR #1836 is backported to the existing bit32 selection for the original
 Finamp1.0.1 APK. All64 affected complete source suites pass (4,096 overlapping
 executions;101 in the all-seven tree), while the same focused tests reproduce
@@ -71,7 +77,7 @@ native replays and actual Desktop1.19.1 selections pass. Four unsupported inputs
 fail through a selected patch without output. Both applicable source diffs
 recreate the exact feature tree and all128 public source refs match the matrix.
 
-The actual Manager Player-only JVM export is installed through Android UPDATE;
+The actual Manager Player-only JVM export is installed through Manager Install;
 its installed/export/native/engine/signer hashes match, with uncompressed native
 entries and16KiB alignment. Raw paired APK PNG/XML are embedded directly in the
 README. Output, Queue and Lyrics routes, Lyrics Output/Queue without recursion,
