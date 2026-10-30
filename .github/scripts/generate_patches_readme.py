@@ -93,6 +93,7 @@ GUIDES = {
     "com.nononsenseapps.feeder": "docs/FEEDER.md",
     "me.ash.reader": "docs/READYOU.md",
     "app.mihon": "docs/MIHON.md",
+    "app.komikku": "docs/KOMIKKU.md",
     "com.unicornsonlsd.finamp": "docs/FINAMP_NATIVE.md",
     "ml.docilealligator.infinityforreddit.plus": "docs/INFINITY.md",
 }
