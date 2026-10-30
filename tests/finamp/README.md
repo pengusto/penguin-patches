@@ -8,7 +8,7 @@ Bits: 1 = title validation, 2 = song artist order, 4 = artist-page loading,
 8 = offline performing-artist filtering, 16 = Tracks alphabet navigation,
 32 = player output access, 64 = quick-settings banner contrast.
 Every nonempty combination has its own delta against the original snapshot.
-The [source matrix](native-sources.json) pins complete, public MPL-2.0 source
+The [source matrix](native-sources.json) pins complete MPL-2.0 source
 trees; it is not a set of patches against current Finamp redesign.
 
 The current matrix has 127 nonempty selections. Historical 1.1.0 reports below
@@ -39,10 +39,35 @@ or included in the MPP.
 Use Flutter 3.47.2 framework `d3b14c876900e553bc736ca19295fc09e3853e8e`,
 engine `a804b261645ef8c13eb3d5c44a5c2fb0340c5539`, Dart 3.13.2, Android
 NDK `llvm-strip`, and a Python environment with `bsdiff4==1.2.6`.
-Clone `https://github.com/pengusto/finamp.git` and fetch the exact branches
-listed in `native-sources.json`. Review branches can have a descriptive infix;
-the immutable commit and tree hashes identify each of the 128 complete sources.
-Run:
+The 192 historical mask branches were removed from `pengusto/finamp` during
+repository cleanup on 2026-10-30. Their full history is retained in the verified
+`finamp-before-cleanup.bundle` backup (117,776,785 bytes), SHA-256:
+`ada6381a8cb2a8eb10f883893018a4eeee158134f41f41c6b81be9f03fcefd84`.
+This backup is retained by the maintainer; it is not included in the MPP or
+published as a download. A fresh clone of the fork is insufficient to rebuild
+these historical payloads. Obtain the backup from the maintainer before using
+this procedure; no replacement source repository was created.
+
+In a directory containing the bundle and its `SHA256SUMS.txt`:
+
+```sh
+shasum -a 256 -c SHA256SUMS.txt
+git clone --bare finamp-before-cleanup.bundle finamp-restored.git
+git -C finamp-restored.git fsck --full
+export FINAMP_SOURCE="$PWD/finamp-restored.git"
+```
+
+The restored repository preserves all 192 original branch names and their
+complete histories, covering the v1.6.1 and v1.6.2 source matrices. The `branch`
+fields in `native-sources.json` identify those historical backup refs; they are
+not instructions to fetch deleted branches from GitHub. Immutable commit and
+tree hashes remain unchanged. Use the matrix and build scripts from the release
+being reproduced. The builder verifies the pinned source tree before compiling.
+The backup does not include external APKs, Flutter/engine binaries, Git LFS
+payloads or uncommitted local changes. Obtain the pinned build inputs separately.
+Already published patch bundles do not need this source backup to apply.
+
+Run from the Penguin repository root:
 
 ```sh
 python3 -B tests/finamp/build_native_payloads.py \
