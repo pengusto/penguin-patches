@@ -1,3 +1,9 @@
+## [1.6.2](https://github.com/pengusto/penguin-patches/compare/v1.6.1...v1.6.2) (2026-10-30)
+
+### 🐛 Bug Fixes
+
+* **Finamp:** complete reviewed artist pages backport ([fca7661](https://github.com/pengusto/penguin-patches/commit/fca7661dfc98aa3fbf49f68628ddcbb7da128447))
+
 ## [1.6.1](https://github.com/pengusto/penguin-patches/compare/v1.6.0...v1.6.1) (2026-10-30)
 
 ### 🐛 Bug Fixes
