@@ -119,7 +119,8 @@ zero. Download status counts direct album and track links, while the size
 warning separately resolves the real union track count, including guest-only
 artists. A count error prevents Add rather than starting an unconfirmed download.
 
-All 64 source trees containing bit 4 are public and their rebuilt deltas are
+All 64 source trees containing bit 4 are retained in the verified source backup
+(see [source recovery and rebuild instructions](../tests/finamp/README.md#rebuild-native-payloads)); their rebuilt deltas are
 verified; the other 63 nonempty selections retain the published Player base.
 The [Artist acceptance](../tests/finamp/evidence/2026-10-30-artist-review/README.md)
 separates source runs (22 / 26 / 49 / 107 passing, with overlap), all 127 actual Desktop
