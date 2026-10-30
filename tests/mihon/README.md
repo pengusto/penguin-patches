@@ -47,7 +47,13 @@ open: the two engines do not provide a valid in-process fixture transaction.
 Use `android.py --package app.morphe.manager` for observed Manager UI, and
 `--package com.android.documentsui` for the picker. Import the candidate bundle,
 load the original APK, confirm the patch begins disabled, enable it, apply and
-export. Wait for a positive stable export size and verify its APK signature before
+export. A first run can present background-patching protection and onboarding prompts;
+resolve visible first-run prompts (background patching, notification permission)
+before waiting for the corresponding result. Allow the owned Manager test
+installation as an APK source when Android requests it; record the actual
+Package Installer update rather than treating the exported file as an install.
+The installer can return directly to Manager after UPDATE; verify the installed
+APK hash and Manager’s System installer state instead of assuming a DONE dialog. Wait for a positive stable export size and verify its APK signature before
 pulling/installing. Preserve raw UI PNG/XML and ART runtime logs.
 
 Install the actual Manager export using `adb install -r`. Run instrumentation with
@@ -56,6 +62,6 @@ same filtered library. Use `snapshot.py --serial ... --avd ... LABEL` immediatel
 before/after same-key update/removal/reapplication; compare full manga/chapter
 rows and persistent-file hashes. Retained download bytes must be identical.
 
-[Historical complete acceptance](evidence/2026-10-29/README.md) includes real
+[Fresh complete acceptance](evidence/2026-10-30/README.md) includes real
 selection/application/export/install and state retention. A Desktop run or source
 test is not a substitute for Manager acceptance.

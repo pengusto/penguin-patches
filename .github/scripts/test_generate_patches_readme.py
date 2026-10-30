@@ -112,8 +112,8 @@ class ReleaseReadmeTests(unittest.TestCase):
         result = self.render(data)
         self.check_gallery(data, result)
         self.assertIn("docs/MIHON.md", result)
-        self.assertIn('src="tests/mihon/evidence/2026-10-29/before.png"', result)
-        self.assertIn('src="tests/mihon/evidence/2026-10-29/after.png"', result)
+        self.assertIn('src="tests/mihon/evidence/2026-10-30/before.png"', result)
+        self.assertIn('src="tests/mihon/evidence/2026-10-30/after.png"', result)
         self.assertIn("Marc Went / Dunky13", result)
 
     def test_readme_embeds_every_released_pair_with_root_relative_paths(self):

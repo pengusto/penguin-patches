@@ -46,9 +46,9 @@ export retains the downloaded chapter. The favorite itself remains in both datab
 | Before | After |
 | :---: | :---: |
 | **Excluded read download lost** | **Excluded read download retained** |
-| <img src="../tests/mihon/evidence/2026-10-29/before.png" width="300" alt="Before: excluded Default-category download lost; Downloaded only library is empty"> | <img src="../tests/mihon/evidence/2026-10-29/after.png" width="300" alt="After: excluded Default-category download retained; synthetic favorite remains downloaded"> |
+| <img src="../tests/mihon/evidence/2026-10-30/before.png" width="300" alt="Before: excluded Default-category download lost; Downloaded only library is empty"> | <img src="../tests/mihon/evidence/2026-10-30/after.png" width="300" alt="After: excluded Default-category download retained; synthetic favorite remains downloaded"> |
 
-[Raw PNG/XML and acceptance evidence](../tests/mihon/evidence/2026-10-29/README.md) · [Back to patch index](#before--after)
+[Raw PNG/XML and acceptance evidence](../tests/mihon/evidence/2026-10-30/README.md) · [Back to patch index](#before--after)
 
 <a id="song-artist-order"></a>
 

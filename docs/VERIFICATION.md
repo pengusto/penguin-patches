@@ -76,4 +76,4 @@ that only the deletion fallback/helper changes across 19,958 classes while keepi
 resources/native libraries, and rejects reapplication without export. It is
 separate from the real Android Manager acceptance. [Guide and limits](MIHON.md),
 [repeatable tests](../tests/mihon/README.md),
-[Manager and data evidence](../tests/mihon/evidence/2026-10-29/README.md).
+[Manager and data evidence](../tests/mihon/evidence/2026-10-30/README.md).

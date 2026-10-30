@@ -40,5 +40,6 @@ chapter. Both screenshots use **Downloaded only**: the original deletes the excl
 chapter, so the filtered list is empty; the patched APK keeps its downloaded entry.
 The library database itself is not deleted in either case.
 
-[Raw PNG/XML, hashes and Manager acceptance](../tests/mihon/evidence/2026-10-29/README.md).
+[Fresh raw PNG/XML, hashes and Manager acceptance](../tests/mihon/evidence/2026-10-30/README.md).
+[Historical evidence and missing-JSON recovery](../tests/mihon/evidence/2026-10-29/README.md).
 Only the owned Android 35 ARM64 emulator is covered; no physical-device claim.
