@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-29T03:14:47",
-  "description": "## [1.4.0](https://github.com/pengusto/penguin-patches/compare/v1.3.0...v1.4.0) (2026-10-29)\n\n### ✨ New Features\n\n* **ReadYou:** import all feeds from nested OPML folders ([cccb14e](https://github.com/pengusto/penguin-patches/commit/cccb14e27fdfe7e7d6529223e2a9f1943c288b3b))",
-  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.4.0/patches-1.4.0.mpp",
+  "created_at": "2026-10-30T10:43:47",
+  "description": "## [1.5.0](https://github.com/pengusto/penguin-patches/compare/v1.4.0...v1.5.0) (2026-10-30)\n\n### ✨ New Features\n\n* **Mihon:** preserve excluded Default-category downloads ([5e0c20f](https://github.com/pengusto/penguin-patches/commit/5e0c20fe1fb198bcc91ceffeb09c4225154cf954))",
+  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.5.0/patches-1.5.0.mpp",
   "signature_download_url": "",
-  "version": "1.4.0"
+  "version": "1.5.0"
 }

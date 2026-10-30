@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/pengusto/penguin-patches/compare/v1.4.0...v1.5.0) (2026-10-30)
+
+### ✨ New Features
+
+* **Mihon:** preserve excluded Default-category downloads ([5e0c20f](https://github.com/pengusto/penguin-patches/commit/5e0c20fe1fb198bcc91ceffeb09c4225154cf954))
+
 ## [1.4.0](https://github.com/pengusto/penguin-patches/compare/v1.3.0...v1.4.0) (2026-10-29)
 
 ### ✨ New Features
