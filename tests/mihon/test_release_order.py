@@ -18,6 +18,9 @@ class ReleaseOrderTest(unittest.TestCase):
         for app in ['finamp', 'mihon']:
             self.assertIn(f'tests/{app}/validate_bundle.py', command)
         self.assertIn('patches-${nextRelease.version}.mpp', command)
+        # exec.publishCmd treats stdout as optional release-result JSON.
+        for verifier in command.split(' && '):
+            self.assertTrue(verifier.rstrip().endswith('>&2'))
 
 
 if __name__ == '__main__': unittest.main()
