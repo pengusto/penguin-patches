@@ -146,3 +146,25 @@ public artifact identities, raw captures and limits belong in the dated evidence
 record. Emulator results do not establish physical/OEM-device or live-server
 coverage. Native file size and bundle download size are distinct from runtime
 RAM usage, which has not been benchmarked.
+
+## Same-size native output tracking
+
+Morphe2.0.1 eager raw decoding compares file metadata when building the output.
+All current original/patched libapp.so variants have the same22283144-byte
+length. On the API35 fixture, NIO FileTime has second precision even while
+java.io.File.lastModified reports different milliseconds. A fast in-place write
+can therefore be omitted from a successful ART export. FinampNativeOutput now
+sets a distinct NIO FileTime after writing and checks it back; an undetectable
+write fails through the selected patch. No sleep or native-byte change is used.
+
+VerifyNativeOutput.java exercises the actual Patcher2.0.1 snapshot/detection
+methods with deterministic coarse timestamps. The pre-fix behavior misses the
+change; all three fixed cases detect it and retain the exact bytes/length. The
+Release workflow runs this regression before semantic release and on feature
+compilation runs. Real Manager native hashes remain required.
+
+For very compact menus, the existing pinned track header reduces visible list
+space. Locate and open each action separately; they need not all fit at once.
+Use short scrolls inside the list below that header when a large swipe skips a
+row, and reverse after reaching a later action. Restore display and preferences
+before moving on to data-retention acceptance.
