@@ -1,13 +1,13 @@
 {
   "original_apk_sha256": "0fc61e5cb80d37b10a735851c2217cbc855b3f1a04bde577187658531ffef581",
-  "bundle_sha256": "6d49265ab19ba24d9790533abd43d193bbaac00120dea76d2793856a1e62b9cc",
+  "bundle_sha256": "72921cf82a2a0787e5597721fa9e9291751e3f316e85614047593142df3eda12",
   "full_manager_suite": false,
   "cases": {
     "32-jvm": {
       "mask": 32,
       "runtime": "jvm",
       "apk_bytes": 47040964,
-      "apk_sha256": "3f6309098ff000ec26830484c2e9fbd8cf97de4f59554b96073b2cffa430ecbd",
+      "apk_sha256": "0764062ed738ff0733cb3359bee76da270ac24dd44a5fa9522cde370e7f39b1c",
       "native_sha256": "639130f60e15ca29cbb452f1daafd84456a634d6743aa61b5c6ba277999722a2",
       "signer_sha256": "5bcbdaac2aebee68090aa00926622ccb5439ad0bec86d3d219ad0b74036d3628",
       "signature_verified": true,

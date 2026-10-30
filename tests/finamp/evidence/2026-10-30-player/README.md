@@ -16,13 +16,15 @@ theme, hidden bottom actions, disabled gestures, profile0, 1080×1920/density320
 and demo clock09:41. XML and individual PNG hashes accompany both images. The
 original-code baseline keeps every retained official APK entry and uses the same
 disposable signer for update testing. The after APK was patched, exported,
-installed through Manager Install → Android UPDATE and opened through Manager.
+installed through Manager Install → Android PackageInstaller and opened through
+Manager. Android completed this later owner update silently; a fresh successful
+session and the installed APK hash confirm it.
 Its installed APK hash matches the export. No app data was cleared.
 
 The original APK is SHA256
 `0fc61e5cb80d37b10a735851c2217cbc855b3f1a04bde577187658531ffef581`.
 The integrated local candidate is SHA256
-`6d49265ab19ba24d9790533abd43d193bbaac00120dea76d2793856a1e62b9cc`.
+`72921cf82a2a0787e5597721fa9e9291751e3f316e85614047593142df3eda12`.
 It retains the current dev Mihon/Komikku additions and all seven prior MPEs.
 
 ## Verified scope
@@ -42,9 +44,54 @@ It retains the current dev Mihon/Komikku additions and all seven prior MPEs.
   swipes retain route and track. Player artwork secondary mouse input opens the
   same three-action menu; its coordinates come from fresh accessibility bounds.
 
-The local complete Manager suite, data-retention chain and released remote-source
-acceptance are recorded after completion below. Desktop runs are not Manager UI
-runs. This evidence covers a synthetic Android15/API35 ARM64 emulator; physical
+## Complete local Manager and retention acceptance
+
+[The independent six-case verifier](manager-verification.json) passes JVM masks
+32,64,96,127,31 and ART127 against candidate72921cf8… . Each actual UI selection,
+apply and Save has a fresh runtime log, native output hash, original-APK cache
+check, verified fixture signer, uncompressed libraries and16KiB alignment.
+Unrelated universal patches remain0/5. The selected Player32 ART engine fault
+offers no Save/Install and identifies the selected patch; the finally-restored
+original cache permits a fresh, fully verified ART32 recovery.
+
+[Compact acceptance](visibility-results.json) passes with the hide preference
+false and the bottom row automatically hidden at1100×680. Each of Output, Queue
+and Lyrics is scrolled into a reachable area, opened and dismissed. Display and
+prior preference are restored. The existing pinned header and navigation bar
+mean the actions need not all fit at once. The visible-row portrait comparison
+uses the same native639130f6… code and has no menu duplicates.
+
+[The same-key chain](update-removal-reapply.json) passes127→31→original0→127.
+Manager performs the patched updates; original0 is the explicitly labelled
+re-signed original-code adb install-r fixture. The final reapply uses a fresh
+Manager export, actual Android UPDATE confirmation and Manager Open. Every stage
+retains login, Dark theme, hidden actions, disabled gestures,22 completed
+downloads (8 tracks/14 images,0 failed), their exact hashes and the23-byte artist
+preference box. Metadata order is visible whenever bit2 is present and returns
+after original0. No data clear, uninstall or database edit occurs.
+
+The full127 update also completed through Android's normal silent owner-update
+path; its fresh successful session and installed/export hash are recorded.
+The separate final reapply includes the explicit UPDATE dialog.
+
+Released remote-source acceptance will be appended after publication.
+ This evidence covers a synthetic Android15/API35 ARM64 emulator; physical
 phones, OEM behavior, other versions, real libraries and timing/RAM claims are
 outside this record. No patched APK, signing key or private app-data archive is
 committed here.
+
+## Same-size ART output regression
+
+Morphe2.0.1 eager raw-resource decoding compares file metadata. All current
+original/patched libapp.so files have the same22283144-byte length. The supplied
+Android filesystem-only probe on the separate isolated Artist API35 AVD5586
+demonstrates10/10 same-tick NIO file times; java.io.File milliseconds can already
+differ. This probe changes no app state. Player UI evidence uses AVD5580.
+
+The output marker uses NIO before and after writing, sets a distinct FileTime
+without sleeping, and fails the selected patch if the change is undetectable.
+VerifyNativeOutput.java exercises the real Patcher snapshot/detection methods:
+[marker omitted](output-tracking-before.txt) fails;
+[marker enabled](output-tracking-after.txt) passes3/3 with exact bytes preserved.
+The Release workflow runs this regression before publishing. All seven prior
+MPEs and all127 native payloads remain unchanged by this packaging correction.

@@ -108,11 +108,22 @@ read saved settings with the frozen original adapter **without adapter 128**.
 
 The player-output and banner-contrast fixes extend the matrix to 127 native
 selections. See [the UI-fix acceptance workflow](../tests/finamp/README-ui-fixes.md)
-and [dated acceptance](../tests/finamp/evidence/2026-10-29-ui/README.md)
+and [reviewed player acceptance](../tests/finamp/evidence/2026-10-30-player/README.md)
 for the passing source regressions, matched original-APK comparisons, all 127
 Desktop selections and actual Manager JVM/ART exports.
 The [1.2.0 acceptance](../tests/finamp/README-next-fixes.md) records the earlier
 31-selection release.
+
+The reviewed player source passes27 focused regressions; the previous player
+source passes5 and fails22 of the same cases. All64 affected compositions pass
+their complete suites (4,096 overlapping executions;101 in mask127), followed
+by native compilation. The other63 payloads remain byte-identical. The patcher
+marks its extracted temporary libapp.so with a distinct NIO file time so same-size
+writes remain detectable on Android ART. The real Patcher2.0.1 metadata regression
+runs in CI, alongside actual exported-native hash checks in Android acceptance.
+The earlier [banner comparison and seven-fix admission](../tests/finamp/evidence/2026-10-29-ui/README.md)
+remain historical evidence for the unchanged native features.
+
 
 ## Historical 1.1.0 verification
 

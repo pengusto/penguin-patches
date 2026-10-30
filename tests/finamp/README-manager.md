@@ -144,3 +144,10 @@ After confirming a local-source cache hash, remove only the owned imported MPP
 copies from shared storage when needed. Manager requires at least 1 GB free;
 keep verified exports on the host and remove each owned device copy after its
 hash/signature receipt has been recorded. Preserve other tasks' files.
+
+Android15 may complete a later Manager-owned update silently after tapping
+Install. Check a fresh PackageInstaller session success and the installed APK
+hash, then use Manager Open. Record whether an Android UPDATE confirmation was
+shown; waiting only for that dialog can misclassify a completed installation.
+Scroll to the actual selected dropdown control when checking settings: its label
+may be visible while the dropdown remains behind the navigation bar.

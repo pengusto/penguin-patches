@@ -37,7 +37,7 @@ def native_profile(matrix, mask, native):
 def reveal_menu_bottom(ui):
     previous = None
     scrolls = 0
-    for _ in range(8):
+    for _ in range(16):
         root, _ = ui.dump()
         current = [(node['text'] or node['content-desc'], node['bounds'])
                    for node in ui.labels(root)]

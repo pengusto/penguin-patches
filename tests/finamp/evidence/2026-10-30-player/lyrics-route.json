@@ -1,5 +1,5 @@
 {
-  "capturedAt": "2026-10-30T11:46:41.344571+00:00",
+  "capturedAt": "2026-10-30T12:42:34.514616+00:00",
   "serial": "emulator-5580",
   "package": "com.unicornsonlsd.finamp",
   "labels": [
@@ -224,5 +224,5 @@
       "checked": "false"
     }
   ],
-  "pngSha256": "39acadfaa68005b229033b267dd6c3418fe8fc5cd565385685c2a58510d5af0a"
+  "pngSha256": "8f436eb733f5738d9a2d5c83c1cad515854ea34ce627e6b71577d90a98d957c7"
 }

@@ -13,7 +13,8 @@ trees; it is not a set of patches against current Finamp redesign.
 
 The current matrix has 127 nonempty selections. Historical 1.1.0 reports below
 cover seven selections; use that tag's scripts to reproduce its exact bundle.
-Current UI-fix acceptance is documented in `README-ui-fixes.md`; the earlier
+Current UI-fix acceptance is documented in `README-ui-fixes.md` and
+[the reviewed player evidence](evidence/2026-10-30-player/README.md); the earlier
 five-patch suite remains in `README-next-fixes.md`.
 
 ## Verify a release bundle

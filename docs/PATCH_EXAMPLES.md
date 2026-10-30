@@ -157,7 +157,7 @@ Visible bottom actions have no duplicates in the menu.
 **Android APK captures.** Same synthetic track paused at 00:17, Dark theme, hidden
 bottom actions, disabled gestures, 1080×1920 viewport and 09:41 clock. The before
 APK retains the official native code; the after APK is the actual Player-only
-Morphe Manager export, installed through Android UPDATE with the same test key.
+Morphe Manager export, installed through Manager’s Install action with the same test key.
 
 | Before | After |
 | :---: | :---: |

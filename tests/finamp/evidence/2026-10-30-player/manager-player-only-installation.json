@@ -1,6 +1,13 @@
 {
-  "method": "Manager Install \u2192 Android UPDATE \u2192 Manager Open",
-  "installed_apk_sha256": "3f6309098ff000ec26830484c2e9fbd8cf97de4f59554b96073b2cffa430ecbd",
+  "mask": 32,
+  "runtime": "jvm",
+  "method": "Manager Install \u2192 Android PackageInstaller \u2192 Manager Open",
+  "installed_apk_sha256": "0764062ed738ff0733cb3359bee76da270ac24dd44a5fa9522cde370e7f39b1c",
   "matches_export": true,
-  "data_cleared": false
+  "android_update_confirmation_tapped": false,
+  "android_silent_update": true,
+  "android_install_success_log": "10-30 13:40:50.921  2234  2234 D Morphe SessionInstaller: Session 1660865367 status=0 message=INSTALL_SUCCEEDED: Session installed",
+  "resumed_successful_install": false,
+  "data_cleared": false,
+  "time": "2026-10-30T12:41:00.683234+00:00"
 }

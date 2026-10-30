@@ -60,6 +60,30 @@ Physical devices, other Android/Manager versions and real-library timing/RAM
 remain unverified. Pairwise masks were tested on Desktop. This native release
 is separate from the upstream redesign PRs and rebuilt debug preview.
 
+## Reviewed Finamp player menus (2026-10-30)
+
+Final PR #1836 is backported to the existing bit32 selection for the original
+Finamp1.0.1 APK. All64 affected complete source suites pass (4,096 overlapping
+executions;101 in the all-seven tree), while the same focused tests reproduce
+22 failures on the previous player source and27 passes on the reviewed source.
+The other63 payloads and all seven existing MPEs remain byte-identical. All127
+native replays and actual Desktop1.19.1 selections pass. Four unsupported inputs
+fail through a selected patch without output. Both applicable source diffs
+recreate the exact feature tree and all128 public source refs match the matrix.
+
+The actual Manager Player-only JVM export is installed through Android UPDATE;
+its installed/export/native/engine/signer hashes match, with uncompressed native
+entries and16KiB alignment. Raw paired APK PNG/XML are embedded directly in the
+README. Output, Queue and Lyrics routes, Lyrics Output/Queue without recursion,
+five disabled-gesture swipes and Player artwork secondary input are verified.
+All six Manager outputs (JVM32/64/96/127/31, ART127) pass independent native,
+retained-entry, signer and16KiB checks. The selected Player32 ART fault fails
+visibly; fresh recovery succeeds. Compact fallback routes and the same-key
+127→31→original0→127 chain preserve login, preferences and22 download files.
+NIO file-time tracking prevents same-size ART writes being omitted from export;
+the actual Patcher regression is a release gate.
+[Current evidence and scope](../tests/finamp/evidence/2026-10-30-player/README.md).
+
 ## Mihon excluded Default downloads (2026-10-30)
 
 The optional Mihon 0.21.3 ARM64 patch reuses Marc Went / Dunky13's `0L` correction

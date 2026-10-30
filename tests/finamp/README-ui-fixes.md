@@ -168,3 +168,16 @@ space. Locate and open each action separately; they need not all fit at once.
 Use short scrolls inside the list below that header when a large swipe skips a
 row, and reverse after reaching a later action. Restore display and preferences
 before moving on to data-retention acceptance.
+
+The standalone `compact_player_acceptance.py` verifies the installed native source
+and synthetic profile, temporarily changes only the owned display size and
+hide-bottom preference, opens all three compact-menu routes, and restores the
+prior display/preference in `finally`. It uses short, bidirectional scrolls below
+the pinned header and avoids controls behind the system navigation bar:
+
+```sh
+python3 tests/finamp/compact_player_acceptance.py --adb "$ADB" \
+  --native-report "$NATIVE_REPORT" --mask 32 \
+  --out-root .scratch/finamp/android \
+  --out .scratch/finamp/android/compact-player
+```
