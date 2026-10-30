@@ -82,8 +82,10 @@ Manager output have equal executable digests for all 27,909 classes; only
 LibraryScreenModel changes relative to the original. The patch rejects its own
 output. The app manifest, resources and native libraries are unchanged.
 
-All seven prior MPEs are byte-identical to Penguin v1.4.0. All 135 Finamp payload
-entries are unchanged. See the comparison records and the repeatable commands
+All seven prior MPEs and all 135 Finamp resource entries are byte-identical
+to Penguin v1.5.0. The combined release preflight also successfully replays
+all 127 shipped native selections and verifies their source pins, output hashes
+and snapshot ABI (`combined-release-preflight.json`). See the comparison records and the repeatable commands
 in [the test guide](../../README.md).
 
 `upstream-audit.json` records refreshed branches and overlapping open PRs,
