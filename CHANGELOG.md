@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/pengusto/penguin-patches/compare/v1.6.0...v1.6.1) (2026-10-30)
+
+### 🐛 Bug Fixes
+
+* **Finamp:** keep hidden player actions reachable in reviewed menus ([d9005af](https://github.com/pengusto/penguin-patches/commit/d9005af90ccc2915dc04449c99818ed1193c1ba5))
+* **Finamp:** make same-size native writes detectable on Android ART ([9c7c9f7](https://github.com/pengusto/penguin-patches/commit/9c7c9f7915964b68170c29d4df067ee2cf1debc4))
+
 ## [1.6.0](https://github.com/pengusto/penguin-patches/compare/v1.5.0...v1.6.0) (2026-10-30)
 
 ### ✨ New Features

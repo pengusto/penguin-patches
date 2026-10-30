@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "patches": [
     {
       "name": "Avoid notifications for visible conversations",
@@ -362,7 +362,7 @@
     },
     {
       "name": "Keep player output controls accessible",
-      "description": "Open the existing output controls from the player menu even when bottom actions are hidden (#1355). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed.",
+      "description": "Keep Output, Queue and Lyrics at the bottom of the player menu when bottom actions are hidden, while respecting disabled gestures (#1355). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed.",
       "default": false,
       "category": null,
       "compatiblePackages": [

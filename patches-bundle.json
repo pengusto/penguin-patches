@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-30T11:20:29",
-  "description": "## [1.6.0](https://github.com/pengusto/penguin-patches/compare/v1.5.0...v1.6.0) (2026-10-30)\n\n### ✨ New Features\n\n* **Komikku:** preserve local manga in exclusion searches ([bbd60d4](https://github.com/pengusto/penguin-patches/commit/bbd60d42f85952f17205d8465f07e3d06686002c))",
-  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.6.0/patches-1.6.0.mpp",
+  "created_at": "2026-10-30T13:53:34",
+  "description": "## [1.6.1](https://github.com/pengusto/penguin-patches/compare/v1.6.0...v1.6.1) (2026-10-30)\n\n### 🐛 Bug Fixes\n\n* **Finamp:** keep hidden player actions reachable in reviewed menus ([d9005af](https://github.com/pengusto/penguin-patches/commit/d9005af90ccc2915dc04449c99818ed1193c1ba5))\n* **Finamp:** make same-size native writes detectable on Android ART ([9c7c9f7](https://github.com/pengusto/penguin-patches/commit/9c7c9f7915964b68170c29d4df067ee2cf1debc4))",
+  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.6.1/patches-1.6.1.mpp",
   "signature_download_url": "",
-  "version": "1.6.0"
+  "version": "1.6.1"
 }
