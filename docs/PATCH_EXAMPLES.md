@@ -7,6 +7,7 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 | App | Patch / visible change |
 | --- | --- |
 | Mihon 0.21.3 · official GitHub ARM64 APK | [Preserve excluded Default-category downloads](#preserve-excluded-default-category-downloads) |
+| Komikku 1.14.1 · official GitHub ARM64 APK | [Keep local manga in exclusion searches](#keep-local-manga-in-exclusion-searches) |
 | Read You 0.16.2 | [Import nested OPML feeds](#import-nested-opml-feeds) |
 | Finamp 1.0.1 | [Song artist order](#song-artist-order) |
 | Finamp 1.0.1 | [Fix section title validation](#fix-section-title-validation) |
@@ -423,6 +424,28 @@ with that same key. Each import starts without the synthetic Manga news group.
 | <img src="../tests/readyou/evidence/2026-10-29/before.png" width="300" alt="Before: only Reader releases appears in Manga news"> | <img src="../tests/readyou/evidence/2026-10-29/after.png" width="300" alt="After: Reader releases, Studio journal and Chapter notes appear in Manga news"> |
 
 [Capture provenance & checks](../tests/readyou/evidence/2026-10-29/README.md) · [Back to patch index](#before--after)
+
+<a id="keep-local-manga-in-exclusion-searches"></a>
+
+## Keep local manga in exclusion searches
+
+**Komikku 1.14.1 ARM64** · [Setup & patch details](KOMIKKU.md)
+
+The library search `-meteor` keeps unrelated local **Orion** after patching.
+Matching local **Meteor** remains excluded; remote **Lyra** is the control.
+
+**Installed Android APK captures.** Same synthetic library, light theme,
+1080 × 1920 display, density 420, sort/filter and query; keyboard dismissed.
+The original official payload is signed with the fixture key. The after capture
+uses the actual Morphe Manager 2.2.0 JVM export, installed through Android's
+update dialog with that same key. The app renders both screenshots directly.
+
+| Before | After |
+| :---: | :---: |
+| **Unrelated local Orion disappears** | **Orion remains; Meteor is still excluded** |
+| <img src="../tests/komikku/evidence/2026-10-30/before.png" width="300" alt="Before: exclusion search for meteor shows only remote Lyra and loses local Orion"> | <img src="../tests/komikku/evidence/2026-10-30/after.png" width="300" alt="After: the same search shows local Orion and remote Lyra while local Meteor remains excluded"> |
+
+[Capture provenance & checks](../tests/komikku/evidence/2026-10-30/README.md) · [Back to patch index](#before--after)
 
 ## About these comparisons
 

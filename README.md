@@ -13,7 +13,7 @@ Focused Android fixes, ready for Morphe.
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe.svg" alt="Add to Morphe →" width="242" height="52"></a>
 
 <!-- PATCHES_SUMMARY_START -->
-**22 patches · 13 apps · [v1.5.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.5.0)**
+**23 patches · 14 apps · [v1.6.0-komikku-candidate](https://github.com/pengusto/penguin-patches/releases/tag/v1.6.0-komikku-candidate)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -479,6 +479,36 @@ Show the artwork embedded in the current track rather than reusing another track
 
 </details>
 
+<a id="previews-app-komikku"></a>
+
+### Komikku · 1 patch
+
+<a id="preview-keep-local-manga-in-exclusion-searches"></a>
+
+<details>
+<summary><strong>Keep local manga in exclusion searches</strong> · Before / after</summary>
+<br>
+
+**Komikku 1.14.1 ARM64** · [Setup & patch details](docs/KOMIKKU.md)
+
+The library search `-meteor` keeps unrelated local **Orion** after patching.
+Matching local **Meteor** remains excluded; remote **Lyra** is the control.
+
+**Installed Android APK captures.** Same synthetic library, light theme,
+1080 × 1920 display, density 420, sort/filter and query; keyboard dismissed.
+The original official payload is signed with the fixture key. The after capture
+uses the actual Morphe Manager 2.2.0 JVM export, installed through Android's
+update dialog with that same key. The app renders both screenshots directly.
+
+| Before | After |
+| :---: | :---: |
+| **Unrelated local Orion disappears** | **Orion remains; Meteor is still excluded** |
+| <img src="tests/komikku/evidence/2026-10-30/before.png" width="300" alt="Before: exclusion search for meteor shows only remote Lyra and loses local Orion"> | <img src="tests/komikku/evidence/2026-10-30/after.png" width="300" alt="After: the same search shows local Orion and remote Lyra while local Meteor remains excluded"> |
+
+[Capture provenance & checks](tests/komikku/evidence/2026-10-30/README.md) · [Back to patch index](#patch-previews)
+
+</details>
+
 <a id="previews-de-mm20-launcher2-release"></a>
 
 ### Kvaesitso · 1 patch
@@ -593,9 +623,9 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 
 <!-- PATCHES_START -->
 <details>
-<summary><strong>All 13 apps and supported versions</strong></summary>
+<summary><strong>All 14 apps and supported versions</strong></summary>
 
-> **[v1.5.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.5.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;22 patches total
+> **[v1.6.0-komikku-candidate](https://github.com/pengusto/penguin-patches/releases/tag/v1.6.0-komikku-candidate)**&nbsp;&nbsp;•&nbsp;&nbsp;`dev`&nbsp;&nbsp;•&nbsp;&nbsp;23 patches total
 <details>
 <summary>📦 Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -691,6 +721,21 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | <a id="keep-favorites-consistent-after-folder-rename-or-removal"></a>[Keep favorites consistent after folder rename or removal](docs/FILE_MANAGER.md)<br>[Before / after](#preview-keep-favorites-consistent-after-folder-rename-or-removal) | Update nested favorite paths after successful single or multiple renames and remove nested favorites with their deleted parent. |  |
+
+</details>
+
+<details>
+<summary>📦 Komikku&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 1.14.1 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| <a id="keep-local-manga-in-exclusion-searches"></a>[Keep local manga in exclusion searches](docs/KOMIKKU.md)<br>[Before / after](#preview-keep-local-manga-in-exclusion-searches) | Keep local manga when an excluded search term does not match. Matching titles, tags and remote source IDs are still excluded. Official GitHub Komikku 1.14.1 ARM64 APK tested. |  |
 
 </details>
 
