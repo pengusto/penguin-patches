@@ -287,9 +287,16 @@ class Fixture:
             self.audio[player_id] = make_wav(9, 120)
             source = media_source(player_id, len(self.audio[player_id]))
             source["RunTimeTicks"] = 120 * 10_000_000
+            # Finamp checks PlaybackInfo.MediaStreams before fetching lyrics.
+            source["MediaStreams"].append({
+                "Type": "Lyric", "Index": 1, "Codec": "lrc", "IsInterlaced": False,
+                "IsDefault": False, "IsForced": False, "IsExternal": True,
+                "IsTextSubtitleStream": False, "SupportsExternalStream": False,
+            })
             track = copy.deepcopy(next(item for item in items if item["Id"] == TRACK_IDS[0]))
             track.update({"Id": player_id, "Name": "Output Controls", "SortName": "output controls",
                           "RunTimeTicks": 120 * 10_000_000, "IndexNumber": 9,
+                          "HasLyrics": True,
                           "MediaSources": [source], "MediaStreams": source["MediaStreams"],
                           "Path": source["Path"], "UserData": user_data(player_id)})
             items.append(track)
@@ -689,8 +696,11 @@ class Handler(BaseHTTPRequestHandler):
         if len(parts) == 3 and parts[0] == "audio" and read:
             if parts[2] in ("stream", "stream.wav", "universal"):
                 return self.stream(parts[1])
-            if parts[2] == "lyrics" and parts[1] in TRACK_IDS:
-                return self.reply(200, {"Metadata": {"IsSynced": False}, "Lyrics": []})
+            if parts[2] == "lyrics" and parts[1] in self.fixture.audio:
+                lines = ([{"Text": "Penguin synthetic lyrics"},
+                          {"Text": "Player actions remain reachable."}]
+                         if self.fixture.profile == "player" and parts[1] == stable_id("player-output-track") else [])
+                return self.reply(200, {"Metadata": {"IsSynced": False}, "Lyrics": lines})
             if parts[2] == "main.m3u8":
                 return self.reply(501, {"error": "HLS/transcoding unsupported; select original streaming in Finamp"})
         if len(parts) == 3 and parts[0] == "albums" and parts[1] == ALBUM_ID and parts[2] == "similar" and read:
