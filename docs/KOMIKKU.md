@@ -39,7 +39,9 @@ can update each other without uninstalling.
 
 ## Upstream
 
-[Source correction and eight regression tests](https://github.com/pengusto/komikku/commit/86c0acaee96b4f76bcdb3965727dcbd2169ee514).
+[Focused upstream PR #1949](https://github.com/komikku-app/komikku/pull/1949)
+contains the source correction and eight regression tests
+([tested commit](https://github.com/pengusto/komikku/commit/86c0acaee96b4f76bcdb3965727dcbd2169ee514)).
 The current contribution branch and the maintained stable release retain the
 faulty null guard. The adjacent [PR #1128](https://github.com/komikku-app/komikku/pull/1128)
 changes source-name/language matching and retains it too. Applying that PR's
