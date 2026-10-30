@@ -54,6 +54,12 @@ after all 127 masks complete. `--masks 2` defaults to private partial output;
 partial runs cannot write into production resources. Use `--output` for a
 separate full exploratory rebuild too.
 
+Add `--test-source` to run each selected tree's complete Flutter suite before
+its native build. Each completed receipt records the passed count and test-log
+SHA-256. With `--resume --test-source`, an older untested receipt or a changed
+test log is rejected; successful payload replay alone cannot replace this source
+test evidence. Counts across combinations overlap and are not unique test cases.
+
 The published deltas replay byte for byte to their pinned hashes. A fresh source
 build in a different directory is **not claimed byte reproducible**: Flutter
 embeds an absolute generated plugin-registrant URI, affecting snapshot layout.

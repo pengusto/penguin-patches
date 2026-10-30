@@ -19,6 +19,36 @@ from build_native_payloads import APK_SHA
 from manager_selection import configure_selection
 
 
+def wait_for_export(ui, remote, *, timeout=120, poll_seconds=0.5):
+    """DocumentsUI creates a zero-byte file before Manager finishes writing it."""
+    deadline = time.monotonic() + timeout
+    previous = None
+    stable = 0
+    while time.monotonic() < deadline:
+        value = ui.adb('shell', 'stat', '-c', '%s', remote, check=False).strip()
+        size = int(value) if value.isdecimal() else 0
+        stable = stable + 1 if size > 0 and size == previous else 0
+        if stable >= 3:
+            return size
+        previous = size
+        time.sleep(poll_seconds)
+    raise RuntimeError('Manager export did not reach a positive stable size: ' + remote)
+
+
+def pull_verified_export(ui, remote, destination, apksigner):
+    size = wait_for_export(ui, remote)
+    ui.adb('pull', remote, destination, timeout=60)
+    if destination.stat().st_size != size:
+        raise RuntimeError('Manager export changed while being pulled')
+    signature = subprocess.check_output(
+        [str(apksigner), 'verify', '--print-certs', str(destination)], text=True)
+    certificates = re.findall(r'Signer #\d+ certificate SHA-256 digest: ([0-9a-f]{64})', signature)
+    if len(certificates) != 1:
+        raise RuntimeError('Manager export must have one verified signer')
+    return {'stable_export_bytes': size, 'signature_verified': True,
+            'signer_sha256': certificates[0]}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adb', type=Path, required=True)
@@ -34,6 +64,7 @@ def main():
     parser.add_argument('--recovery', action='store_true', help='Fresh export proving recovery after a rejected input')
     parser.add_argument('--original-apk', type=Path, required=True)
     parser.add_argument('--native-report', type=Path, required=True)
+    parser.add_argument('--apksigner', type=Path, help='Existing SDK apksigner; defaults beside resolved aapt2')
     args = parser.parse_args()
     if args.mask & ~args.available_mask:
         parser.error('Selected patch is absent from this source version')
@@ -98,12 +129,13 @@ def main():
     wait_for('Patched')
     ui.capture(f'mask-{args.mask}-{args.runtime}{suffix}-exported')
     destination.parent.mkdir(exist_ok=True)
-    ui.adb('pull', remote, destination, timeout=60)
+    export = pull_verified_export(ui, remote, destination,
+                                 args.apksigner or base.resolve_aapt2(ui.adb_path).with_name('apksigner'))
     native = json.loads(args.native_report.read_text())['masks'][str(args.mask)]['native_sha256']
     contents = check_contents(args.original_apk, destination, native)
     record = {'mask': args.mask, 'runtime': runtime, 'runtime_log': lines[-1], 'ui_success': True,
               'apk_sha256': hashlib.sha256(destination.read_bytes()).hexdigest(), 'native_sha256': native,
-              **contents}
+              **contents, **export}
     record['recovery'] = args.recovery
     record['available_patch_mask'] = args.available_mask
     record['actual_export_path'] = remote

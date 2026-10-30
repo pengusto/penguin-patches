@@ -106,7 +106,7 @@ val finampTrackAlphabetPatch = finampFeature(
 
 @Suppress("unused")
 val finampPlayerOutputPatch = finampFeature(
-    "Keep player output controls accessible", "Open the existing output controls from the player menu even when bottom actions are hidden (#1355).", 32,
+    "Keep player output controls accessible", "Keep Output, Queue and Lyrics at the bottom of the player menu when bottom actions are hidden, while respecting disabled gestures (#1355).", 32,
 )
 
 @Suppress("unused")

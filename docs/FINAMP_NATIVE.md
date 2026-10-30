@@ -28,7 +28,7 @@ selections together; an already patched snapshot is deliberately rejected.
 | **Load artist pages faster** | Uses bounded preview/count requests; complete song enumeration stays behind playback actions | [PR #1832](https://github.com/finamp-app/finamp/pull/1832), [issue #1732](https://github.com/finamp-app/finamp/issues/1732) |
 | **Fix offline artist tracks** | Excludes unrelated tracks from downloaded shared albums when browsing a performing artist | [PR #1834](https://github.com/finamp-app/finamp/pull/1834), [issue #1689](https://github.com/finamp-app/finamp/issues/1689) |
 | **Fix track alphabet navigation** | Uses consistent case when comparing Tracks titles with a selected alphabet letter; preserves existing paging | [PR #1835](https://github.com/finamp-app/finamp/pull/1835), [issue #1790](https://github.com/finamp-app/finamp/issues/1790) |
-| **Keep player output controls accessible** | Adds Output to the player track menu, including when bottom actions are hidden and gestures disabled | [PR #1836](https://github.com/finamp-app/finamp/pull/1836), [issue #1355](https://github.com/finamp-app/finamp/issues/1355) |
+| **Keep player output controls accessible** | Adds Output, Queue and Lyrics at the bottom of the player menu when bottom actions are hidden; respects the gesture setting and avoids duplicate actions | [PR #1836](https://github.com/finamp-app/finamp/pull/1836), [issue #1355](https://github.com/finamp-app/finamp/issues/1355) |
 | **Fix quick settings banner contrast** | Uses the matching foreground color for banner text with custom accents | Existing [`hotfix-1.0.2` fix](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8); duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837) **closed on 2026-10-29**; [issue #1756](https://github.com/finamp-app/finamp/issues/1756) |
 
 All seven are optional (`default=false`). Choose any subset of the seven in
@@ -47,6 +47,15 @@ future versions. [Exact upstream refs and release status](FINAMP.md#upstream-sta
 The title patch retains the existing validity rule: an empty title is invalid;
 it does not introduce whitespace trimming or change which section types require
 a title. The performance patch does not cap the eventual playback queue.
+
+The player patch follows the reviewed upstream source at
+[`0092a059`](https://github.com/pengusto/finamp/commit/0092a0593a9d69dfc461834d0e4e6c580d112379).
+Both the menu button and the artwork context menu follow the actual layout:
+the three replacement actions appear only when the bottom actions are hidden,
+including when space is too limited to show them. Disabled gestures stay disabled
+on Player and Lyrics. The Lyrics screen's menu retains Output and Queue without
+adding another Lyrics route. The existing selectable patch name and bit remain
+unchanged; no setting or stored data format is added.
 
 Refresh the Penguin source in Morphe, select the supported original APK and the
 desired patches, then build and sign using your normal Morphe key. Keep that key
