@@ -3,6 +3,10 @@ name: Release
 on:
   workflow_dispatch:
 
+concurrency:
+  group: penguin-patches-release
+  cancel-in-progress: false
+
 jobs:
   release:
     name: Release
@@ -41,6 +45,18 @@ jobs:
           gh release download 1.0.1 --repo finamp-app/finamp \
             --pattern Finamp-1.0.1-universal.apk --dir "$RUNNER_TEMP/finamp-input"
           echo "FINAMP_ORIGINAL_APK=$RUNNER_TEMP/finamp-input/Finamp-1.0.1-universal.apk" >> "$GITHUB_ENV"
+
+      - name: Fetch pinned Mihon verification inputs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/mihon-input"
+          gh release download v0.21.3 --repo mihonapp/mihon \
+            --pattern mihon-arm64-v8a-v0.21.3.apk --dir "$RUNNER_TEMP/mihon-input"
+          gh release download v1.19.1 --repo MorpheApp/morphe-desktop \
+            --pattern morphe-desktop-1.19.1-all.jar --dir "$RUNNER_TEMP/mihon-input"
+          echo "MIHON_ORIGINAL_APK=$RUNNER_TEMP/mihon-input/mihon-arm64-v8a-v0.21.3.apk" >> "$GITHUB_ENV"
+          echo "MORPHE_DESKTOP_JAR=$RUNNER_TEMP/mihon-input/morphe-desktop-1.19.1-all.jar" >> "$GITHUB_ENV"
 
       # Semantic release runs its own Gradle build command.
       # Only dev and main branch will generate a release as specified by .releaserc

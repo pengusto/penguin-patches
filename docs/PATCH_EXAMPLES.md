@@ -6,6 +6,7 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 
 | App | Patch / visible change |
 | --- | --- |
+| Mihon 0.21.3 · official GitHub ARM64 APK | [Preserve excluded Default-category downloads](#preserve-excluded-default-category-downloads) |
 | Read You 0.16.2 | [Import nested OPML feeds](#import-nested-opml-feeds) |
 | Finamp 1.0.1 | [Song artist order](#song-artist-order) |
 | Finamp 1.0.1 | [Fix section title validation](#fix-section-title-validation) |
@@ -27,6 +28,27 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 | Kvaesitso 1.41.0 | [Restore widget editing from the search menu](#restore-widget-editing-from-the-search-menu) |
 | Fossify Clock 1.6.0 | [Choose upcoming alarm notification time](#choose-upcoming-alarm-notification-time) |
 | Tasks.org 15.13 · project GitHub F-Droid APK | [Navigate to the parent task](#navigate-to-the-parent-task) |
+
+<a id="preserve-excluded-default-category-downloads"></a>
+
+## Preserve excluded Default-category downloads
+
+**Mihon 0.21.3** · [Setup & patch details](MIHON.md)
+
+Keep read chapter downloads when the built-in Default category is excluded from
+deletion. Reuses Marc Went / Dunky13's correction in [Mihon PR #4182](https://github.com/mihonapp/mihon/pull/4182).
+
+**Installed Android APK captures.** Same synthetic favorite, read chapter, Default
+exclusion, Light theme, display size and **Downloaded only** filter. Before: the
+download is deleted and the filtered library appears empty. After: the Manager
+export retains the downloaded chapter. The favorite itself remains in both databases.
+
+| Before | After |
+| :---: | :---: |
+| **Excluded read download lost** | **Excluded read download retained** |
+| <img src="../tests/mihon/evidence/2026-10-29/before.png" width="300" alt="Before: excluded Default-category download lost; Downloaded only library is empty"> | <img src="../tests/mihon/evidence/2026-10-29/after.png" width="300" alt="After: excluded Default-category download retained; synthetic favorite remains downloaded"> |
+
+[Raw PNG/XML and acceptance evidence](../tests/mihon/evidence/2026-10-29/README.md) · [Back to patch index](#before--after)
 
 <a id="song-artist-order"></a>
 
