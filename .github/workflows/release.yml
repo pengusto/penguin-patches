@@ -33,6 +33,7 @@ jobs:
         with:
           node-version: 'lts/*'
           # Avoid Actions cache egress limits blocking the publishing runner.
+          package-manager-cache: false
 
       - name: Install dependencies
         run: npm install
