@@ -111,6 +111,10 @@ read saved settings with the frozen original adapter **without adapter 128**.
 
 ### Reviewed Artist counts
 
+The subsequent [AsyncValue bundle verification](../tests/finamp/evidence/2026-10-31-asyncvalue/README.md)
+records the rebuilt source variants, full selection matrix and Android Manager
+acceptance for the current candidate.
+
 The Artist backport incorporates PR1832's review revision
 [`e53f3ceb`](https://github.com/pengusto/finamp/commit/e53f3cebb07d81b124289c4d5a404f979fe10b8e),
 which passes the `AsyncValue` through to the information widget. One bounded `ArtistIds` query
