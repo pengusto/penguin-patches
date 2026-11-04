@@ -1,0 +1,3 @@
+INSTRUMENTATION_RESULT: stream=PASS: 34 Calendar widget/notification checks
+
+INSTRUMENTATION_CODE: -1
