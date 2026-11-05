@@ -7,6 +7,7 @@ The catalogue and app details stay collapsed regardless of patch count.
 Use <!-- PATCHES_START EXPANDED --> to explicitly open them instead.
 Optional PATCHES_SUMMARY_START / PATCHES_SUMMARY_END markers receive a short
 release summary, so the introduction stays in sync with the release catalogue.
+PATCHES_APPS_START / PATCHES_APPS_END show the supported apps near the top.
 PATCHES_PREVIEWS_START / PATCHES_PREVIEWS_END embed each released image pair
 from the evidence gallery; FINAMP_COUNT_START / FINAMP_COUNT_END sync its CTA.
 
@@ -63,14 +64,14 @@ ICON_SOURCES = {
 }
 
 
-def pkg_icon(pkg, name):
+def pkg_icon(pkg, name, size=24):
     """Use an official icon when known; retain a fallback for future apps."""
     source = ICON_SOURCES.get(pkg)
     if source is None:
         return "📦"
     repo, commit, path = source
     alt = html.escape(f"{name} app icon", quote=True)
-    return f'<img src="https://raw.githubusercontent.com/{repo}/{commit}/{path}" alt="{alt}" width="24" height="24">'
+    return f'<img src="https://raw.githubusercontent.com/{repo}/{commit}/{path}" alt="{alt}" width="{size}" height="{size}">'
 
 # Group patches by package; patches with no compatiblePackages are universal.
 # JSON structure: compatiblePackages is a list of objects with
@@ -286,7 +287,7 @@ def build_previews():
         count = len(entry["patches"])
         sections.append(
             f'<a id="previews-{anchor(pkg)}"></a>\n\n'
-            f'### {entry["name"]} · {count} {"patch" if count == 1 else "patches"}\n\n'
+            f'### {entry["icon"]} {html.escape(entry["name"])} · {count} {"patch" if count == 1 else "patches"}\n\n'
             + "\n\n".join(preview_section(p) for p in entry["patches"].values())
         )
     if universal:
@@ -343,6 +344,21 @@ new_readme = re.sub(
     new_readme,
     flags=re.DOTALL,
 )
+if "<!-- PATCHES_APPS_START -->" in new_readme:
+    if "<!-- PATCHES_APPS_END -->" not in new_readme:
+        raise ValueError("Missing PATCHES_APPS_END marker")
+    app_links = []
+    for pkg, entry in by_pkg.items():
+        destination = html.escape(GUIDES.get(pkg, "#generated-patch-catalogue"), quote=True)
+        icon = pkg_icon(pkg, entry["name"], size=32)
+        name = html.escape(entry["name"])
+        app_links.append(f'<a href="{destination}">{icon} {name}</a>')
+    app_strip = "<p>\n" + " &nbsp;\n".join(app_links) + "\n</p>"
+    new_readme = re.sub(
+        r"<!-- PATCHES_APPS_START -->.*?<!-- PATCHES_APPS_END -->",
+        lambda _: f"<!-- PATCHES_APPS_START -->\n{app_strip}\n<!-- PATCHES_APPS_END -->",
+        new_readme, flags=re.DOTALL,
+    )
 if inline_previews:
     if "<!-- PATCHES_PREVIEWS_END -->" not in new_readme:
         raise ValueError("Missing PATCHES_PREVIEWS_END marker")
