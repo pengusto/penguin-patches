@@ -51,14 +51,14 @@ class ReleaseReadmeTests(unittest.TestCase):
         self.assertIn('id="prefer-each-track-s-embedded-cover"', result)
         self.assertIn('id="prefer-each-tracks-embedded-cover"', result)
 
-    def test_supported_apps_have_pinned_decorative_icons(self):
+    def test_supported_apps_have_pinned_accessible_icons(self):
         data = json.loads((ROOT / "patches-list.json").read_text())
         result = self.render(data)
         catalogue = result.split("<!-- PATCHES_START -->")[1].split("<!-- PATCHES_END -->")[0]
-        icons = re.findall(r'<summary><img src="(https://raw\.githubusercontent\.com/[^"]+)" alt="" width="24" height="24">', catalogue)
+        icons = re.findall(r'<summary><img src="(https://raw\.githubusercontent\.com/[^"]+)" alt="([^"]+ app icon)" width="24" height="24">', catalogue)
         self.assertEqual(len(icons), app_count(data))
-        self.assertEqual(len(set(icons)), len(icons))
-        for icon in icons:
+        self.assertEqual(len({icon for icon, _ in icons}), len(icons))
+        for icon, _ in icons:
             self.assertRegex(icon, r"/[^/]+/[^/]+/[0-9a-f]{40}/.+\.png$")
 
     def test_small_next_prerelease_updates_summary_without_expanding(self):

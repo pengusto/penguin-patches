@@ -63,13 +63,14 @@ ICON_SOURCES = {
 }
 
 
-def pkg_icon(pkg):
+def pkg_icon(pkg, name):
     """Use an official icon when known; retain a fallback for future apps."""
     source = ICON_SOURCES.get(pkg)
     if source is None:
         return "📦"
     repo, commit, path = source
-    return f'<img src="https://raw.githubusercontent.com/{repo}/{commit}/{path}" alt="" width="24" height="24">'
+    alt = html.escape(f"{name} app icon", quote=True)
+    return f'<img src="https://raw.githubusercontent.com/{repo}/{commit}/{path}" alt="{alt}" width="24" height="24">'
 
 # Group patches by package; patches with no compatiblePackages are universal.
 # JSON structure: compatiblePackages is a list of objects with
@@ -90,7 +91,7 @@ for patch in data["patches"]:
         if pkg not in by_pkg:
             by_pkg[pkg] = {
                 "name":    name,
-                "icon":    pkg_icon(pkg),
+                "icon":    pkg_icon(pkg, name),
                 "patches": {},
                 "targets": pkg_entry.get("targets", []),
             }
