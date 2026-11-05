@@ -13,7 +13,7 @@ Focused Android fixes, ready for Morphe.
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe.svg" alt="Add to Morphe →" width="242" height="52"></a>
 
 <!-- PATCHES_SUMMARY_START -->
-**23 patches · 14 apps · [v1.6.4](https://github.com/pengusto/penguin-patches/releases/tag/v1.6.4)**
+**24 patches · 14 apps · [v1.7.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.7.0)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -50,7 +50,7 @@ Album artists first. Other credits alphabetical. More modes in settings.
 Real Android APK captures with synthetic music data. [Evidence & limits](tests/finamp/evidence/2026-10-28/README.md).
 
 <!-- FINAMP_COUNT_START -->
-**[Explore the 7 Finamp patches →](docs/FINAMP_NATIVE.md)**
+**[Explore the 8 Finamp patches →](docs/FINAMP_NATIVE.md)**
 <!-- FINAMP_COUNT_END -->
 
 Choose how song credits appear, keep Output reachable with hidden player buttons, improve banner contrast, and fix library browsing or settings errors. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
@@ -73,7 +73,7 @@ Open any patch below to see its matching before/after pair, right here. Grouped 
 <!-- PATCHES_PREVIEWS_START -->
 <a id="previews-com-unicornsonlsd-finamp"></a>
 
-### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 7 patches
+### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 8 patches
 
 <a id="preview-fix-offline-artist-tracks"></a>
 
@@ -213,6 +213,30 @@ Show the artist preview and track count without waiting for the full discography
 | <img src="tests/finamp/evidence/2026-10-30-artist-review/artist-held-before.png" width="300" alt="Before: Pending full-song queries: spinner and 0 Tracks"> | <img src="tests/finamp/evidence/2026-10-30-artist-review/artist-held-after.png" width="300" alt="After: Bounded queries: preview and 8 Tracks appear"> |
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-30-artist-review/README.md) · [Back to patch index](#patch-previews)
+
+</details>
+
+<a id="preview-show-album-and-track-information"></a>
+
+<details>
+<summary><strong>Show album and track information</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+Read Jellyfin's available album and track descriptions, including descriptions
+saved with downloads. The track action follows the common actions in its menu.
+
+**Installed Android APK captures.** The same downloaded synthetic album, song,
+Light theme and display; the after APK was exported by Morphe Manager using the
+full locally built bundle. See the evidence for the scope of that test.
+
+| Before | After |
+| :---: | :---: |
+| **No track information action** | **Information action with icon** |
+| <img src="tests/finamp/evidence/2026-11-05-notes/track-before.png" width="300" alt="Before: track menu without an information action"> | <img src="tests/finamp/evidence/2026-11-05-notes/track-after.png" width="300" alt="After: track information with an icon below the common actions"> |
+
+[Album before](tests/finamp/evidence/2026-11-05-notes/album-before.png) · [Album after](tests/finamp/evidence/2026-11-05-notes/album-after.png) · [Raw captures and provenance](tests/finamp/evidence/2026-11-05-notes/README.md) · [Back to patch index](#patch-previews)
 
 </details>
 
@@ -648,7 +672,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 <details>
 <summary><strong>All 14 apps and supported versions</strong></summary>
 
-> **[v1.6.4](https://github.com/pengusto/penguin-patches/releases/tag/v1.6.4)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;23 patches total
+> **[v1.7.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.7.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;24 patches total
 <details>
 <summary><img src="https://raw.githubusercontent.com/FossifyOrg/Messages/02f511b292cc9790d0189a7e3d96ce3d71493890/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Messages app icon" width="24" height="24"> Fossify Messages&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -697,7 +721,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 </details>
 
 <details>
-<summary><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp&nbsp;&nbsp;•&nbsp;&nbsp;7 patches</summary>
+<summary><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -713,6 +737,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 | <a id="fix-track-alphabet-navigation"></a>[Fix track alphabet navigation](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-track-alphabet-navigation) | Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="keep-player-output-controls-accessible"></a>[Keep player output controls accessible](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-keep-player-output-controls-accessible) | Keep Output, Queue and Lyrics at the bottom of the player menu when bottom actions are hidden, while respecting disabled gestures (#1355). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="load-artist-pages-faster"></a>[Load artist pages faster](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-load-artist-pages-faster) | Load artist previews and track counts without downloading the full discography (#1832). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="show-album-and-track-information"></a>[Show album and track information](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-show-album-and-track-information) | Show available Jellyfin album and track descriptions, including descriptions saved by download sync (#1852). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 | <a id="song-artist-order"></a>[Song artist order](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-song-artist-order) | Choose song-credit display order, including album artists first, metadata order and alphabetical (#1831). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 
 </details>
