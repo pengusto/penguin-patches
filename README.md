@@ -18,6 +18,25 @@ Focused Android fixes, ready for Morphe.
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
 
+<!-- PATCHES_APPS_START -->
+<p>
+<a href="docs/MESSAGES.md"><img src="https://raw.githubusercontent.com/FossifyOrg/Messages/02f511b292cc9790d0189a7e3d96ce3d71493890/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Messages app icon" width="32" height="32"> Fossify Messages</a> &nbsp;
+<a href="docs/CLOCK.md"><img src="https://raw.githubusercontent.com/FossifyOrg/Clock/0511f508368ada82cdb587b0bf8df9d56cf9e6ad/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Clock app icon" width="32" height="32"> Fossify Clock</a> &nbsp;
+<a href="docs/INFINITY.md"><img src="https://raw.githubusercontent.com/Docile-Alligator/Infinity-For-Reddit/cc2845af8c4bb9375ee56b93944c5a0fa3ad70e0/fastlane/metadata/android/en-US/images/icon.png" alt="Infinity+ app icon" width="32" height="32"> Infinity+</a> &nbsp;
+<a href="docs/FINAMP_NATIVE.md"><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="32" height="32"> Finamp</a> &nbsp;
+<a href="docs/READYOU.md"><img src="https://raw.githubusercontent.com/ReadYouApp/ReadYou/d2b979ccad9a3e54b9499929a9dc2824578b0fd9/fastlane/metadata/android/en-US/images/icon.png" alt="Read You app icon" width="32" height="32"> Read You</a> &nbsp;
+<a href="docs/FILE_MANAGER.md"><img src="https://raw.githubusercontent.com/FossifyOrg/File-Manager/c95de62b90c9f42601b88eca4f795338da3b161c/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify File Manager app icon" width="32" height="32"> Fossify File Manager</a> &nbsp;
+<a href="docs/KOMIKKU.md"><img src="https://raw.githubusercontent.com/komikku-app/komikku/383ffaa81667f45fc6c2975edb1760a7606531d3/.github/readme-images/app-icon.png" alt="Komikku app icon" width="32" height="32"> Komikku</a> &nbsp;
+<a href="docs/TASKS.md"><img src="https://raw.githubusercontent.com/tasks/tasks/d7c0afdb94f913943fd54833d3e108871e78bc36/fastlane/metadata/android/en-US/images/icon.png" alt="Tasks.org app icon" width="32" height="32"> Tasks.org</a> &nbsp;
+<a href="docs/MUSIC.md"><img src="https://raw.githubusercontent.com/FossifyOrg/Music-Player/e76d0f222eaba2cfd4501ccc3b6a8d2e9f29b0c3/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Music Player app icon" width="32" height="32"> Fossify Music Player</a> &nbsp;
+<a href="docs/MIHON.md"><img src="https://raw.githubusercontent.com/mihonapp/mihon/ede052af170e2ef2949dac2acd91adfb58043a96/fastlane/metadata/android/en-US/images/icon.png" alt="Mihon app icon" width="32" height="32"> Mihon</a> &nbsp;
+<a href="docs/CALENDAR.md"><img src="https://raw.githubusercontent.com/FossifyOrg/Calendar/a0d428461b5caac11ad570f77a4134b912093205/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Calendar app icon" width="32" height="32"> Fossify Calendar</a> &nbsp;
+<a href="docs/KVAESITSO.md"><img src="https://raw.githubusercontent.com/MM2-0/Kvaesitso/c4805f3f18d5bcf071c5287f81466efd79169b20/fastlane/metadata/android/en-US/images/icon.png" alt="Kvaesitso app icon" width="32" height="32"> Kvaesitso</a> &nbsp;
+<a href="docs/CONTACTS.md"><img src="https://raw.githubusercontent.com/FossifyOrg/Contacts/6938eccfd1a10f924a6ced13695c73bd0cd84328/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Contacts app icon" width="32" height="32"> Fossify Contacts</a> &nbsp;
+<a href="docs/FEEDER.md"><img src="https://raw.githubusercontent.com/spacecowboy/Feeder/846b19d39b932b1a9864b4317365034f36fc4856/fastlane/metadata/android/en-US/images/icon.png" alt="Feeder app icon" width="32" height="32"> Feeder</a>
+</p>
+<!-- PATCHES_APPS_END -->
+
 **Before installing:** use the exact original APK in your app's guide, verify your backup and keep your signing key. [Read the setup guide →](docs/SETUP.md)
 
 ## Finamp, with the album artist first.

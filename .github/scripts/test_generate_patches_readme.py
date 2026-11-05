@@ -61,6 +61,21 @@ class ReleaseReadmeTests(unittest.TestCase):
         for icon, _ in icons:
             self.assertRegex(icon, r"/[^/]+/[^/]+/[0-9a-f]{40}/.+\.png$")
 
+    def test_supported_apps_are_visible_near_the_top_and_follow_metadata(self):
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        result = self.render(data)
+        strip = result.split("<!-- PATCHES_APPS_START -->")[1].split("<!-- PATCHES_APPS_END -->")[0]
+        self.assertLess(result.index("<!-- PATCHES_APPS_START -->"), result.index("## Finamp"))
+        self.assertNotIn("<details", strip)
+        self.assertEqual(strip.count('width="32" height="32"'), app_count(data))
+        self.assertIn('href="docs/FINAMP_NATIVE.md"', strip)
+        self.assertIn('alt="Finamp app icon"', strip)
+        data["patches"] = [p for p in data["patches"] if p["name"] == "Song artist order"]
+        smaller = self.render(data).split("<!-- PATCHES_APPS_START -->")[1].split("<!-- PATCHES_APPS_END -->")[0]
+        self.assertEqual(smaller.count('width="32" height="32"'), 1)
+        self.assertIn("Finamp", smaller)
+        self.assertNotIn("Fossify", smaller)
+
     def test_small_next_prerelease_updates_summary_without_expanding(self):
         data = json.loads((ROOT / "patches-list.json").read_text())
         data["version"] = "v1.2.0-dev.1"
