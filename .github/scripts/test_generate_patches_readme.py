@@ -137,6 +137,17 @@ class ReleaseReadmeTests(unittest.TestCase):
             self.assertIn(f"[Before / after](#preview-{slug})", result)
         self.assertNotIn("<details open>", result)
 
+    def test_finamp_information_patch_has_a_direct_before_after_preview(self):
+        data = {"version": "1.6.4", "patches": [{
+            "name": "Show album and track information", "description": "Read Jellyfin descriptions",
+            "compatiblePackages": [{"packageName": "com.unicornsonlsd.finamp", "name": "Finamp",
+                                    "targets": [{"version": "1.0.1"}]}]}]}
+        result = self.render(data)
+        self.check_gallery(data, result)
+        self.assertIn("#preview-show-album-and-track-information", result)
+        self.assertIn('src="tests/finamp/evidence/2026-11-05-notes/track-before.png"', result)
+        self.assertIn('src="tests/finamp/evidence/2026-11-05-notes/track-after.png"', result)
+
     def test_mihon_preview_embeds_real_pair_and_guide(self):
         data = {"version": "1.5.0", "patches": [{
             "name": "Preserve excluded Default-category downloads",
