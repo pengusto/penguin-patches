@@ -239,6 +239,21 @@ cannot masquerade as file contents. The initial authoring-run mask-0 raw auxilia
 probe was not verified and must not be used as an existence claim.
 
 
+## Album and track information profile
+
+Start the owned fixture with `android_acceptance.py start-fixture --profile notes`.
+After setting up the synthetic login, `notes_acceptance.py --stage before` and
+`--stage after` capture the original and same-key patched APK; `--stage offline`
+downloads the synthetic album if needed, removes the ADB fixture connection and
+checks both descriptions offline. Each invocation requires explicit `--apk`,
+`--sha256`, `--out`, `--adb` and `--apksigner` arguments. The default signer is
+the documented disposable test key. To test the separately signed Finamp CI
+debug package, also specify `--package com.unicornsonlsd.finamp.debug` and its
+verified `--signer-sha256`. These tests never target the user's physical device.
+`notes_lifecycle.py` runs the same-key original → patch → original → patch
+sequence and verifies the synthetic login and downloaded-file hashes after each
+step; use `--help` for the required explicit APK and native hashes.
+
 ## Alphabet-navigation profile
 
 `mock_jellyfin.py --profile navigation` preserves the original eight-track credit
