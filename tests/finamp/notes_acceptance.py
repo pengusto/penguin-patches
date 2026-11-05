@@ -22,6 +22,7 @@ def main():
     parser.add_argument("--adb", type=Path, required=True)
     parser.add_argument("--apksigner", type=Path, required=True)
     parser.add_argument("--stage", choices=("before", "after", "offline"), required=True)
+    parser.add_argument("--require-preserved", action="store_true", help="Fail if the synthetic login was not preserved")
     args = parser.parse_args()
 
     apk = args.apk.resolve()
@@ -36,7 +37,7 @@ def main():
     acceptance = base.Acceptance(ui)
     if acceptance.fixture.manifest.get("profile") != "notes":
         raise ValueError("The notes fixture profile is required")
-    acceptance.login(require_preserved=args.stage != "before")
+    acceptance.login(require_preserved=args.require_preserved or args.stage != "before")
     acceptance.album()
     if args.stage == "offline":
         hashes = download_file_hashes(ui)
@@ -81,6 +82,7 @@ def main():
                 raise AssertionError('Downloaded album information missing without network')
             ui.back()
             ui.tap('01 - Credit Order', contains=True, hold=True)
+            ui.scroll_to('Track information')
             ui.tap('Track information')
             root = ui.capture('offline-track-information-no-network')
             if not acceptance.has(root, 'Track background: synthetic beat and sample credits.', contains=True):
@@ -104,9 +106,16 @@ def main():
     ui.tap("01 - Credit Order", contains=True, hold=True)
     root = ui.capture(args.stage + "-track-menu")
     present = acceptance.has(root, "Track information")
+    if args.stage == 'after' and not present:
+        ui.scroll_to('Track information')
+        root = ui.capture('after-track-menu-information')
+        present = acceptance.has(root, 'Track information')
     if present != (args.stage == "after"):
         raise AssertionError("Unexpected track information action")
     if present:
+        labels = [node.get('content-desc') or node.get('text') for node in root.iter('node')]
+        if 'Add to Playlist' in labels and labels.index('Track information') < labels.index('Add to Playlist'):
+            raise AssertionError('Track information precedes the primary playlist action')
         ui.tap("Track information")
         root = ui.capture("after-track-information")
         if not acceptance.has(root, "Track background: synthetic beat and sample credits.", contains=True):
