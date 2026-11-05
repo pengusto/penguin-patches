@@ -2,7 +2,7 @@
 
 ### ✨ New Features
 
-* **finamp:** show album and track information ([8a33d31](https://github.com/pengusto/penguin-patches/commit/8a33d31266b5d3d31568efecf385984c74b74aa7)), closes [#58](https://github.com/pengusto/penguin-patches/issues/58) [finamp-app/finamp#1853](https://github.com/finamp-app/finamp/issues/1853)
+* **finamp:** show album and track information ([Penguin PR #58](https://github.com/pengusto/penguin-patches/pull/58)); [upstream PR #1853](https://github.com/finamp-app/finamp/pull/1853) remains open.
 
 ## [1.6.4](https://github.com/pengusto/penguin-patches/compare/v1.6.3...v1.6.4) (2026-11-04)
 
