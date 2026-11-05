@@ -88,9 +88,11 @@ class ReleaseReadmeTests(unittest.TestCase):
             with self.subTest(patch=patch["name"]):
                 self.assertIn(slug, sections, "released patches need a comparison")
                 images = re.findall(r'<img src="([^"]+)"[^>]+alt="([^"]+)"', sections[slug])
-                self.assertEqual(len(images), 2, "each patch needs both sides of the comparison")
-                self.assertTrue(images[0][1].startswith("Before:"))
-                self.assertTrue(images[1][1].startswith("After:"))
+                self.assertGreaterEqual(len(images), 2, "each patch needs a comparison")
+                self.assertEqual(len(images) % 2, 0, "each comparison needs both sides")
+                for before, after in zip(images[::2], images[1::2]):
+                    self.assertTrue(before[1].startswith("Before:"))
+                    self.assertTrue(after[1].startswith("After:"))
                 for source, _ in images:
                     if not source.startswith("https://"):
                         self.assertTrue((ROOT / "docs" / source).resolve().is_file(), source)
@@ -132,7 +134,7 @@ class ReleaseReadmeTests(unittest.TestCase):
         previews = result.split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0]
         self.assertEqual(previews.count("<summary>"), len(data["patches"]))
         self.assertEqual(len(re.findall(r"^### ", previews, re.MULTILINE)), app_count(data))
-        self.assertEqual(previews.count("<img "), 2 * len(data["patches"]))
+        self.assertGreaterEqual(previews.count("<img "), 2 * len(data["patches"]))
         self.assertNotIn("## About these comparisons", previews)
         sections = dict(re.findall(r'<a id="preview-([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', previews, re.DOTALL))
         for patch in data["patches"]:
@@ -140,9 +142,11 @@ class ReleaseReadmeTests(unittest.TestCase):
             with self.subTest(patch=patch["name"]):
                 images = re.findall(r'<img src="([^"]+)"[^>]+alt="([^"]+)"', sections[slug])
                 self.assertRegex(sections[slug], r'^\s*<details>\s*<summary>')
-                self.assertEqual(len(images), 2)
-                self.assertTrue(images[0][1].startswith("Before:"))
-                self.assertTrue(images[1][1].startswith("After:"))
+                self.assertGreaterEqual(len(images), 2)
+                self.assertEqual(len(images) % 2, 0)
+                for before, after in zip(images[::2], images[1::2]):
+                    self.assertTrue(before[1].startswith("Before:"))
+                    self.assertTrue(after[1].startswith("After:"))
                 for source, _ in images:
                     if not source.startswith("https://"):
                         self.assertTrue((ROOT / source).is_file(), source)
@@ -151,6 +155,10 @@ class ReleaseReadmeTests(unittest.TestCase):
         self.assertIn("**Source-widget comparison, not Android APK screenshots.**", previews)
         self.assertIn("**Breal versus Penguin comparison.**", previews)
         self.assertIn("**Previous versus revised Morphe patch.**", previews)
+        calendar = sections["readable-calendar-descriptions"]
+        for surface in ("Editor", "Day list", "Widget", "Reminder"):
+            self.assertIn(f"**{surface}**", calendar)
+        self.assertEqual(len(re.findall(r'<img ', calendar)), 8)
 
     def test_finamp_hero_count_follows_metadata_instead_of_stale_copy(self):
         data = json.loads((ROOT / "patches-list.json").read_text())

@@ -254,8 +254,11 @@ def preview_section(patch):
         raise ValueError(f"Missing before/after evidence for {patch['name']}")
     section = EXAMPLES[slug].strip()
     alts = re.findall(r'<img [^>]*alt="([^"]+)"', section)
-    if len(alts) != 2 or not alts[0].startswith("Before:") or not alts[1].startswith("After:"):
-        raise ValueError(f"Expected labelled Before/After image pair for {patch['name']}")
+    if not alts or len(alts) % 2 or any(
+        not before.startswith("Before:") or not after.startswith("After:")
+        for before, after in zip(alts[::2], alts[1::2])
+    ):
+        raise ValueError(f"Expected labelled Before/After image pairs for {patch['name']}")
 
     def root_target(target):
         if target == "#before--after":

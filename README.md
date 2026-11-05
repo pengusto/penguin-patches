@@ -280,7 +280,11 @@ Use your own authorized Reddit OAuth client and reach the existing login flow wi
 
 **Fossify Calendar 1.12.0 and 1.12.1** · [Setup & patch details](docs/CALENDAR.md)
 
-Read an HTML event description as text while retaining an explicit Edit HTML source action.
+Read HTML event descriptions in the editor, event lists, widget and reminders.
+The editor also offers an explicit Edit HTML source action and preserves the
+original source when unrelated event fields change.
+
+**Editor**
 
 **Previous versus revised Morphe patch.** This is the wrapperless-table regression on the official APK, not an original-versus-patched pair or a source-fork capture. It demonstrates readable cell text, not a full HTML table layout. Live Outlook sync is outside the evidence.
 
@@ -289,9 +293,35 @@ Read an HTML event description as text while retaining an explicit Edit HTML sou
 | **Previous Morphe patch: raw table tags** | **Revised patch: Morning Workshop, with source editing** |
 | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review/before-editor.png" width="300" alt="Before: Previous Morphe patch: raw table tags"> | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review/after-editor.png" width="300" alt="After: Revised patch: Morning Workshop, with source editing"> |
 
-[Editor capture provenance](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review)
+**Day list**
 
-[Widget and notification comparisons](docs/CALENDAR.md#widget-and-notification-comparisons) · [Back to patch index](#patch-previews)
+The same 1.12.0 synthetic event and previous-versus-revised patch comparison.
+
+| Before | After |
+| :---: | :---: |
+| <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review/before-list.png" width="300" alt="Before: Previous patch shows table tags in the day list"> | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review/after-list.png" width="300" alt="After: Revised patch shows readable text in the day list"> |
+
+[Editor and day-list capture provenance](https://github.com/pengusto/penguin-patches/tree/8177428db162ed2e1a1b8de245cce479969046d3/calendar-table-review)
+
+**Widget**
+
+Original versus Manager-patched 1.12.1, using the same synthetic event. The
+app's actual widget RemoteViews are rendered in a test container, not a launcher.
+
+| Before | After |
+| :---: | :---: |
+| <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/6cef3805d5f9e9109e81211483b03029d38c78c3/calendar-html-surfaces/2026-11-04/before-widget.png" width="300" alt="Before: Original widget render shows HTML tags"> | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/6cef3805d5f9e9109e81211483b03029d38c78c3/calendar-html-surfaces/2026-11-04/after-widget.png" width="300" alt="After: Patched widget render shows readable text"> |
+
+**Reminder**
+
+Original versus Manager-patched 1.12.1: Calendar's posted notification in the
+Android notification shade, using the same synthetic description as the widget.
+
+| Before | After |
+| :---: | :---: |
+| <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/6cef3805d5f9e9109e81211483b03029d38c78c3/calendar-html-surfaces/2026-11-04/before-notification.png" width="300" alt="Before: Original reminder shows HTML tags"> | <img src="https://raw.githubusercontent.com/pengusto/penguin-patches/6cef3805d5f9e9109e81211483b03029d38c78c3/calendar-html-surfaces/2026-11-04/after-notification.png" width="300" alt="After: Patched reminder shows readable text"> |
+
+[Widget and reminder provenance](https://github.com/pengusto/penguin-patches/tree/6cef3805d5f9e9109e81211483b03029d38c78c3/calendar-html-surfaces/2026-11-04) · [Coverage and remaining checks](docs/CALENDAR.md#verification-and-limits) · [Back to patch index](#patch-previews)
 
 </details>
 
