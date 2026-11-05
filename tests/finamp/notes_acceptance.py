@@ -21,6 +21,10 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--adb", type=Path, required=True)
     parser.add_argument("--apksigner", type=Path, required=True)
+    parser.add_argument("--package", choices=("com.unicornsonlsd.finamp", "com.unicornsonlsd.finamp.debug"),
+                        default="com.unicornsonlsd.finamp")
+    parser.add_argument("--signer-sha256", default=TEST_SIGNER,
+                        help="Pinned signer of the explicitly supplied APK")
     parser.add_argument("--stage", choices=("before", "after", "offline"), required=True)
     parser.add_argument("--require-preserved", action="store_true", help="Fail if the synthetic login was not preserved")
     args = parser.parse_args()
@@ -28,10 +32,13 @@ def main():
     apk = args.apk.resolve()
     if hashlib.sha256(apk.read_bytes()).hexdigest() != args.sha256:
         raise ValueError("APK does not match the requested hash")
+    if not re.fullmatch(r"[0-9a-f]{64}", args.signer_sha256):
+        raise ValueError("A lowercase SHA-256 signer is required")
     signature = subprocess.check_output([str(args.apksigner), "verify", "--print-certs", str(apk)], text=True)
-    signers = re.findall(r"(?im)^(?:Signer #\d+|V\d+\.\d+ Signer):? certificate SHA-256 digest: ([0-9a-f]{64})$", signature)
-    if not signers or set(signers) != {TEST_SIGNER}:
-        raise ValueError("Only the disposable test signer is permitted")
+    signers = re.findall(r"(?im)^(?:Signer #\d+|V\d+(?:\.\d+)? Signer):? certificate SHA-256 digest: ([0-9a-f]{64})$", signature)
+    if not signers or set(signers) != {args.signer_sha256}:
+        raise ValueError("APK signer does not match the requested disposable signer")
+    base.PACKAGE = args.package
     ui = base.Android(args.out, adb=args.adb)
     ui.install(apk, args.sha256)
     acceptance = base.Acceptance(ui)
@@ -59,8 +66,14 @@ def main():
                 raise RuntimeError('Album download control is not uniquely identified')
             x, y, right, bottom = controls[0]
             ui.adb('shell', 'input', 'tap', (x + right) // 2, (y + bottom) // 2)
-            ui.tap('Transcode?')
-            ui.tap('Download original', contains=True)
+            root, _ = ui.dump()
+            if acceptance.has(root, 'Transcode?'):
+                ui.tap('Transcode?')
+                ui.tap('Download original', contains=True)
+            else:
+                transcode = ui.find(root, 'Transcode files?', class_name='android.widget.CheckBox')
+                if transcode.get('checked') != 'false':
+                    raise RuntimeError('Expected an unchecked original-quality download')
             ui.tap('Add')
             deadline = time.monotonic() + 90
             while time.monotonic() < deadline:

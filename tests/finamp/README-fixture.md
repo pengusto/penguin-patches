@@ -109,8 +109,11 @@ Implemented routes include public info, synthetic authentication/user/views,
 items/details/latest/counts, artists/album artists/genres, favorites, playback
 info/reports, primary artwork, lyrics, and direct audio. Normal Finamp playback
 uses `/Items/{id}/File`; `/Audio/{id}/Universal` and WAV stream aliases also work.
-Query results preserve full `TotalRecordCount` before pagination. `Fields` does
-not trim metadata. HLS/transcoding is 501; PlayOn WebSockets, playlist CRUD,
+Query results preserve full `TotalRecordCount` before pagination. The `notes`
+profile removes album and track `Overview` from list results unless `Fields`
+requests it; item details still include it. Other profiles do not trim metadata.
+The notes profile supplies synthetic album and track descriptions to exercise
+online display and download sync. HLS/transcoding is 501; PlayOn WebSockets, playlist CRUD,
 metadata writes/deletion, and real accounts are absent. `/socket` 404s are known
 non-blocking PlayOn noise. Unknown calls remain explicit in the request log.
 
