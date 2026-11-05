@@ -73,7 +73,7 @@ Open any patch below to see its matching before/after pair, right here. Grouped 
 <!-- PATCHES_PREVIEWS_START -->
 <a id="previews-com-unicornsonlsd-finamp"></a>
 
-### Finamp · 7 patches
+### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 7 patches
 
 <a id="preview-fix-offline-artist-tracks"></a>
 
@@ -239,7 +239,7 @@ Put the album artist first, then alphabetize the other song credits. Choose alte
 
 <a id="previews-com-nononsenseapps-feeder"></a>
 
-### Feeder · 1 patch
+### <img src="https://raw.githubusercontent.com/spacecowboy/Feeder/846b19d39b932b1a9864b4317365034f36fc4856/fastlane/metadata/android/en-US/images/icon.png" alt="Feeder app icon" width="24" height="24"> Feeder · 1 patch
 
 <a id="preview-zoom-article-images"></a>
 
@@ -264,7 +264,7 @@ Open an article image in its own viewer and pinch, pan or double-tap to inspect 
 
 <a id="previews-ml-docilealligator-infinityforreddit-plus"></a>
 
-### Infinity+ · 1 patch
+### <img src="https://raw.githubusercontent.com/Docile-Alligator/Infinity-For-Reddit/cc2845af8c4bb9375ee56b93944c5a0fa3ad70e0/fastlane/metadata/android/en-US/images/icon.png" alt="Infinity+ app icon" width="24" height="24"> Infinity+ · 1 patch
 
 <a id="preview-configure-custom-oauth-for-infinity"></a>
 
@@ -289,7 +289,7 @@ Use your own authorized Reddit OAuth client and reach the existing login flow wi
 
 <a id="previews-org-fossify-calendar"></a>
 
-### Fossify Calendar · 2 patches
+### <img src="https://raw.githubusercontent.com/FossifyOrg/Calendar/a0d428461b5caac11ad570f77a4134b912093205/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Calendar app icon" width="24" height="24"> Fossify Calendar · 2 patches
 
 <a id="preview-readable-calendar-descriptions"></a>
 
@@ -337,7 +337,7 @@ Give new all-day events their own reminder defaults while keeping timed-event de
 
 <a id="previews-org-fossify-clock"></a>
 
-### Fossify Clock · 1 patch
+### <img src="https://raw.githubusercontent.com/FossifyOrg/Clock/0511f508368ada82cdb587b0bf8df9d56cf9e6ad/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Clock app icon" width="24" height="24"> Fossify Clock · 1 patch
 
 <a id="preview-choose-upcoming-alarm-notification-time"></a>
 
@@ -362,7 +362,7 @@ Choose when upcoming-alarm notices appear and keep a separate notice for each al
 
 <a id="previews-org-fossify-contacts"></a>
 
-### Fossify Contacts · 1 patch
+### <img src="https://raw.githubusercontent.com/FossifyOrg/Contacts/6938eccfd1a10f924a6ced13695c73bd0cd84328/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Contacts app icon" width="24" height="24"> Fossify Contacts · 1 patch
 
 <a id="preview-show-emails-and-notes-from-merged-contacts"></a>
 
@@ -387,7 +387,7 @@ See the email and note contributed by a duplicate contact in the merged detail v
 
 <a id="previews-org-fossify-filemanager"></a>
 
-### Fossify File Manager · 1 patch
+### <img src="https://raw.githubusercontent.com/FossifyOrg/File-Manager/c95de62b90c9f42601b88eca4f795338da3b161c/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify File Manager app icon" width="24" height="24"> Fossify File Manager · 1 patch
 
 <a id="preview-keep-favorites-consistent-after-folder-rename-or-removal"></a>
 
@@ -412,7 +412,7 @@ Keep nested favorites pointing to the right folder after a parent-folder rename.
 
 <a id="previews-org-fossify-messages"></a>
 
-### Fossify Messages · 3 patches
+### <img src="https://raw.githubusercontent.com/FossifyOrg/Messages/02f511b292cc9790d0189a7e3d96ce3d71493890/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Messages app icon" width="24" height="24"> Fossify Messages · 3 patches
 
 <a id="preview-avoid-notifications-for-visible-conversations"></a>
 
@@ -479,7 +479,7 @@ Keep an incoming message unread when its conversation is open in a background Ac
 
 <a id="previews-org-fossify-musicplayer"></a>
 
-### Fossify Music Player · 1 patch
+### <img src="https://raw.githubusercontent.com/FossifyOrg/Music-Player/e76d0f222eaba2cfd4501ccc3b6a8d2e9f29b0c3/fastlane/metadata/android/en-US/images/icon.png" alt="Fossify Music Player app icon" width="24" height="24"> Fossify Music Player · 1 patch
 
 <a id="preview-prefer-each-track-s-embedded-cover"></a>
 
@@ -504,7 +504,7 @@ Show the artwork embedded in the current track rather than reusing another track
 
 <a id="previews-app-komikku"></a>
 
-### Komikku · 1 patch
+### <img src="https://raw.githubusercontent.com/komikku-app/komikku/383ffaa81667f45fc6c2975edb1760a7606531d3/.github/readme-images/app-icon.png" alt="Komikku app icon" width="24" height="24"> Komikku · 1 patch
 
 <a id="preview-keep-local-manga-in-exclusion-searches"></a>
 
@@ -534,7 +534,7 @@ update dialog with that same key. The app renders both screenshots directly.
 
 <a id="previews-de-mm20-launcher2-release"></a>
 
-### Kvaesitso · 1 patch
+### <img src="https://raw.githubusercontent.com/MM2-0/Kvaesitso/c4805f3f18d5bcf071c5287f81466efd79169b20/fastlane/metadata/android/en-US/images/icon.png" alt="Kvaesitso app icon" width="24" height="24"> Kvaesitso · 1 patch
 
 <a id="preview-restore-widget-editing-from-the-search-menu"></a>
 
@@ -559,7 +559,7 @@ Reach the existing widget editor from the search-bar menu even when the on-scree
 
 <a id="previews-app-mihon"></a>
 
-### Mihon · 1 patch
+### <img src="https://raw.githubusercontent.com/mihonapp/mihon/ede052af170e2ef2949dac2acd91adfb58043a96/fastlane/metadata/android/en-US/images/icon.png" alt="Mihon app icon" width="24" height="24"> Mihon · 1 patch
 
 <a id="preview-preserve-excluded-default-category-downloads"></a>
 
@@ -588,7 +588,7 @@ export retains the downloaded chapter. The favorite itself remains in both datab
 
 <a id="previews-me-ash-reader"></a>
 
-### Read You · 1 patch
+### <img src="https://raw.githubusercontent.com/ReadYouApp/ReadYou/d2b979ccad9a3e54b9499929a9dc2824578b0fd9/fastlane/metadata/android/en-US/images/icon.png" alt="Read You app icon" width="24" height="24"> Read You · 1 patch
 
 <a id="preview-import-nested-opml-feeds"></a>
 
@@ -617,7 +617,7 @@ with that same key. Each import starts without the synthetic Manga news group.
 
 <a id="previews-org-tasks"></a>
 
-### Tasks.org · 1 patch
+### <img src="https://raw.githubusercontent.com/tasks/tasks/d7c0afdb94f913943fd54833d3e108871e78bc36/fastlane/metadata/android/en-US/images/icon.png" alt="Tasks.org app icon" width="24" height="24"> Tasks.org · 1 patch
 
 <a id="preview-navigate-to-the-parent-task"></a>
 
