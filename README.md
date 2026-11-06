@@ -20,12 +20,12 @@ Penguin Patches is an independent collection of fixes for selected Android apps.
 
 ### Choose your patches
 
-The next release introduces two optional sources in this repository. In Morphe Manager, add either or both as a **remote JSON source**:
+Choose either or both sources from this repository. In Morphe Manager, copy a source URL and add it as a **remote JSON source**:
 
 - **Standard:** Infinity+, Fossify and the other supported apps except Finamp. [Standard source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/standard/patches-bundle.json)
 - **Finamp:** Finamp patches and their native payloads. [Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp/patches-bundle.json)
 
-These URLs become available when a release containing the split is published. The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) stays available and continues to download the full bundle. Existing installations and signing keys are unaffected. To switch, add and verify your preferred new source first, then disable the combined source to avoid duplicate patches. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
+The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) stays available and continues to download the full bundle. Existing installations and signing keys are unaffected. To switch, add and verify your preferred new source first, then disable the combined source to avoid duplicate patches. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
 
 <!-- PATCHES_SUMMARY_START -->
 **24 patches · 14 apps · [v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**
