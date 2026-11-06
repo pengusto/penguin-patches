@@ -8,7 +8,7 @@
 
 ## Add the source and patch
 
-1. Starting with the release that introduces separate bundles, use **Sources → Add → Remote** and paste the Standard JSON URL below. Add the Finamp URL only if you want its patches. Until that release, use the [combined source](https://morphe.software/add-source?github=pengusto/penguin-patches).
+1. Use **Sources → Add → Remote** and paste the Standard JSON URL below. Add the Finamp URL only if you want its patches. The [combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) remains available.
 2. Select the matching original APK, choose the patches and configure their options. Finamp's patches are optional and initially off. Infinity+ requires your own authorized Reddit OAuth client; follow its [setup guide](INFINITY.md).
 3. Patch, sign with your backed-up key and install. Check the behavior with disposable data before relying on it. Do not install emulator test APKs.
 
