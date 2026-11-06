@@ -300,10 +300,23 @@ def build_previews():
     sections = []
     for pkg, entry in ordered_apps():
         count = len(entry["patches"])
+        previews = [preview_section(p) for p in entry["patches"].values()]
+        if pkg == "com.unicornsonlsd.finamp":
+            complete = "Finamp complete: all eight fixes"
+            individuals = ("Fix section title validation", "Song artist order", "Load artist pages faster",
+                           "Fix offline artist tracks", "Fix track alphabet navigation",
+                           "Keep player output controls accessible", "Fix quick settings banner contrast",
+                           "Show album and track information")
+            names = set(entry["patches"])
+            if complete not in names:
+                previews.insert(0, preview_section({"name": complete}))
+            else:
+                previews.extend(preview_section({"name": name}) for name in individuals if name not in names)
+            previews.insert(0, "Finamp Complete combines the eight fixes shown below; individual selection is available separately.")
         sections.append(
             f'<a id="previews-{anchor(pkg)}"></a>\n\n'
             f'### {entry["icon"]} {html.escape(entry["name"])} · {count} {"patch" if count == 1 else "patches"}\n\n'
-            + "\n\n".join(preview_section(p) for p in entry["patches"].values())
+            + "\n\n".join(previews)
         )
     if universal:
         sections.append('### Universal patches\n\n'
