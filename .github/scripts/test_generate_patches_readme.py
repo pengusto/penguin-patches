@@ -65,7 +65,7 @@ class ReleaseReadmeTests(unittest.TestCase):
         data = json.loads((ROOT / "patches-list.json").read_text())
         result = self.render(data)
         strip = result.split("<!-- PATCHES_APPS_START -->")[1].split("<!-- PATCHES_APPS_END -->")[0]
-        self.assertLess(result.index("<!-- PATCHES_APPS_START -->"), result.index("## Finamp"))
+        self.assertLess(result.index("<!-- PATCHES_APPS_START -->"), result.index("## Infinity+"))
         self.assertNotIn("<details", strip)
         self.assertEqual(strip.count('width="32" height="32"'), app_count(data))
         self.assertIn('href="docs/FINAMP_NATIVE.md"', strip)
@@ -75,6 +75,29 @@ class ReleaseReadmeTests(unittest.TestCase):
         self.assertEqual(smaller.count('width="32" height="32"'), 1)
         self.assertIn("Finamp", smaller)
         self.assertNotIn("Fossify", smaller)
+
+    def test_infinity_preview_is_featured_first(self):
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        previews = self.render(data).split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0]
+        self.assertLess(previews.index("Infinity+ ·"), previews.index("Finamp ·"))
+
+    def test_fossify_apps_stay_grouped_in_strip_and_catalogue(self):
+        data = json.loads((ROOT / "patches-list.json").read_text())
+        result = self.render(data)
+        strip = result.split("<!-- PATCHES_APPS_START -->")[1].split("<!-- PATCHES_APPS_END -->")[0]
+        self.assertLess(strip.index("**Featured**"), strip.index("**Fossify**"))
+        fossify = strip.split("**Fossify**")[1].split("**More apps**")[0]
+        packages = {p["packageName"] for patch in data["patches"]
+                    for p in patch.get("compatiblePackages", []) if p["packageName"].startswith("org.fossify.")}
+        self.assertEqual(fossify.count('app icon"'), len(packages))
+        self.assertNotIn("Finamp", fossify)
+        cells = re.findall(r'<td align="center">(.*?)</td>', fossify)
+        self.assertGreaterEqual(len(cells), len(packages))
+        self.assertEqual(sum("<img " in cell and "<br>" in cell for cell in cells), len(packages))
+        catalogue = result.split("<!-- PATCHES_START -->")[1].split("<!-- PATCHES_END -->")[0]
+        names = re.findall(r'<summary><img [^>]+alt="([^"]+) app icon"', catalogue)
+        positions = [i for i, name in enumerate(names) if name.startswith("Fossify ")]
+        self.assertEqual(positions, list(range(min(positions), max(positions) + 1)))
 
     def test_preview_group_headings_show_app_icons(self):
         data = json.loads((ROOT / "patches-list.json").read_text())

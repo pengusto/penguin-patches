@@ -8,11 +8,17 @@
 
 ## Add the source and patch
 
-1. [Add Penguin Patches to Morphe](https://morphe.software/add-source?github=pengusto/penguin-patches). If the link does not hand off, use **Sources → Add → Remote** in Morphe Manager with `https://github.com/pengusto/penguin-patches`.
+1. Starting with the release that introduces separate bundles, use **Sources → Add → Remote** and paste the Standard JSON URL below. Add the Finamp URL only if you want its patches. Until that release, use the [combined source](https://morphe.software/add-source?github=pengusto/penguin-patches).
 2. Select the matching original APK, choose the patches and configure their options. Finamp's patches are optional and initially off. Infinity+ requires your own authorized Reddit OAuth client; follow its [setup guide](INFINITY.md).
 3. Patch, sign with your backed-up key and install. Check the behavior with disposable data before relying on it. Do not install emulator test APKs.
 
-The source follows stable releases from `main`. Enable pre-releases for this source only if you intend to try upcoming `dev` changes.
+Standard: `https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/standard/patches-bundle.json`
+
+Finamp: `https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp/patches-bundle.json`
+
+Both JSON URLs follow stable releases from `main`. For development releases replace `main` with `dev`. The original GitHub source remains the combined bundle and follows Morphe's existing stable/pre-release setting.
+
+**Already using Penguin?** Your existing source continues to work. To reduce downloads, add the new source(s) and confirm they load, then disable the combined source so patches are not listed twice. Removing or disabling a patch source does not uninstall a patched app or change your signing key. Keep your key and backup for future updates.
 
 <details>
 <summary>Add the source from another device</summary>
