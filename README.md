@@ -36,9 +36,7 @@ These URLs become available when a release containing the split is published. Th
 <!-- PATCHES_APPS_START -->
 **Featured**
 
-<table>
-<tr><td align="center"><a href="docs/INFINITY.md"><img src="https://raw.githubusercontent.com/Docile-Alligator/Infinity-For-Reddit/cc2845af8c4bb9375ee56b93944c5a0fa3ad70e0/fastlane/metadata/android/en-US/images/icon.png" alt="Infinity+ app icon" width="32" height="32"><br>Infinity+</a></td><td align="center"></td></tr>
-</table>
+<p><a href="docs/INFINITY.md"><img src="https://raw.githubusercontent.com/Docile-Alligator/Infinity-For-Reddit/cc2845af8c4bb9375ee56b93944c5a0fa3ad70e0/fastlane/metadata/android/en-US/images/icon.png" alt="Infinity+ app icon" width="32" height="32"><br>Infinity+</a></p>
 
 **Fossify**
 
@@ -58,9 +56,7 @@ These URLs become available when a release containing the split is published. Th
 
 **Optional Finamp**
 
-<table>
-<tr><td align="center"><a href="docs/FINAMP_NATIVE.md"><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="32" height="32"><br>Finamp</a></td><td align="center"></td></tr>
-</table>
+<p><a href="docs/FINAMP_NATIVE.md"><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="32" height="32"><br>Finamp</a></p>
 <!-- PATCHES_APPS_END -->
 
 **Before installing:** use the exact original APK in your app's guide, verify your backup and keep your signing key. [Read the setup guide →](docs/SETUP.md)

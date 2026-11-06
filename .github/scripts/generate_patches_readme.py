@@ -373,6 +373,8 @@ if "<!-- PATCHES_APPS_START -->" in new_readme:
         app_links[labels[app_order(pkg)[0]]].append(f'<a href="{destination}">{icon}<br>{html.escape(name)}</a>')
 
     def app_grid(label, links):
+        if len(links) == 1:
+            return f"**{label}**\n\n<p>{links[0]}</p>"
         rows = []
         for index in range(0, len(links), 2):
             cells = links[index:index + 2]
