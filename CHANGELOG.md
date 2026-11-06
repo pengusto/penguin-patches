@@ -1,3 +1,9 @@
+## [1.9.0](https://github.com/pengusto/penguin-patches/compare/v1.8.0...v1.9.0) (2026-11-06)
+
+### ✨ New Features
+
+* **finamp:** make the default Penguin sources compact ([#66](https://github.com/pengusto/penguin-patches/issues/66)) ([5a9bf1d](https://github.com/pengusto/penguin-patches/commit/5a9bf1da14a8bbc3b6120eccec61e7670d09077a))
+
 ## [1.8.0](https://github.com/pengusto/penguin-patches/compare/v1.7.0...v1.8.0) (2026-11-06)
 
 ### 🐛 Bug Fixes
