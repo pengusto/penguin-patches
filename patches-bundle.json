@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-11-06T13:11:25",
-  "description": "## [1.9.0](https://github.com/pengusto/penguin-patches/compare/v1.8.0...v1.9.0) (2026-11-06)\n\n### ✨ New Features\n\n* **finamp:** make the default Penguin sources compact ([#66](https://github.com/pengusto/penguin-patches/issues/66)) ([5a9bf1d](https://github.com/pengusto/penguin-patches/commit/5a9bf1da14a8bbc3b6120eccec61e7670d09077a))",
-  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.9.0/patches-1.9.0.mpp",
+  "created_at": "2026-11-06T07:36:21",
+  "description": "## [1.8.0](https://github.com/pengusto/penguin-patches/compare/v1.7.0...v1.8.0) (2026-11-06)\n\n### 🐛 Bug Fixes\n\n* render localized backup warnings ([ba8fd33](https://github.com/pengusto/penguin-patches/commit/ba8fd3347c8ec544dac9b6b56ae226c9e275988a))\n* sync bundle description with published release notes ([eeaea44](https://github.com/pengusto/penguin-patches/commit/eeaea444ad9cd9f07c16016799a4db193c70d365))\n\n### ✨ New Features\n\n* split optional Finamp and standard patch bundles ([68ae6b2](https://github.com/pengusto/penguin-patches/commit/68ae6b219a07d3eca086bc12a51105f149b3737f))",
+  "download_url": "https://github.com/pengusto/penguin-patches/releases/download/v1.8.0/patches-1.8.0.mpp",
   "signature_download_url": "",
-  "version": "1.9.0"
+  "version": "1.8.0"
 }

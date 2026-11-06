@@ -29,7 +29,7 @@ In Morphe Manager, copy a source URL and add it as a **remote JSON source**:
 The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) also switches to the compact Finamp patch. Existing installations and signing keys are unaffected. After the source update, Morphe can immediately start patching Finamp with all eight fixes selected; enable Expert mode to review the selection first. Choose either Finamp Complete or individual patches for a patching run, not both. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
 
 <!-- PATCHES_SUMMARY_START -->
-**17 patches · 14 apps · [v1.9.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.9.0)**
+**24 patches · 14 apps · [v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -81,7 +81,7 @@ Album artists first. Other credits alphabetical. More modes in settings.
 Real Android APK captures with synthetic music data. [Evidence & limits](tests/finamp/evidence/2026-10-28/README.md).
 
 <!-- FINAMP_COUNT_START -->
-**[Explore the 1 Finamp patch →](docs/FINAMP_NATIVE.md)**
+**[Explore the 8 Finamp patches →](docs/FINAMP_NATIVE.md)**
 <!-- FINAMP_COUNT_END -->
 
 Choose how song credits appear, keep Output reachable with hidden player buttons, improve banner contrast, and fix library browsing or settings errors. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
@@ -540,7 +540,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 
 <a id="previews-com-unicornsonlsd-finamp"></a>
 
-### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 1 patch
+### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 8 patches
 
 Finamp Complete combines the eight fixes shown below; individual selection is available separately.
 
@@ -569,71 +569,6 @@ same synthetic track and display. The captures do not depict the compact bundle.
 
 </details>
 
-<a id="preview-fix-section-title-validation"></a>
-
-<details>
-<summary><strong>Fix section title validation</strong> · Before / after</summary>
-<br>
-
-**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
-
-Typing a valid custom home-section title updates validation and enables Save immediately.
-
-**Upstream status · 2026-10-29:** [PR #1830](https://github.com/finamp-app/finamp/pull/1830) is merged into `redesign`. This Penguin backport remains selectable for the original Finamp 1.0.1 APK.
-
-**Source-widget comparison, not Android APK screenshots.** These are actual Finamp widgets rendered by Flutter tests, upstream redesign versus the combined source fixes. The native APK fix is verified separately in the [APK record](tests/finamp/evidence/2026-10-28/README.md); its original before-image is obscured by the keyboard.
-
-| Before | After |
-| :---: | :---: |
-| **Playlists entered; error remains and Save is disabled** | **Playlists entered; error clears and Save is enabled** |
-| <img src="https://raw.githubusercontent.com/pengusto/finamp/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28/title-validation-before.png" width="300" alt="Before: Playlists entered; error remains and Save is disabled"> | <img src="https://raw.githubusercontent.com/pengusto/finamp/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28/title-validation-after.png" width="300" alt="After: Playlists entered; error clears and Save is enabled"> |
-
-[Capture provenance & checks](https://github.com/pengusto/finamp/tree/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28) · [Back to patch index](#patch-previews)
-
-</details>
-
-<a id="preview-song-artist-order"></a>
-
-<details>
-<summary><strong>Song artist order</strong> · Before / after</summary>
-<br>
-
-**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
-
-Put the album artist first, then alphabetize the other song credits. Choose alternative modes in settings without rewriting music metadata.
-
-**Android APK captures.** Same synthetic album and Dark theme. The before APK retains the official native code; the after APK has the native patch.
-
-| Before | After |
-| :---: | :---: |
-| **A Guest, B Guest, Z Lead** | **Z Lead, A Guest, B Guest** |
-| <img src="tests/finamp/evidence/2026-10-28/credits-before.png" width="300" alt="Before: A Guest, B Guest, Z Lead"> | <img src="tests/finamp/evidence/2026-10-28/credits-after.png" width="300" alt="After: Z Lead, A Guest, B Guest"> |
-
-[Capture provenance & checks](tests/finamp/evidence/2026-10-28/README.md) · [Back to patch index](#patch-previews)
-
-</details>
-
-<a id="preview-load-artist-pages-faster"></a>
-
-<details>
-<summary><strong>Load artist pages faster</strong> · Before / after</summary>
-<br>
-
-**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
-
-Show the artist preview and track count without waiting for the full discography response.
-
-**Installed Android APK captures.** The fixture deliberately holds unbounded artist-track requests. Both captures use the same Dark theme, synthetic library, eight downloaded tracks, sort, viewport and demo clock. The patched APK was exported and installed through Morphe Manager. This verifies query behavior on the synthetic fixture.
-
-| Before | After |
-| :---: | :---: |
-| **Pending full-song queries: spinner and 0 Tracks** | **Bounded queries: preview and 8 Tracks appear** |
-| <img src="tests/finamp/evidence/2026-10-30-artist-review/artist-held-before.png" width="300" alt="Before: Pending full-song queries: spinner and 0 Tracks"> | <img src="tests/finamp/evidence/2026-10-30-artist-review/artist-held-after.png" width="300" alt="After: Bounded queries: preview and 8 Tracks appear"> |
-
-[Capture provenance & checks](tests/finamp/evidence/2026-10-30-artist-review/README.md) · [Back to patch index](#patch-previews)
-
-</details>
-
 <a id="preview-fix-offline-artist-tracks"></a>
 
 <details>
@@ -655,6 +590,52 @@ The after image is an actual Morphe Manager export installed with the same key.
 | <img src="tests/finamp/evidence/2026-10-28-next/1689-before-tracks.png" width="300" alt="Before: B Guest includes Lead Solo and Album Credit Only"> | <img src="tests/finamp/evidence/2026-10-28-next/1689-after-tracks.png" width="300" alt="After: B Guest contains only the six credited songs"> |
 
 [Capture provenance & checks](tests/finamp/evidence/2026-10-28-next/README.md) · [Back to patch index](#patch-previews)
+
+</details>
+
+<a id="preview-fix-quick-settings-banner-contrast"></a>
+
+<details>
+<summary><strong>Fix quick settings banner contrast</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+Keep the quick-settings banner readable with a custom accent. Its text uses the matching `onPrimaryContainer` color, like its existing icons.
+
+**Upstream status · 2026-10-29:** the fix already exists on [`hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2) ([`124edc8`](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8)). Duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837) is closed; this Penguin backport remains selectable for the original Finamp 1.0.1 APK.
+
+**Android APK captures.** Same Home screen, synthetic music, Light theme, accent **#152E85**, viewport and clock. The before retains the official native code; the after is the installed Manager export with only this patch selected.
+
+| Before | After |
+| :---: | :---: |
+| **Dark text is hard to read on the blue banner** | **Matching foreground keeps the banner readable** |
+| <img src="tests/finamp/evidence/2026-10-29-ui/banner-before.png" width="300" alt="Before: Dark text is hard to read on the blue banner"> | <img src="tests/finamp/evidence/2026-10-29-ui/banner-after.png" width="300" alt="After: Matching foreground keeps the banner readable"> |
+
+[Raw captures, provenance & Manager checks](tests/finamp/evidence/2026-10-29-ui/README.md) · [Closed duplicate PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#patch-previews)
+
+</details>
+
+<a id="preview-fix-section-title-validation"></a>
+
+<details>
+<summary><strong>Fix section title validation</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+Typing a valid custom home-section title updates validation and enables Save immediately.
+
+**Upstream status · 2026-10-29:** [PR #1830](https://github.com/finamp-app/finamp/pull/1830) is merged into `redesign`. This Penguin backport remains selectable for the original Finamp 1.0.1 APK.
+
+**Source-widget comparison, not Android APK screenshots.** These are actual Finamp widgets rendered by Flutter tests, upstream redesign versus the combined source fixes. The native APK fix is verified separately in the [APK record](tests/finamp/evidence/2026-10-28/README.md); its original before-image is obscured by the keyboard.
+
+| Before | After |
+| :---: | :---: |
+| **Playlists entered; error remains and Save is disabled** | **Playlists entered; error clears and Save is enabled** |
+| <img src="https://raw.githubusercontent.com/pengusto/finamp/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28/title-validation-before.png" width="300" alt="Before: Playlists entered; error remains and Save is disabled"> | <img src="https://raw.githubusercontent.com/pengusto/finamp/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28/title-validation-after.png" width="300" alt="After: Playlists entered; error clears and Save is enabled"> |
+
+[Capture provenance & checks](https://github.com/pengusto/finamp/tree/7e168434482e4e1e7b77a0c37337edb28291e2f8/contribution-evidence/2026-10-28) · [Back to patch index](#patch-previews)
 
 </details>
 
@@ -708,26 +689,24 @@ Morphe Manager export, installed through Manager’s Install action with the sam
 
 </details>
 
-<a id="preview-fix-quick-settings-banner-contrast"></a>
+<a id="preview-load-artist-pages-faster"></a>
 
 <details>
-<summary><strong>Fix quick settings banner contrast</strong> · Before / after</summary>
+<summary><strong>Load artist pages faster</strong> · Before / after</summary>
 <br>
 
 **Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
 
-Keep the quick-settings banner readable with a custom accent. Its text uses the matching `onPrimaryContainer` color, like its existing icons.
+Show the artist preview and track count without waiting for the full discography response.
 
-**Upstream status · 2026-10-29:** the fix already exists on [`hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2) ([`124edc8`](https://github.com/finamp-app/finamp/commit/124edc8b94ea8fcba637a1dba31e7bd266644aa8)). Duplicate [PR #1837](https://github.com/finamp-app/finamp/pull/1837) is closed; this Penguin backport remains selectable for the original Finamp 1.0.1 APK.
-
-**Android APK captures.** Same Home screen, synthetic music, Light theme, accent **#152E85**, viewport and clock. The before retains the official native code; the after is the installed Manager export with only this patch selected.
+**Installed Android APK captures.** The fixture deliberately holds unbounded artist-track requests. Both captures use the same Dark theme, synthetic library, eight downloaded tracks, sort, viewport and demo clock. The patched APK was exported and installed through Morphe Manager. This verifies query behavior on the synthetic fixture.
 
 | Before | After |
 | :---: | :---: |
-| **Dark text is hard to read on the blue banner** | **Matching foreground keeps the banner readable** |
-| <img src="tests/finamp/evidence/2026-10-29-ui/banner-before.png" width="300" alt="Before: Dark text is hard to read on the blue banner"> | <img src="tests/finamp/evidence/2026-10-29-ui/banner-after.png" width="300" alt="After: Matching foreground keeps the banner readable"> |
+| **Pending full-song queries: spinner and 0 Tracks** | **Bounded queries: preview and 8 Tracks appear** |
+| <img src="tests/finamp/evidence/2026-10-30-artist-review/artist-held-before.png" width="300" alt="Before: Pending full-song queries: spinner and 0 Tracks"> | <img src="tests/finamp/evidence/2026-10-30-artist-review/artist-held-after.png" width="300" alt="After: Bounded queries: preview and 8 Tracks appear"> |
 
-[Raw captures, provenance & Manager checks](tests/finamp/evidence/2026-10-29-ui/README.md) · [Closed duplicate PR #1837](https://github.com/finamp-app/finamp/pull/1837) · [Back to patch index](#patch-previews)
+[Capture provenance & checks](tests/finamp/evidence/2026-10-30-artist-review/README.md) · [Back to patch index](#patch-previews)
 
 </details>
 
@@ -754,6 +733,27 @@ full locally built bundle. See the evidence for the scope of that test.
 [Album before](tests/finamp/evidence/2026-11-05-notes/album-before.png) · [Album after](tests/finamp/evidence/2026-11-05-notes/album-after.png) · [Raw captures and provenance](tests/finamp/evidence/2026-11-05-notes/README.md) · [Back to patch index](#patch-previews)
 
 </details>
+
+<a id="preview-song-artist-order"></a>
+
+<details>
+<summary><strong>Song artist order</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+Put the album artist first, then alphabetize the other song credits. Choose alternative modes in settings without rewriting music metadata.
+
+**Android APK captures.** Same synthetic album and Dark theme. The before APK retains the official native code; the after APK has the native patch.
+
+| Before | After |
+| :---: | :---: |
+| **A Guest, B Guest, Z Lead** | **Z Lead, A Guest, B Guest** |
+| <img src="tests/finamp/evidence/2026-10-28/credits-before.png" width="300" alt="Before: A Guest, B Guest, Z Lead"> | <img src="tests/finamp/evidence/2026-10-28/credits-after.png" width="300" alt="After: Z Lead, A Guest, B Guest"> |
+
+[Capture provenance & checks](tests/finamp/evidence/2026-10-28/README.md) · [Back to patch index](#patch-previews)
+
+</details>
 <!-- PATCHES_PREVIEWS_END -->
 
 <a id="the-fixes"></a>
@@ -763,7 +763,7 @@ full locally built bundle. See the evidence for the scope of that test.
 <details>
 <summary><strong>All 14 apps and supported versions</strong></summary>
 
-> **[v1.9.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.9.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;17 patches total
+> **[v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;24 patches total
 <details>
 <summary><img src="https://raw.githubusercontent.com/Docile-Alligator/Infinity-For-Reddit/cc2845af8c4bb9375ee56b93944c5a0fa3ad70e0/fastlane/metadata/android/en-US/images/icon.png" alt="Infinity+ app icon" width="24" height="24"> Infinity+&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
@@ -963,7 +963,7 @@ full locally built bundle. See the evidence for the scope of that test.
 </details>
 
 <details>
-<summary><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<summary><img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp&nbsp;&nbsp;•&nbsp;&nbsp;8 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -973,7 +973,14 @@ full locally built bundle. See the evidence for the scope of that test.
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| <a id="finamp-complete-all-eight-fixes"></a>[Finamp complete: all eight fixes](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-finamp-complete-all-eight-fixes) | Apply all eight Penguin Finamp fixes together, including song artist order and album/track information. Requires the original official Finamp 1.0.1 APK; produces ARM64-only output. |  |
+| <a id="fix-offline-artist-tracks"></a>[Fix offline artist tracks](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-offline-artist-tracks) | Exclude unrelated songs from shared albums on offline performing-artist pages (#1689). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="fix-quick-settings-banner-contrast"></a>[Fix quick settings banner contrast](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-quick-settings-banner-contrast) | Use the banner's matching foreground color so its text stays readable with custom accents (#1756). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="fix-section-title-validation"></a>[Fix section title validation](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-section-title-validation) | Update validation and enable Save when a custom home-section title is entered (#1830). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="fix-track-alphabet-navigation"></a>[Fix track alphabet navigation](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-fix-track-alphabet-navigation) | Compare song names and target letters consistently when jumping through the Tracks alphabet (#1790). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="keep-player-output-controls-accessible"></a>[Keep player output controls accessible](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-keep-player-output-controls-accessible) | Keep Output, Queue and Lyrics at the bottom of the player menu when bottom actions are hidden, while respecting disabled gestures (#1355). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="load-artist-pages-faster"></a>[Load artist pages faster](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-load-artist-pages-faster) | Load artist previews and track counts without downloading the full discography (#1832). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="show-album-and-track-information"></a>[Show album and track information](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-show-album-and-track-information) | Show available Jellyfin album and track descriptions, including descriptions saved by download sync (#1852). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
+| <a id="song-artist-order"></a>[Song artist order](docs/FINAMP_NATIVE.md)<br>[Before / after](#preview-song-artist-order) | Choose song-credit display order, including album artists first, metadata order and alphabetical (#1831). Requires the original official Finamp 1.0.1 APK. Produces ARM64-only output; other native architectures are removed. |  |
 
 </details>
 
