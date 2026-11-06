@@ -367,12 +367,21 @@ if "<!-- PATCHES_APPS_START -->" in new_readme:
     for pkg, entry in ordered_apps():
         destination = html.escape(GUIDES.get(pkg, "#generated-patch-catalogue"), quote=True)
         icon = pkg_icon(pkg, entry["name"], size=32)
-        name = html.escape(entry["name"]).replace(" ", "&nbsp;")
-        app_links[labels[app_order(pkg)[0]]].append(f'<a href="{destination}">{icon}&nbsp;{name}</a>')
-    app_strip = "\n\n".join(
-        f"**{label}**\n\n<p>\n" + " &nbsp;\n".join(links) + "\n</p>"
-        for label, links in app_links.items() if links
-    )
+        name = entry["name"]
+        if pkg.startswith("org.fossify."):
+            name = name.removeprefix("Fossify ")
+        app_links[labels[app_order(pkg)[0]]].append(f'<a href="{destination}">{icon}<br>{html.escape(name)}</a>')
+
+    def app_grid(label, links):
+        rows = []
+        for index in range(0, len(links), 2):
+            cells = links[index:index + 2]
+            if len(cells) == 1:
+                cells.append("")
+            rows.append("<tr>" + "".join(f'<td align="center">{cell}</td>' for cell in cells) + "</tr>")
+        return f"**{label}**\n\n<table>\n" + "\n".join(rows) + "\n</table>"
+
+    app_strip = "\n\n".join(app_grid(label, links) for label, links in app_links.items() if links)
     new_readme = re.sub(
         r"<!-- PATCHES_APPS_START -->.*?<!-- PATCHES_APPS_END -->",
         lambda _: f"<!-- PATCHES_APPS_START -->\n{app_strip}\n<!-- PATCHES_APPS_END -->",
