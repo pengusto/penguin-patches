@@ -6,9 +6,15 @@
   <img src="docs/assets/penguin-patches-banner-tailor.png" alt="Penguin Patches — a penguin stitching a repair patch onto a fabric app tile in an embroidery hoop" width="1800">
 </picture>
 
+[English](README.md) · [Deutsch](docs/readme/README.de.md) · [简体中文](docs/readme/README.zh-CN.md) · [日本語](docs/readme/README.ja.md) · [Español](docs/readme/README.es.md) · [한국어](docs/readme/README.ko.md) · [Português (Brasil)](docs/readme/README.pt-BR.md) · [Français](docs/readme/README.fr.md)
+
+[![Release](https://img.shields.io/github/v/release/pengusto/penguin-patches?label=release)](https://github.com/pengusto/penguin-patches/releases/latest) [![License: GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE) [![Android](https://img.shields.io/badge/platform-Android-3DDC84)](docs/SETUP.md) [![Morphe compatible](https://img.shields.io/badge/Morphe-compatible-6f42c1)](docs/SETUP.md)
+
 **Your apps. A little better.**
 
 Focused Android fixes, ready for Morphe.
+
+Penguin Patches is an independent collection of fixes for selected Android apps. Each app guide identifies the exact original APK and documents what was tested.
 
 <a href="https://morphe.software/add-source?github=pengusto/penguin-patches"><img src="docs/assets/add-to-morphe.svg" alt="Add to Morphe →" width="242" height="52"></a>
 
@@ -55,7 +61,7 @@ Real Android APK captures with synthetic music data. [Evidence & limits](tests/f
 
 Choose how song credits appear, keep Output reachable with hidden player buttons, improve banner contrast, and fix library browsing or settings errors. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
 
-**Upstream status · 2026-10-29:** the [title fix is merged](https://github.com/finamp-app/finamp/pull/1830), and the [banner fix already exists on `hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2). **All seven Penguin patches remain available for the original Finamp 1.0.1 APK**, including both backports. [Status & release details](docs/FINAMP.md#upstream-status-2026-10-29).
+**Upstream status · 2026-10-29:** the [title fix is merged](https://github.com/finamp-app/finamp/pull/1830), and the [banner fix already exists on `hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2). Both remain selectable as Penguin backports for the original **Finamp 1.0.1 APK**. [Status & release details](docs/FINAMP.md#upstream-status-2026-10-29).
 
 [Player output](#preview-keep-player-output-controls-accessible) · [Banner contrast](#preview-fix-quick-settings-banner-contrast) · [Title validation](#preview-fix-section-title-validation) · [Artist-page loading](#preview-load-artist-pages-faster) · [Offline artists](#preview-fix-offline-artist-tracks) · [Alphabet jumps](#preview-fix-track-alphabet-navigation)
 
@@ -951,6 +957,8 @@ Stable releases come from `main`; `dev` carries pre-releases. Enable pre-release
 <a id="evidence-feedback-and-limits"></a>
 <a id="support-development"></a>
 <a id="license-and-provenance"></a>
+
+Patch definitions use Kotlin and Android runtime helpers use Java; Gradle builds the bundle. The development guide lists the Java 21, Android SDK and package-registry prerequisites.
 
 [Build & contribute](docs/DEVELOPMENT.md) · [Upstream work & roadmap](docs/ROADMAP.md) · [Support development](https://github.com/sponsors/pengusto) · [License & provenance](docs/PROVENANCE.md)
 
