@@ -10,7 +10,7 @@ val finampCompletePatch = rawResourcePatch(
     name = "Finamp complete: all eight fixes",
     description = "Apply all eight Penguin Finamp fixes together, including song artist order and album/track information. " +
         "Requires the original official Finamp 1.0.1 APK; produces ARM64-only output.",
-    default = false,
+    default = true,
 ) {
     compatibleWith(Compatibility(name = "Finamp", packageName = "com.unicornsonlsd.finamp",
         targets = listOf(AppTarget(version = "1.0.1"))))

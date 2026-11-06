@@ -17,9 +17,9 @@ EXPECTED_DELTAS = {f"finamp/1.0.1/arm64-v8a/{mask}.pfd" for mask in range(1, 256
 
 
 def make_bundle(source, destination, kind, d8, android_jar, classpath, compact_classes=None):
-    if kind not in ("standard", "finamp", "finamp-compact"):
+    if kind not in ("standard", "finamp", "finamp-individual", "combined"):
         raise ValueError("Unknown bundle kind")
-    is_finamp = kind != "standard"
+    is_compact = kind in ("finamp", "combined")
     with tempfile.TemporaryDirectory(prefix="penguin-split-", dir=destination.parent) as tmp:
         classes = Path(tmp) / "classes.jar"
         dex_dir = Path(tmp) / "dex"
@@ -29,12 +29,12 @@ def make_bundle(source, destination, kind, d8, android_jar, classpath, compact_c
             if len(names) != len(set(names)):
                 raise ValueError("Full bundle has duplicate ZIP entries")
             class_names = [n for n in names if n.endswith(".class") and
-                           (n.startswith(FINAMP_CLASSES) == is_finamp) and
-                           not (kind == "finamp-compact" and n.startswith(INDIVIDUAL_ENTRY))]
+                           (kind == "combined" or n.startswith(FINAMP_CLASSES) == (kind != "standard")) and
+                           not (is_compact and n.startswith(INDIVIDUAL_ENTRY))]
             if not class_names or not any(n.startswith(FINAMP_CLASSES) for n in names):
                 raise ValueError("Missing expected patch classes")
             extras = []
-            if kind == "finamp-compact":
+            if is_compact:
                 if compact_classes is None:
                     raise ValueError("Missing compact compiled classes")
                 root = Path(compact_classes)
@@ -62,19 +62,18 @@ def make_bundle(source, destination, kind, d8, android_jar, classpath, compact_c
                         continue
                     if name.endswith(".class") and name not in class_names:
                         continue
-                    if (kind == "finamp-compact" and name.endswith(".pfd") and
+                    if (is_compact and name.endswith(".pfd") and
                             name.startswith(FINAMP_RESOURCES) and name != ALL_FIXES_DELTA):
                         continue
-                    if name.startswith(FINAMP_RESOURCES) != is_finamp:
-                        if name.startswith(FINAMP_RESOURCES) or name.startswith("extensions/"):
-                            continue
-                    if name.startswith("extensions/") and is_finamp:
+                    if kind == "standard" and name.startswith(FINAMP_RESOURCES):
+                        continue
+                    if name.startswith("extensions/") and kind in ("finamp", "finamp-individual"):
                         continue
                     if name == "META-INF/MANIFEST.MF":
                         manifest = original.read(name)
                         old = b"Name: Penguin Patches\r\n"
-                        label = {"standard": "Standard", "finamp": "Finamp", "finamp-compact": "Finamp Complete"}[kind]
-                        new = f"Name: Penguin Patches - {label}\r\n".encode()
+                        label = {"standard": "Standard", "finamp": "Finamp", "finamp-individual": "Finamp Individual"}.get(kind)
+                        new = f"Name: Penguin Patches - {label}\r\n".encode() if label else old
                         if manifest.count(old) != 1:
                             raise ValueError("Unexpected bundle manifest name")
                         result.writestr(info, manifest.replace(old, new))
@@ -104,13 +103,16 @@ def main():
     expected_suffix = f"/patches-{args.version}.mpp"
     if not metadata["download_url"].endswith(expected_suffix):
         raise ValueError("Unexpected full bundle download URL")
-    for kind in ("standard", "finamp", "finamp-compact"):
+    for kind in ("standard", "finamp", "finamp-individual", "combined"):
         output = args.output_dir / f"patches-{kind}-{args.version}.mpp"
         make_bundle(args.bundle, output, kind, args.d8, args.android_jar, args.classpath, args.compact_classes)
+        if kind == "combined":
+            print(f"{kind}: {output.stat().st_size:,} bytes -> {output}")
+            continue
         split_metadata = dict(metadata)
         split_metadata["download_url"] = metadata["download_url"][:-len(expected_suffix)] + f"/patches-{kind}-{args.version}.mpp"
-        descriptions = {"finamp": "Finamp patches with individual selection.",
-                        "finamp-compact": "Finamp: all eight fixes in one compact patch.",
+        descriptions = {"finamp-individual": "Finamp patches with individual selection.",
+                        "finamp": "Finamp: all eight fixes in one compact patch.",
                         "standard": "Infinity+ and all supported apps except Finamp."}
         split_metadata["description"] = descriptions[kind] + "\n\n" + metadata["description"]
         target = args.metadata_dir / kind / "patches-bundle.json"

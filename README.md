@@ -23,10 +23,10 @@ Penguin Patches is an independent collection of fixes for selected Android apps.
 In Morphe Manager, copy a source URL and add it as a **remote JSON source**:
 
 - **Standard:** Infinity+, Fossify and the other supported apps except Finamp. [Standard source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/standard/patches-bundle.json)
-- **Finamp Complete (recommended):** One small, optional patch applies all eight Finamp fixes together, including the artist-order change. [Compact Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp-compact/patches-bundle.json) is available with releases containing the compact bundle.
-- **Finamp individual:** Choose any subset of the eight patches; this source downloads the large native selection matrix. [Individual Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp/patches-bundle.json)
+- **Finamp:** One small, default-selected patch applies all eight fixes together, including the artist-order change. The [existing Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp/patches-bundle.json) switches to the compact bundle with the release containing this change.
+- **Finamp individual:** Choose any subset of the eight patches; this optional source downloads the large native selection matrix. The [individual Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp-individual/patches-bundle.json) becomes available with that release.
 
-The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) stays available and continues to download the full bundle. Existing installations and signing keys are unaffected. To switch, add and verify your preferred new source first, then disable overlapping sources. Choose either Finamp Complete or individual patches for a patching run, not both. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
+The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) also switches to the compact Finamp patch. Existing installations and signing keys are unaffected. After the source update, Morphe can immediately start patching Finamp with all eight fixes selected; enable Expert mode to review the selection first. Choose either Finamp Complete or individual patches for a patching run, not both. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
 
 <!-- PATCHES_SUMMARY_START -->
 **24 patches · 14 apps · [v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**
@@ -86,7 +86,7 @@ Real Android APK captures with synthetic music data. [Evidence & limits](tests/f
 
 Choose how song credits appear, keep Output reachable with hidden player buttons, improve banner contrast, and fix library browsing or settings errors. For the official **Finamp 1.0.1 universal APK → ARM64 output**.
 
-**Upstream status · 2026-10-29:** the [title fix is merged](https://github.com/finamp-app/finamp/pull/1830), and the [banner fix already exists on `hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2). Both remain selectable as Penguin backports for the original **Finamp 1.0.1 APK**. [Status & release details](docs/FINAMP.md#upstream-status-2026-10-29).
+**Upstream status · 2026-10-29:** the [title fix is merged](https://github.com/finamp-app/finamp/pull/1830), and the [banner fix already exists on `hotfix-1.0.2`](https://github.com/finamp-app/finamp/tree/hotfix-1.0.2). Both are included in Finamp Complete and remain individually selectable in the separate source for the original **Finamp 1.0.1 APK**. [Status & release details](docs/FINAMP.md#upstream-status-2026-10-29).
 
 [Player output](#preview-keep-player-output-controls-accessible) · [Banner contrast](#preview-fix-quick-settings-banner-contrast) · [Title validation](#preview-fix-section-title-validation) · [Artist-page loading](#preview-load-artist-pages-faster) · [Offline artists](#preview-fix-offline-artist-tracks) · [Alphabet jumps](#preview-fix-track-alphabet-navigation)
 
@@ -542,7 +542,7 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 
 ### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 8 patches
 
-The compact Finamp Complete source combines the eight individual fixes below.
+Finamp Complete combines the eight fixes shown below; individual selection is available separately.
 
 <a id="preview-finamp-complete-all-eight-fixes"></a>
 

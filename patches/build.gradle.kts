@@ -45,6 +45,21 @@ tasks {
         }
     }
 
+    // Render release metadata from the actual published combined MPP after the
+    // individual-selection build has been reduced and verified.
+    register<JavaExec>("generatePatchesListFromBundle") {
+        dependsOn("classes")
+        classpath = sourceSets["main"].runtimeClasspath + patchListGeneratorClasspath
+        mainClass.set("util.PatchListGeneratorKt")
+        doFirst {
+            val bundle = providers.gradleProperty("patchListBundle").orNull
+                ?: error("Provide -PpatchListBundle for the published MPP")
+            setArgs(listOf(rootProject.file(bundle).absolutePath,
+                rootProject.file(providers.gradleProperty("patchListOutput")
+                    .getOrElse("patches-list.json")).absolutePath))
+        }
+    }
+
     // Used by gradle-semantic-release-plugin.
     publish {
         dependsOn("generatePatchesList")

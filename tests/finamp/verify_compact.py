@@ -35,10 +35,18 @@ def main():
     if digest(original.read_bytes()) != ORIGINAL_SHA:
         raise ValueError("Original APK does not match the pinned official release")
     cli = [str(args.java.resolve()), "-jar", str(args.desktop.resolve())]
-    listing = run(cli + ["list-patches", "--patches", str(bundle)])
+    listing = run(cli + ["list-patches", "--patches", str(bundle), "-f", "com.unicornsonlsd.finamp",
+                         "--with-universal-patches=false"])
     if re.findall(r"^Name: (.+)$", listing, flags=re.MULTILINE) != [NAME]:
-        raise ValueError("Compact source must expose exactly the complete patch")
+        raise ValueError("Published bundle must expose exactly the complete Finamp patch")
+    if not re.search(r"^Enabled: true$", listing, flags=re.MULTILINE):
+        raise ValueError("Complete Finamp patch must be enabled by default")
     with zipfile.ZipFile(bundle) as archive:
+        names = archive.namelist()
+        if len(names) != len(set(names)):
+            raise ValueError("Duplicate bundle entries")
+        if any(name.lower().endswith((".apk", ".jks", ".keystore", ".p12")) for name in names):
+            raise ValueError("An APK or signing key must never be bundled")
         properties = archive.read("finamp/1.0.1/manifest.properties").decode()
     match = re.search(r"^abi\.arm64-v8a\.mask\.255\.sha256=([0-9a-f]{64})$", properties, re.MULTILINE)
     if not match:

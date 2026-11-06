@@ -34,6 +34,8 @@ def main():
     p.add_argument("--serial", required=True)
     p.add_argument("--avd", required=True)
     p.add_argument("--expected-welcome", required=True)
+    p.add_argument("--source-label", required=True,
+                   choices=("Penguin Patches", "Penguin Patches - Finamp"))
     p.add_argument("--disposable-fixture", action="store_true", required=True)
     args = p.parse_args()
     if not re.fullmatch(r"emulator-\d+", args.serial) or args.avd != "penguin-compact-test":
@@ -91,7 +93,7 @@ def main():
     settings = "/data/user/0/com.unicornsonlsd.finamp/app_flutter/finampsettings.hive"
     before_settings = ui.adb("shell", "sha256sum", settings).split()[0]
     root, _ = ui.dump()
-    ui.find(root, "Penguin Patches - Finamp Complete")
+    ui.find(root, args.source_label, class_name="android.widget.TextView")
     ui.find(root, NAME, class_name="android.widget.TextView")
     if any(n.get("content-desc") == NAME + ", Disabled" for n in root.iter("node")):
         ui.tap(NAME, class_name="android.widget.TextView")

@@ -14,6 +14,7 @@ python3 -B tests/finamp/manager_compact.py \
   --avd penguin-compact-test --disposable-fixture \
   --original-apk "$FINAMP_APK" --bundle "$COMPACT_MPP" \
   --out-root .scratch/finamp-compact/manager-case \
+  --source-label 'Penguin Patches - Finamp' \
   --expected-welcome 'Willkommen bei Finamp'
 ```
 

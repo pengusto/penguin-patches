@@ -302,10 +302,17 @@ def build_previews():
         count = len(entry["patches"])
         previews = [preview_section(p) for p in entry["patches"].values()]
         if pkg == "com.unicornsonlsd.finamp":
-            # The compact source is a separately packaged alternative, not an
-            # extra feature in the full bundle's generated patch count.
-            previews.insert(0, preview_section({"name": "Finamp complete: all eight fixes"}))
-            previews.insert(0, "The compact Finamp Complete source combines the eight individual fixes below.")
+            complete = "Finamp complete: all eight fixes"
+            individuals = ("Fix section title validation", "Song artist order", "Load artist pages faster",
+                           "Fix offline artist tracks", "Fix track alphabet navigation",
+                           "Keep player output controls accessible", "Fix quick settings banner contrast",
+                           "Show album and track information")
+            names = set(entry["patches"])
+            if complete not in names:
+                previews.insert(0, preview_section({"name": complete}))
+            else:
+                previews.extend(preview_section({"name": name}) for name in individuals if name not in names)
+            previews.insert(0, "Finamp Complete combines the eight fixes shown below; individual selection is available separately.")
         sections.append(
             f'<a id="previews-{anchor(pkg)}"></a>\n\n'
             f'### {entry["icon"]} {html.escape(entry["name"])} · {count} {"patch" if count == 1 else "patches"}\n\n'

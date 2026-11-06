@@ -21,29 +21,29 @@ def entries(archive):
 
 
 def verify(full_path, split_path, kind, compact_classes=None):
-    if kind not in ("standard", "finamp", "finamp-compact"):
+    if kind not in ("standard", "finamp", "finamp-individual", "combined"):
         raise ValueError("Unknown bundle kind")
-    is_finamp = kind != "standard"
+    is_compact = kind in ("finamp", "combined")
     with zipfile.ZipFile(full_path) as full, zipfile.ZipFile(split_path) as split:
         source, actual = entries(full), entries(split)
         expected = set()
         for name in source:
             if name == "classes.dex":
                 continue
-            if name.endswith(".class") and name.startswith(FINAMP_CLASSES) != is_finamp:
+            if name.endswith(".class") and kind != "combined" and name.startswith(FINAMP_CLASSES) != (kind != "standard"):
                 continue
-            if kind == "finamp-compact" and name.startswith(INDIVIDUAL_ENTRY):
+            if is_compact and name.startswith(INDIVIDUAL_ENTRY):
                 continue
-            if name.startswith(FINAMP_RESOURCES) and not is_finamp:
+            if name.startswith(FINAMP_RESOURCES) and kind == "standard":
                 continue
-            if (kind == "finamp-compact" and name.startswith(FINAMP_RESOURCES) and
+            if (is_compact and name.startswith(FINAMP_RESOURCES) and
                     name.endswith(".pfd") and name != ALL_FIXES_DELTA):
                 continue
-            if name.startswith("extensions/") and is_finamp:
+            if name.startswith("extensions/") and kind in ("finamp", "finamp-individual"):
                 continue
             expected.add(name)
         extra = set()
-        if kind == "finamp-compact":
+        if is_compact:
             if compact_classes is None or ALL_FIXES_DELTA not in source:
                 raise ValueError("Missing compact classes or all-fixes delta")
             root = Path(compact_classes)
@@ -69,8 +69,8 @@ def verify(full_path, split_path, kind, compact_classes=None):
             if split.read(name) != (Path(compact_classes) / name).read_bytes():
                 raise ValueError(f"{kind}: changed compact entry {name}")
         manifest = split.read("META-INF/MANIFEST.MF")
-        label = {"standard": "Standard", "finamp": "Finamp", "finamp-compact": "Finamp Complete"}[kind]
-        expected_name = f"Name: Penguin Patches - {label}\r\n".encode()
+        label = {"standard": "Standard", "finamp": "Finamp", "finamp-individual": "Finamp Individual"}.get(kind)
+        expected_name = (f"Name: Penguin Patches - {label}\r\n" if label else "Name: Penguin Patches\r\n").encode()
         if expected_name not in manifest or not split.read("classes.dex").startswith(b"dex\n"):
             raise ValueError(f"{kind}: invalid manifest or Android DEX")
         print(f"{kind}: {len(actual)} entries; preserved original payloads")
@@ -81,9 +81,11 @@ if __name__ == "__main__":
     parser.add_argument("--full", type=Path, required=True)
     parser.add_argument("--standard", type=Path, required=True)
     parser.add_argument("--finamp", type=Path, required=True)
-    parser.add_argument("--finamp-compact", type=Path, required=True)
+    parser.add_argument("--finamp-individual", type=Path, required=True)
+    parser.add_argument("--combined", type=Path, required=True)
     parser.add_argument("--compact-classes", type=Path, required=True)
     args = parser.parse_args()
     verify(args.full, args.standard, "standard")
-    verify(args.full, args.finamp, "finamp")
-    verify(args.full, args.finamp_compact, "finamp-compact", args.compact_classes)
+    verify(args.full, args.finamp, "finamp", args.compact_classes)
+    verify(args.full, args.finamp_individual, "finamp-individual", args.compact_classes)
+    verify(args.full, args.combined, "combined", args.compact_classes)
