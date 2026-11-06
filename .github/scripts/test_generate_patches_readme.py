@@ -91,6 +91,9 @@ class ReleaseReadmeTests(unittest.TestCase):
                     for p in patch.get("compatiblePackages", []) if p["packageName"].startswith("org.fossify.")}
         self.assertEqual(fossify.count('app icon"'), len(packages))
         self.assertNotIn("Finamp", fossify)
+        cells = re.findall(r'<td align="center">(.*?)</td>', fossify)
+        self.assertGreaterEqual(len(cells), len(packages))
+        self.assertEqual(sum("<img " in cell and "<br>" in cell for cell in cells), len(packages))
         catalogue = result.split("<!-- PATCHES_START -->")[1].split("<!-- PATCHES_END -->")[0]
         names = re.findall(r'<summary><img [^>]+alt="([^"]+) app icon"', catalogue)
         positions = [i for i, name in enumerate(names) if name.startswith("Fossify ")]
