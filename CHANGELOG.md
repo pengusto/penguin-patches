@@ -1,3 +1,14 @@
+## [1.8.0](https://github.com/pengusto/penguin-patches/compare/v1.7.0...v1.8.0) (2026-11-06)
+
+### 🐛 Bug Fixes
+
+* render localized backup warnings ([ba8fd33](https://github.com/pengusto/penguin-patches/commit/ba8fd3347c8ec544dac9b6b56ae226c9e275988a))
+* sync bundle description with published release notes ([eeaea44](https://github.com/pengusto/penguin-patches/commit/eeaea444ad9cd9f07c16016799a4db193c70d365))
+
+### ✨ New Features
+
+* split optional Finamp and standard patch bundles ([68ae6b2](https://github.com/pengusto/penguin-patches/commit/68ae6b219a07d3eca086bc12a51105f149b3737f))
+
 ## [1.7.0](https://github.com/pengusto/penguin-patches/compare/v1.6.4...v1.7.0) (2026-11-05)
 
 ### ✨ New Features

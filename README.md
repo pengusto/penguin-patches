@@ -28,7 +28,7 @@ The next release introduces two optional sources in this repository. In Morphe M
 These URLs become available when a release containing the split is published. The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) stays available and continues to download the full bundle. Existing installations and signing keys are unaffected. To switch, add and verify your preferred new source first, then disable the combined source to avoid duplicate patches. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
 
 <!-- PATCHES_SUMMARY_START -->
-**24 patches · 14 apps · [v1.7.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.7.0)**
+**24 patches · 14 apps · [v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**
 <!-- PATCHES_SUMMARY_END -->
 
 [Before & after](#patch-previews) · [Supported apps](#generated-patch-catalogue) · [Setup & signing](#patch-an-app) · [Latest release](https://github.com/pengusto/penguin-patches/releases/latest)
@@ -735,7 +735,7 @@ Put the album artist first, then alphabetize the other song credits. Choose alte
 <details>
 <summary><strong>All 14 apps and supported versions</strong></summary>
 
-> **[v1.7.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.7.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;24 patches total
+> **[v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;24 patches total
 <details>
 <summary><img src="https://raw.githubusercontent.com/Docile-Alligator/Infinity-For-Reddit/cc2845af8c4bb9375ee56b93944c5a0fa3ad70e0/fastlane/metadata/android/en-US/images/icon.png" alt="Infinity+ app icon" width="24" height="24"> Infinity+&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
