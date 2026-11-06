@@ -42,6 +42,7 @@ class ReadmeLocales(unittest.TestCase):
                               "credits-before.png", "credits-after.png"):
                     self.assertIn(asset, text)
                 self.assertIn("https://morphe.software/add-source?github=pengusto/penguin-patches", text)
+                self.assertNotRegex(text, r"(?m)^\*\*[^*\n]+\*\*(?=\S)")
 
     def test_localized_app_lists_cover_release_metadata(self):
         metadata = json.loads((ROOT / "patches-list.json").read_text(encoding="utf-8"))
