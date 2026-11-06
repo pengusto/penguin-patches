@@ -3,6 +3,15 @@
 import time
 
 
+def content_top(ui, root, parents):
+    controls = [ui.bounds(node)[3] for node in root.iter('node')
+                if node.get('content-desc') in ('Enable all', 'Disable all')]
+    tabs = [ui.bounds(parents.get(node, node))[3] + ui.size[1] // 40
+            for node in root.iter('node')
+            if node.get('text') in ('Penguin Patches', 'Morphe Patches')]
+    return max([*controls, *tabs], default=0)
+
+
 def configure_selection(ui, names, mask):
     ordered = sorted(names.items(), key=lambda entry: entry[1])
 
@@ -17,17 +26,13 @@ def configure_selection(ui, names, mask):
             while footer.get('clickable') != 'true' and footer in parents:
                 footer = parents[footer]
             footer_top = ui.bounds(footer, allow_disabled=True)[1]
-            controls = [ui.bounds(node)[3] for node in root.iter('node')
-                        if node.get('content-desc') in ('Enable all', 'Disable all')]
-            tabs = [ui.bounds(node)[3] for node in root.iter('node')
-                    if node.get('text') in ('Penguin Patches', 'Morphe Patches')]
-            content_top = max([*controls, *(bottom + ui.size[1] // 10 for bottom in tabs)], default=0)
+            top_limit = content_top(ui, root, parents)
 
             def scroll_visible_area(scroll_direction):
                 # The sticky toolbar and Patch footer overlap the list's
                 # reported scroll bounds. Starting a swipe under either can
                 # hit a button or leave the list stationary.
-                top = max(content_top + 30, ui.viewport[1])
+                top = max(top_limit + 30, ui.viewport[1])
                 bottom = min(footer_top - 30, ui.viewport[3])
                 if bottom - top < 200:
                     raise RuntimeError('Manager patch list has no safe scroll area')
@@ -50,7 +55,7 @@ def configure_selection(ui, names, mask):
                             _, top, _, bottom = ui.bounds(node)
                         except ValueError:
                             continue
-                        if top >= content_top and bottom <= footer_top:
+                        if top >= top_limit and bottom <= footer_top:
                             visible.append(candidate)
                 if visible and name < min(visible):
                     direction = 'down'
@@ -58,8 +63,8 @@ def configure_selection(ui, names, mask):
                     direction = 'up'
                 scroll_visible_area(direction)
                 continue
-            if top < content_top or bottom > footer_top:
-                scroll_visible_area('down' if top < content_top else 'up')
+            if top < top_limit or bottom > footer_top:
+                scroll_visible_area('down' if top < top_limit else 'up')
                 continue
             states = [node.get('content-desc') for node in root.iter('node')
                       if node.get('content-desc') in (name + ', Enabled', name + ', Disabled')]
