@@ -190,11 +190,16 @@ class ReleaseReadmeTests(unittest.TestCase):
         data = json.loads((ROOT / "patches-list.json").read_text())
         result = self.render(data)
         previews = result.split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0]
-        self.assertEqual(previews.count("<summary>"), len(data["patches"]))
+        # The compact Finamp source has an additional named patch which is not
+        # counted in the full bundle's generated metadata.
+        self.assertEqual(previews.count("<summary>"), len(data["patches"]) + 1)
         self.assertEqual(len(re.findall(r"^### ", previews, re.MULTILINE)), app_count(data))
         self.assertGreaterEqual(len(re.findall(r'<img [^>]*alt="(?:Before|After):', previews)), 2 * len(data["patches"]))
         self.assertNotIn("## About these comparisons", previews)
         sections = dict(re.findall(r'<a id="preview-([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', previews, re.DOTALL))
+        compact = sections["finamp-complete-all-eight-fixes"]
+        self.assertIn("captures do not depict the compact bundle", compact)
+        self.assertEqual(len(re.findall(r'<img [^>]*alt="(?:Before|After):', compact)), 2)
         for patch in data["patches"]:
             slug = re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", patch["name"].lower())).strip("-")
             with self.subTest(patch=patch["name"]):
@@ -229,7 +234,7 @@ class ReleaseReadmeTests(unittest.TestCase):
         self.assertIn("Explore the 1 Finamp patch →", result)
         self.assertNotIn("Explore the 3 Finamp patches", result)
         previews = result.split("<!-- PATCHES_PREVIEWS_START -->")[1].split("<!-- PATCHES_PREVIEWS_END -->")[0]
-        self.assertEqual(len(re.findall(r'<img [^>]*alt="(?:Before|After):', previews)), 2)
+        self.assertEqual(len(re.findall(r'<img [^>]*alt="(?:Before|After):', previews)), 4)
 
     def test_missing_released_preview_fails_without_rewriting_readme(self):
         with tempfile.TemporaryDirectory() as tmp:

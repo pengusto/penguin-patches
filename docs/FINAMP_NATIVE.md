@@ -19,6 +19,13 @@ Other versions, F-Droid/recompiled binaries and earlier `Finamp Debug` APKs do
 not have declared compatibility. Repatch the original APK with all desired
 selections together; an already patched snapshot is deliberately rejected.
 
+Releases containing **Finamp Complete** also offer a small separate source with
+one opt-in patch applying all eight fixes below together. The existing Finamp
+individual source and original combined source continue to offer independent
+selection. Use one Finamp source per patching run: Complete includes the artist
+order behavior as well as the fixes, and does not translate previous selections.
+See [source setup and migration](SETUP.md#add-the-source-and-patch).
+
 ## Eight independent selections
 
 | Patch name in Morphe | Behavior | Upstream contribution |

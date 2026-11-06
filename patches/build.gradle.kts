@@ -23,6 +23,13 @@ dependencies {
 }
 
 tasks {
+    // The compact entry point is compiled alongside the shared implementation,
+    // but must not appear in the existing full/individual sources. The split
+    // bundle task includes these compiled classes only in its compact output.
+    named<Jar>("jar") {
+        exclude("io/github/pengusto/patches/finamp/FinampCompactPatchKt*")
+    }
+
     register<JavaExec>("generatePatchesList") {
         description = "Build patch with patch list"
 

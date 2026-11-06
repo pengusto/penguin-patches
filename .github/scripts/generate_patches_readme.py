@@ -300,10 +300,16 @@ def build_previews():
     sections = []
     for pkg, entry in ordered_apps():
         count = len(entry["patches"])
+        previews = [preview_section(p) for p in entry["patches"].values()]
+        if pkg == "com.unicornsonlsd.finamp":
+            # The compact source is a separately packaged alternative, not an
+            # extra feature in the full bundle's generated patch count.
+            previews.insert(0, preview_section({"name": "Finamp complete: all eight fixes"}))
+            previews.insert(0, "The compact Finamp Complete source combines the eight individual fixes below.")
         sections.append(
             f'<a id="previews-{anchor(pkg)}"></a>\n\n'
             f'### {entry["icon"]} {html.escape(entry["name"])} · {count} {"patch" if count == 1 else "patches"}\n\n'
-            + "\n\n".join(preview_section(p) for p in entry["patches"].values())
+            + "\n\n".join(previews)
         )
     if universal:
         sections.append('### Universal patches\n\n'

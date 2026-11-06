@@ -20,12 +20,13 @@ Penguin Patches is an independent collection of fixes for selected Android apps.
 
 ### Choose your patches
 
-Choose either or both sources from this repository. In Morphe Manager, copy a source URL and add it as a **remote JSON source**:
+In Morphe Manager, copy a source URL and add it as a **remote JSON source**:
 
 - **Standard:** Infinity+, Fossify and the other supported apps except Finamp. [Standard source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/standard/patches-bundle.json)
-- **Finamp:** Finamp patches and their native payloads. [Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp/patches-bundle.json)
+- **Finamp Complete (recommended):** One small, optional patch applies all eight Finamp fixes together, including the artist-order change. [Compact Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp-compact/patches-bundle.json) is available with releases containing the compact bundle.
+- **Finamp individual:** Choose any subset of the eight patches; this source downloads the large native selection matrix. [Individual Finamp source URL](https://raw.githubusercontent.com/pengusto/penguin-patches/main/bundles/finamp/patches-bundle.json)
 
-The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) stays available and continues to download the full bundle. Existing installations and signing keys are unaffected. To switch, add and verify your preferred new source first, then disable the combined source to avoid duplicate patches. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
+The [original combined source](https://morphe.software/add-source?github=pengusto/penguin-patches) stays available and continues to download the full bundle. Existing installations and signing keys are unaffected. To switch, add and verify your preferred new source first, then disable overlapping sources. Choose either Finamp Complete or individual patches for a patching run, not both. [Setup and migration details →](docs/SETUP.md#add-the-source-and-patch)
 
 <!-- PATCHES_SUMMARY_START -->
 **24 patches · 14 apps · [v1.8.0](https://github.com/pengusto/penguin-patches/releases/tag/v1.8.0)**
@@ -540,6 +541,33 @@ Open the immediate parent task from the child editor using an explicit up-arrow.
 <a id="previews-com-unicornsonlsd-finamp"></a>
 
 ### <img src="https://raw.githubusercontent.com/finamp-app/finamp/f001dcd396ab2c65d466ad60e4380c53c45d34d9/fastlane/metadata/android/en-US/images/icon.png" alt="Finamp app icon" width="24" height="24"> Finamp · 8 patches
+
+The compact Finamp Complete source combines the eight individual fixes below.
+
+<a id="preview-finamp-complete-all-eight-fixes"></a>
+
+<details>
+<summary><strong>Finamp complete: all eight fixes</strong> · Before / after</summary>
+<br>
+
+**Finamp 1.0.1** · [Setup & patch details](docs/FINAMP_NATIVE.md)
+
+The compact patch applies the eight individual fixes together. This pair
+illustrates one included change: the track-information action. See the eight
+individual comparisons for the other changes.
+
+**Installed Android APK captures.** The before image is the original APK and
+the after image is the separately selected track-information patch, using the
+same synthetic track and display. The captures do not depict the compact bundle.
+
+| Before | After |
+| :---: | :---: |
+| **No track information action** | **Information action with icon** |
+| <img src="tests/finamp/evidence/2026-11-05-notes/track-before.png" width="300" alt="Before: track menu without an information action"> | <img src="tests/finamp/evidence/2026-11-05-notes/track-after.png" width="300" alt="After: track information with an icon below the common actions"> |
+
+[Capture provenance and limits](tests/finamp/evidence/2026-11-05-notes/README.md) · [Back to patch index](#patch-previews)
+
+</details>
 
 <a id="preview-fix-offline-artist-tracks"></a>
 
