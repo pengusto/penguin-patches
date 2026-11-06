@@ -6,6 +6,8 @@ This opt-in patch targets only the official **Infinity+ 8.3.4**, package `ml.doc
 
 Choose **Configure custom OAuth for Infinity+** on the original APK. It is standalone: do not also select Breal's Spoof client or feed it an already patched APK. No APK, shared public client ID, client secret, account password, cookie or login token is distributed in the patch bundle.
 
+**Manager 2.4.0 investigation:** On an Android 15 emulator, patching the official 8.3.4 APK with synthetic option values failed because the patcher received an empty required redirect, even though the option screen showed customized values. This was reproduced with the published Penguin 1.7.0 combined source; the cause and scope are still under investigation. The Desktop and live-login evidence below does not establish that Manager 2.4.0 can apply this patch.
+
 Provide three values at patch time:
 
 - `client-id`: the public Reddit installed-app OAuth client ID you are authorized to use. Do not paste a password, client secret or token.

@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Android tools for split bundles
+        run: sdkmanager 'build-tools;37.0.0' 'platforms;android-35'
+
       - name: Fetch pinned Finamp verification input
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
