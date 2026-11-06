@@ -367,8 +367,8 @@ if "<!-- PATCHES_APPS_START -->" in new_readme:
     for pkg, entry in ordered_apps():
         destination = html.escape(GUIDES.get(pkg, "#generated-patch-catalogue"), quote=True)
         icon = pkg_icon(pkg, entry["name"], size=32)
-        name = html.escape(entry["name"])
-        app_links[labels[app_order(pkg)[0]]].append(f'<a href="{destination}">{icon} {name}</a>')
+        name = html.escape(entry["name"]).replace(" ", "&nbsp;")
+        app_links[labels[app_order(pkg)[0]]].append(f'<a href="{destination}">{icon}&nbsp;{name}</a>')
     app_strip = "\n\n".join(
         f"**{label}**\n\n<p>\n" + " &nbsp;\n".join(links) + "\n</p>"
         for label, links in app_links.items() if links
