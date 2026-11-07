@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/pengusto/penguin-patches/compare/v1.9.0...v1.9.1) (2026-11-06)
+
+### 🐛 Bug Fixes
+
+* **release:** guard the verified bundle order in CI ([#71](https://github.com/pengusto/penguin-patches/issues/71)) ([2578f2e](https://github.com/pengusto/penguin-patches/commit/2578f2e50ff77a6423d82de4f235d2938c10248d)), closes [#68](https://github.com/pengusto/penguin-patches/issues/68)
+* **release:** preserve compact bundles during Gradle publish ([#68](https://github.com/pengusto/penguin-patches/issues/68)) ([#69](https://github.com/pengusto/penguin-patches/issues/69)) ([4d6c9e3](https://github.com/pengusto/penguin-patches/commit/4d6c9e3735b5a2066d565fc44ca471cdfa58be2c))
+
 ## [1.8.0](https://github.com/pengusto/penguin-patches/compare/v1.7.0...v1.8.0) (2026-11-06)
 
 ### 🐛 Bug Fixes
