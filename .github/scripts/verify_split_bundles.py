@@ -9,7 +9,7 @@ FINAMP_CLASSES = "io/github/pengusto/patches/finamp/"
 FINAMP_RESOURCES = "finamp/"
 INDIVIDUAL_ENTRY = FINAMP_CLASSES + "FinampNativePatchKt"
 COMPACT_ENTRY = FINAMP_CLASSES + "FinampCompactPatchKt"
-ALL_FIXES_DELTA = "finamp/1.0.1/arm64-v8a/255.pfd"
+ALL_FIXES_DELTA = "finamp/1.0.1/arm64-v8a/191.pfd"
 
 
 def entries(archive):
