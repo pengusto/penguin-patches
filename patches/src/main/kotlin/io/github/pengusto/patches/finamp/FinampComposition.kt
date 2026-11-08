@@ -26,7 +26,7 @@ private object FinampBundle {
 }
 
 internal fun ResourcePatchContext.applyFinampComposition(mask: Int) {
-    nativeCheck(mask in 1..255, "invalid selection mask $mask")
+    nativeCheck(mask in 1..255 && (mask and 64) == 0, "invalid selection mask $mask")
     nativeCheck(packageMetadata.packageName == FINAMP_PACKAGE && packageMetadata.versionName == FINAMP_VERSION,
         "unsupported app; use the original official Finamp 1.0.1 APK")
 

@@ -1,5 +1,12 @@
 # Finamp 1.0.1: selectable Penguin patches
 
+> **Unreleased change:** the development branch removes the banner backport from
+> individual and Complete bundles. The current public release still contains it.
+> This deliberately removes that correction when patching the original 1.0.1
+> APK with a future bundle; upgrading Finamp itself is a separate choice.
+> The remaining seven features use their existing bit assignments and payloads.
+> The compact selection is renamed, so review saved selections after an update.
+
 These patches apply directly to the **original official Finamp APK** through
 Morphe. They are separate from the earlier rebuilt `Finamp Debug` preview and
 from the upstream source PRs.

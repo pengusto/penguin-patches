@@ -24,7 +24,7 @@ ENGINE_SHA = 'd70bbedc2b157630f90123a32ca894a6fa1816ec10cda9f335bada0692b376ee'
 FLUTTER_REV = 'd3b14c876900e553bc736ca19295fc09e3853e8e'
 ENGINE_REV = 'a804b261645ef8c13eb3d5c44a5c2fb0340c5539'
 SNAPSHOT = re.compile(rb'\xf5\xf5\xdc\xdc.{16}([0-9a-f]{32})([^\x00]*)\x00', re.S)
-MASKS = range(1, 256)
+MASKS = tuple(mask for mask in range(1, 256) if not mask & 64)
 
 PRODUCTION = ROOT / 'patches/src/main/resources/finamp/1.0.1'
 
@@ -83,7 +83,7 @@ def main():
     args = parser.parse_args()
     masks = [int(value) for value in args.masks.split(',')]
     if not masks or len(set(masks)) != len(masks) or any(mask not in MASKS for mask in masks):
-        raise ValueError('Select unique source masks 1..255')
+        raise ValueError('Select unique supported source masks (bit 64 is retired)')
     output = payload_output(masks, args.output, args.work_dir.resolve())
     flutter = args.flutter.resolve()
     versions = json.loads(run([str(flutter), '--version', '--machine']))

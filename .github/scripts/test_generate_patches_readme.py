@@ -176,6 +176,17 @@ class ReleaseReadmeTests(unittest.TestCase):
         self.assertIn('src="tests/finamp/evidence/2026-11-05-notes/track-before.png"', result)
         self.assertIn('src="tests/finamp/evidence/2026-11-05-notes/track-after.png"', result)
 
+    def test_seven_fix_compact_excludes_retired_banner_preview(self):
+        data = {"version": "2.0.0", "patches": [{
+            "name": "Finamp complete: all seven fixes", "description": "Seven Finamp fixes",
+            "compatiblePackages": [{"packageName": "com.unicornsonlsd.finamp", "name": "Finamp",
+                                    "targets": [{"version": "1.0.1"}]}]}]}
+        result = self.render(data)
+        self.check_gallery(data, result)
+        self.assertIn("Finamp Complete combines the seven fixes", result)
+        self.assertIn("#preview-finamp-complete-all-seven-fixes", result)
+        self.assertNotIn("#preview-fix-quick-settings-banner-contrast", result)
+
     def test_compact_default_keeps_individual_previews_without_duplicate_anchor(self):
         data = {"version": "2.0.0", "patches": [{
             "name": "Finamp complete: all eight fixes", "description": "All eight Finamp fixes",

@@ -7,7 +7,7 @@ import re
 import subprocess
 import zipfile
 
-NAME = "Finamp complete: all eight fixes"
+NAME = "Finamp complete: all seven fixes"
 ORIGINAL_SHA = "0fc61e5cb80d37b10a735851c2217cbc855b3f1a04bde577187658531ffef581"
 NATIVE_PATH = "lib/arm64-v8a/libapp.so"
 
@@ -48,7 +48,7 @@ def main():
         if any(name.lower().endswith((".apk", ".jks", ".keystore", ".p12")) for name in names):
             raise ValueError("An APK or signing key must never be bundled")
         properties = archive.read("finamp/1.0.1/manifest.properties").decode()
-    match = re.search(r"^abi\.arm64-v8a\.mask\.255\.sha256=([0-9a-f]{64})$", properties, re.MULTILINE)
+    match = re.search(r"^abi\.arm64-v8a\.mask\.191\.sha256=([0-9a-f]{64})$", properties, re.MULTILINE)
     if not match:
         raise ValueError("Missing expected all-fixes output hash")
     output = work / "patched.apk"

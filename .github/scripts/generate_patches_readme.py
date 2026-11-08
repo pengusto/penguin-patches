@@ -302,17 +302,20 @@ def build_previews():
         count = len(entry["patches"])
         previews = [preview_section(p) for p in entry["patches"].values()]
         if pkg == "com.unicornsonlsd.finamp":
-            complete = "Finamp complete: all eight fixes"
+            names = set(entry["patches"])
+            seven = "Finamp complete: all seven fixes" in names
+            complete = "Finamp complete: all seven fixes" if seven else "Finamp complete: all eight fixes"
             individuals = ("Fix section title validation", "Song artist order", "Load artist pages faster",
                            "Fix offline artist tracks", "Fix track alphabet navigation",
-                           "Keep player output controls accessible", "Fix quick settings banner contrast",
+                           "Keep player output controls accessible",
+                           *(() if seven else ("Fix quick settings banner contrast",)),
                            "Show album and track information")
-            names = set(entry["patches"])
             if complete not in names:
                 previews.insert(0, preview_section({"name": complete}))
             else:
                 previews.extend(preview_section({"name": name}) for name in individuals if name not in names)
-            previews.insert(0, "Finamp Complete combines the eight fixes shown below; individual selection is available separately.")
+            count_word = "seven" if seven else "eight"
+            previews.insert(0, f"Finamp Complete combines the {count_word} fixes shown below; individual selection is available separately.")
         sections.append(
             f'<a id="previews-{anchor(pkg)}"></a>\n\n'
             f'### {entry["icon"]} {html.escape(entry["name"])} · {count} {"patch" if count == 1 else "patches"}\n\n'
@@ -419,5 +422,11 @@ new_readme = re.sub(
                "<!-- FINAMP_COUNT_END -->"),
     new_readme, flags=re.DOTALL,
 )
+# These introduction links describe the published metadata, not the development tree.
+if "Finamp complete: all seven fixes" in by_pkg.get("com.unicornsonlsd.finamp", {}).get("patches", {}):
+    new_readme = new_readme.replace("all eight fixes", "all seven fixes")
+    new_readme = new_readme.replace("subset of the eight patches", "subset of the seven patches")
+    new_readme = new_readme.replace(" · [Banner contrast](#preview-fix-quick-settings-banner-contrast)", "")
+
 readme_path.write_text(new_readme, encoding="utf-8")
 print(f"✅ Injected patches section into {readme_path} (v{ver}, branch={branch}, {total} patches, expanded={expanded})")
