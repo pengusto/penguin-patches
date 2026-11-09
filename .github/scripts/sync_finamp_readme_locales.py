@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
-"""Update Finamp Complete labels when the seven-fix release metadata is generated."""
+"""Synchronize localized links to the stable Finamp Complete release name."""
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OLD_SLUG = "preview-finamp-complete-all-eight-fixes"
-NEW_SLUG = "preview-finamp-complete-all-seven-fixes"
+OLD_SLUG = "preview-finamp-complete-all-seven-fixes"
+NEW_SLUG = "preview-finamp-complete"
 LABELS = {
-    "de": ("Finamp Complete: alle acht Änderungen", "Finamp Complete: alle sieben Änderungen"),
-    "es": ("Finamp Complete: las ocho mejoras", "Finamp Complete: las siete mejoras"),
-    "fr": ("Finamp Complete : les huit améliorations", "Finamp Complete : les sept améliorations"),
-    "ja": ("Finamp Complete：8 件の修正をまとめて適用", "Finamp Complete：7 件の修正をまとめて適用"),
-    "ko": ("Finamp Complete: 8개 수정 사항", "Finamp Complete: 7개 수정 사항"),
-    "pt-BR": ("Finamp Complete: as oito melhorias", "Finamp Complete: as sete melhorias"),
-    "zh-CN": ("Finamp Complete：全部八项改进", "Finamp Complete：全部七项改进"),
+    "de": ("Finamp Complete: alle sieben Änderungen", "Finamp Complete"),
+    "es": ("Finamp Complete: las siete mejoras", "Finamp Complete"),
+    "fr": ("Finamp Complete : les sept améliorations", "Finamp Complete"),
+    "ja": ("Finamp Complete：7 件の修正をまとめて適用", "Finamp Complete"),
+    "ko": ("Finamp Complete: 7개 수정 사항", "Finamp Complete"),
+    "pt-BR": ("Finamp Complete: as sete melhorias", "Finamp Complete"),
+    "zh-CN": ("Finamp Complete：全部七项改进", "Finamp Complete"),
 }
 
 
 def sync(root):
     metadata = json.loads((root / "patches-list.json").read_text(encoding="utf-8"))
     names = {p["name"] for p in metadata["patches"]}
-    if "Finamp complete: all seven fixes" not in names:
-        raise ValueError("Expected seven-fix Finamp Complete release metadata")
+    if "Finamp Complete" not in names:
+        raise ValueError("Expected stable Finamp Complete release metadata")
     changes = []
     for locale, (old_label, new_label) in LABELS.items():
         path = root / "docs/readme" / f"README.{locale}.md"

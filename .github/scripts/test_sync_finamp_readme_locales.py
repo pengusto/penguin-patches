@@ -17,7 +17,7 @@ class FinampLocaleSyncTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         (self.root / "docs/readme").mkdir(parents=True)
         (self.root / "patches-list.json").write_text(json.dumps({
-            "patches": [{"name": "Finamp complete: all seven fixes"}]}))
+            "patches": [{"name": "Finamp Complete"}]}))
         for locale, (old, _) in module.LABELS.items():
             (self.root / "docs/readme" / f"README.{locale}.md").write_text(
                 f"before [{old}](../../README.md#{module.OLD_SLUG}) after\n", encoding="utf-8")
