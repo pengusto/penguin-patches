@@ -16,6 +16,10 @@ import time
 import zipfile
 
 from pfd import apply_delta, make_delta
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / ".github/scripts"))
+from finamp_catalogue import catalogue
 
 ROOT = Path(__file__).resolve().parents[2]
 APK_SHA = '0fc61e5cb80d37b10a735851c2217cbc855b3f1a04bde577187658531ffef581'
@@ -24,7 +28,7 @@ ENGINE_SHA = 'd70bbedc2b157630f90123a32ca894a6fa1816ec10cda9f335bada0692b376ee'
 FLUTTER_REV = 'd3b14c876900e553bc736ca19295fc09e3853e8e'
 ENGINE_REV = 'a804b261645ef8c13eb3d5c44a5c2fb0340c5539'
 SNAPSHOT = re.compile(rb'\xf5\xf5\xdc\xdc.{16}([0-9a-f]{32})([^\x00]*)\x00', re.S)
-MASKS = tuple(mask for mask in range(1, 256) if not mask & 64)
+MASKS = tuple(sorted(catalogue()[3]))
 
 PRODUCTION = ROOT / 'patches/src/main/resources/finamp/1.0.1'
 

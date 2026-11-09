@@ -45,14 +45,18 @@ class ReleaseLifecycleTests(unittest.TestCase):
         execution = next(plugin[1] for plugin in config['plugins']
                          if isinstance(plugin, list) and plugin[0] == '@semantic-release/exec')
         prepare = execution['prepareCmd']
-        compact = (ROOT / 'patches/src/main/kotlin/io/github/pengusto/patches/finamp/FinampCompactPatch.kt').read_text()
-        name = re.search(r'name = "([^"]+)"', compact).group(1)
-        self.assertIn('name == \"' + name + '\"', prepare)
+        self.assertIn('python3 -B .github/scripts/finamp_catalogue.py --metadata patches-list.json', prepare)
+        self.assertLess(prepare.index('generatePatchesListFromBundle'), prepare.index('finamp_catalogue.py --metadata'))
         self.assertLess(prepare.index('generatePatchesListFromBundle'), prepare.index('sync_finamp_readme_locales.py'))
         self.assertLess(prepare.index('sync_finamp_readme_locales.py'), prepare.index("unittest discover -s .github/scripts"))
         assets = next(plugin[1]['assets'] for plugin in config['plugins']
                       if isinstance(plugin, list) and plugin[0] == '@semantic-release/git')
         self.assertIn('docs/readme/README.*.md', assets)
+
+    def test_preflight_checks_feature_prs_and_dev_pushes_without_bot_main_pr_approval(self):
+        workflow = (ROOT / ".github/workflows/preflight.yml").read_text()
+        self.assertRegex(workflow, r"(?m)^  pull_request:\n    branches: \[dev\]$")
+        self.assertRegex(workflow, r"(?m)^  push:\n    branches: \[dev\]$")
 
     def test_restores_compact_bundle_after_gradle_rebuild(self):
         self.assertEqual(self.run_command(self.stage).returncode, 0)

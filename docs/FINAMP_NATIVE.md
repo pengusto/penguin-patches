@@ -245,3 +245,23 @@ acceptance. Source, the MPL-2.0 license, Flutter's BSD license and original
 third-party notices accompany the native resources. Kotlin patch logic remains
 under Penguin's GPL-3.0 license. This is an independent Penguin contribution;
 it is not an upstream-signed Finamp release.
+
+## Maintaining the patch source
+
+For a patch change, update the corresponding `FinampNativePatch.kt` declaration,
+the source matrix and verified native payloads, the feature table above, and its
+before/after evidence. The catalogue check derives the feature names and valid
+combinations from those declarations and checks `FINAMP_COMPLETE_MASK` in
+`FinampComposition.kt`. Keep that mask equal to the OR of all active feature bits.
+The split bundles, Complete verification and README previews use this same data.
+Existing payloads can be reused only for combinations whose verified source and
+output are unchanged. Run `python3 -B .github/scripts/finamp_catalogue.py` and
+`python3 -B -m unittest discover -s .github/scripts -p 'test_*.py' -q` for an
+early check. The manual release workflow performs the full bundle, input and
+source verification before updating the public source; a merged PR alone does
+not publish a new patch bundle.
+
+The next release renames the compact patch to **Finamp Complete** so its name
+does not change when the number of fixes changes. Manager selection migration
+has not been established for this rename: review the selection in Expert mode
+after refreshing the source before patching.
