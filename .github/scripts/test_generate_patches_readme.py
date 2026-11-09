@@ -47,7 +47,8 @@ class ReleaseReadmeTests(unittest.TestCase):
         for guide in re.findall(r"\]\((docs/[^)#]+)", result):
             self.assertTrue((ROOT / guide).is_file(), guide)
         self.assertTrue("[Song artist order](docs/FINAMP_NATIVE.md)" in result or
-                        "[Finamp complete: all eight fixes](docs/FINAMP_NATIVE.md)" in result)
+                        "[Finamp complete: all eight fixes](docs/FINAMP_NATIVE.md)" in result or
+                        "[Finamp complete: all seven fixes](docs/FINAMP_NATIVE.md)" in result)
         self.assertIn("[Separate all-day reminder defaults](docs/CALENDAR_REMINDERS.md)", result)
         self.assertIn('id="prefer-each-track-s-embedded-cover"', result)
         self.assertIn('id="prefer-each-tracks-embedded-cover"', result)
@@ -220,13 +221,17 @@ class ReleaseReadmeTests(unittest.TestCase):
         # The alternate Finamp source has its own previews without affecting
         # the released default bundle's metadata count.
         names = {p["name"] for p in data["patches"]}
-        extra = 8 if "Finamp complete: all eight fixes" in names else 1
+        extra = (8 if "Finamp complete: all eight fixes" in names else
+                 7 if "Finamp complete: all seven fixes" in names else 1)
         self.assertEqual(previews.count("<summary>"), len(data["patches"]) + extra)
         self.assertEqual(len(re.findall(r"^### ", previews, re.MULTILINE)), app_count(data))
         self.assertGreaterEqual(len(re.findall(r'<img [^>]*alt="(?:Before|After):', previews)), 2 * len(data["patches"]))
         self.assertNotIn("## About these comparisons", previews)
         sections = dict(re.findall(r'<a id="preview-([^"]+)"></a>(.*?)(?=\n<a id=|\Z)', previews, re.DOTALL))
-        compact = sections["finamp-complete-all-eight-fixes"]
+        compact_slug = ("finamp-complete-all-seven-fixes"
+                        if "Finamp complete: all seven fixes" in names
+                        else "finamp-complete-all-eight-fixes")
+        compact = sections[compact_slug]
         self.assertIn("captures do not depict the compact bundle", compact)
         self.assertEqual(len(re.findall(r'<img [^>]*alt="(?:Before|After):', compact)), 2)
         for patch in data["patches"]:
