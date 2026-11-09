@@ -9,7 +9,7 @@ All images reuse published, unedited evidence with synthetic data. Each pair nam
 | Mihon 0.21.3 · official GitHub ARM64 APK | [Preserve excluded Default-category downloads](#preserve-excluded-default-category-downloads) |
 | Komikku 1.14.1 · official GitHub ARM64 APK | [Keep local manga in exclusion searches](#keep-local-manga-in-exclusion-searches) |
 | Read You 0.16.2 | [Import nested OPML feeds](#import-nested-opml-feeds) |
-| Finamp 1.0.1 | [Finamp complete: all eight fixes](#finamp-complete-all-eight-fixes) · [Development: seven fixes](#finamp-complete-all-seven-fixes) |
+| Finamp 1.0.1 | [Finamp complete: all eight fixes](#finamp-complete-all-eight-fixes) · [Seven-fix edition](#finamp-complete-all-seven-fixes) |
 | Finamp 1.0.1 | [Song artist order](#song-artist-order) |
 | Finamp 1.0.1 | [Fix section title validation](#fix-section-title-validation) |
 | Finamp 1.0.1 | [Load artist pages faster](#load-artist-pages-faster) |

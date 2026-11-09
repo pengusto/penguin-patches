@@ -1,6 +1,7 @@
 """Check the actual release commands across Gradle's publish rebuild."""
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import tempfile
@@ -38,6 +39,20 @@ class ReleaseLifecycleTests(unittest.TestCase):
     def run_command(self, command):
         return subprocess.run(command, shell=True, cwd=self.root, env=self.env,
                               stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    def test_release_guard_matches_compact_patch_and_tests_final_metadata(self):
+        config = json.loads((ROOT / '.releaserc').read_text())
+        execution = next(plugin[1] for plugin in config['plugins']
+                         if isinstance(plugin, list) and plugin[0] == '@semantic-release/exec')
+        prepare = execution['prepareCmd']
+        compact = (ROOT / 'patches/src/main/kotlin/io/github/pengusto/patches/finamp/FinampCompactPatch.kt').read_text()
+        name = re.search(r'name = "([^"]+)"', compact).group(1)
+        self.assertIn('name == \"' + name + '\"', prepare)
+        self.assertLess(prepare.index('generatePatchesListFromBundle'), prepare.index('sync_finamp_readme_locales.py'))
+        self.assertLess(prepare.index('sync_finamp_readme_locales.py'), prepare.index("unittest discover -s .github/scripts"))
+        assets = next(plugin[1]['assets'] for plugin in config['plugins']
+                      if isinstance(plugin, list) and plugin[0] == '@semantic-release/git')
+        self.assertIn('docs/readme/README.*.md', assets)
 
     def test_restores_compact_bundle_after_gradle_rebuild(self):
         self.assertEqual(self.run_command(self.stage).returncode, 0)
