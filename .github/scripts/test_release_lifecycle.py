@@ -53,6 +53,11 @@ class ReleaseLifecycleTests(unittest.TestCase):
                       if isinstance(plugin, list) and plugin[0] == '@semantic-release/git')
         self.assertIn('docs/readme/README.*.md', assets)
 
+    def test_preflight_checks_feature_prs_and_dev_pushes_without_bot_main_pr_approval(self):
+        workflow = (ROOT / ".github/workflows/preflight.yml").read_text()
+        self.assertRegex(workflow, r"(?m)^  pull_request:\n    branches: \[dev\]$")
+        self.assertRegex(workflow, r"(?m)^  push:\n    branches: \[dev\]$")
+
     def test_restores_compact_bundle_after_gradle_rebuild(self):
         self.assertEqual(self.run_command(self.stage).returncode, 0)
         self.assertEqual(self.default.read_bytes(), self.combined.read_bytes())
